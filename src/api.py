@@ -12,6 +12,7 @@ import sys
 import os
 import asyncio
 import json
+import uuid
 from concurrent.futures import ThreadPoolExecutor
 from dotenv import load_dotenv
 import logging
@@ -19,11 +20,13 @@ import logging
 # Load environment variables
 load_dotenv()
 
-# Logging
-logging.basicConfig(
-    level=os.getenv("LOG_LEVEL", "INFO").upper(),
-    format="%(asctime)s %(levelname)s %(name)s - %(message)s",
-)
+# Logging - use structured logging if configured
+from logging_config import setup_logging, RequestLogger
+
+log_level = os.getenv("LOG_LEVEL", "INFO")
+use_json_logs = os.getenv("USE_JSON_LOGS", "false").lower() == "true"
+setup_logging(log_level=log_level, use_json=use_json_logs)
+
 logger = logging.getLogger("saigonbot.api")
 
 # Add src to path
@@ -33,6 +36,7 @@ if str(src_path) not in sys.path:
 
 from rag import RAGPipeline
 from chat import conversation_manager
+from errors import handle_error, ValidationError, SystemError
 
 
 # Request/Response models
@@ -77,6 +81,7 @@ class QueryResponse(BaseModel):
     response: str
     items: List[MenuItem]
     retrieved_count: int
+    intent: Optional[Dict] = None  # Intent classification result
 
 
 class HealthResponse(BaseModel):
@@ -176,14 +181,17 @@ async def query_menu(request: QueryRequest):
     - **top_k**: Number of items to retrieve (uses TOP_K env var if not provided, default: 10)
     - **rerank_k**: Number of items after reranking (uses RERANK_K env var if not provided, default: 5)
     """
-    try:
-        logger.info(
-            "POST /query query=%r conversation_id=%s top_k=%s rerank_k=%s",
-            request.query,
-            request.conversation_id,
-            request.top_k,
-            request.rerank_k,
+    request_id = str(uuid.uuid4())
+    with RequestLogger(logger, request_id) as req_logger:
+        req_logger.log_request(
+            endpoint="/query",
+            query=request.query[:100],  # Truncate for logging
+            conversation_id=request.conversation_id,
+            top_k=request.top_k,
+            rerank_k=request.rerank_k
         )
+    
+    try:
         # Validate query
         if not request.query or not request.query.strip():
             raise HTTPException(
@@ -198,10 +206,12 @@ async def query_menu(request: QueryRequest):
         top_k = request.top_k if request.top_k is not None and request.top_k > 0 else None
         rerank_k = request.rerank_k if request.rerank_k is not None and request.rerank_k > 0 else None
         
-        # Get conversation history if conversation_id provided
-        conversation_history = None
-        if request.conversation_id:
-            conversation_history = conversation_manager.get_history(request.conversation_id)
+        # Get or create conversation using session_id
+        session_id = request.conversation_id or str(uuid.uuid4())
+        conv_id = conversation_manager.get_or_create_conversation(session_id)
+        
+        # Get conversation history
+        conversation_history = conversation_manager.get_history(conv_id)
         
         # Process query in thread pool to avoid blocking event loop
         # This allows FastAPI to handle other requests while processing
@@ -215,14 +225,44 @@ async def query_menu(request: QueryRequest):
                 rerank_k,
                 conversation_history
             )
-        except Exception:
+        except Exception as e:
             logger.exception("pipeline.query failed for /query query=%r", request.query)
-            raise
+            # Return user-friendly error response instead of raising
+            error_msg = handle_error(e, context={"query": request.query, "endpoint": "/query"})
+            # Get intent even for errors
+            try:
+                from intent_classifier import get_intent_classifier
+                classifier = get_intent_classifier()
+                intent_result = classifier.classify_intent(request.query)
+                intent_dict = intent_result.to_dict()
+            except:
+                intent_dict = None
+            
+            return QueryResponse(
+                query=request.query,
+                response=error_msg,
+                items=[],
+                retrieved_count=0,
+                intent=intent_dict
+            )
         
-        # Save conversation history
-        if request.conversation_id:
-            conversation_manager.add_message(request.conversation_id, "user", request.query)
-            conversation_manager.add_message(request.conversation_id, "assistant", result['response'])
+        # Save conversation history with intent information
+        intent_info = result.get('intent', {})
+        intent_type = intent_info.get('intent_type') if intent_info else None
+        
+        conversation_manager.add_message(
+            conv_id, "user", request.query,
+            intent=intent_type,
+            metadata={"query": request.query}
+        )
+        conversation_manager.add_message(
+            conv_id, "assistant", result['response'],
+            intent=intent_type,
+            metadata={
+                "retrieved_count": result.get('retrieved_count', 0),
+                "items_count": len(result.get('items', []))
+            }
+        )
         
         # Convert items to response model
         menu_items: List[MenuItem] = []
@@ -251,7 +291,8 @@ async def query_menu(request: QueryRequest):
             query=result['query'],
             response=result['response'],
             items=menu_items,
-            retrieved_count=result['retrieved_count']
+            retrieved_count=result['retrieved_count'],
+            intent=result.get('intent')
         )
     
     except HTTPException:
@@ -283,10 +324,9 @@ async def chat_stream(request: ChatStreamRequest):
         if not request.query or not request.query.strip():
             raise HTTPException(status_code=400, detail="Query cannot be empty")
         
-        # Get or create conversation
-        conv_id = request.conversation_id
-        if not conv_id:
-            conv_id = conversation_manager.create_conversation()
+        # Get or create conversation using session_id
+        session_id = request.conversation_id or str(uuid.uuid4())
+        conv_id = conversation_manager.get_or_create_conversation(session_id)
         
         # Get conversation history
         conversation_history = conversation_manager.get_history(conv_id)
@@ -467,9 +507,23 @@ async def chat_text(request: ChatStreamRequest):
             logger.exception("pipeline.query failed for /chat/text query=%r", request.query)
             raise
         
-        # Save conversation history
-        conversation_manager.add_message(conv_id, "user", request.query)
-        conversation_manager.add_message(conv_id, "assistant", result['response'])
+        # Save conversation history with intent information
+        intent_info = result.get('intent', {})
+        intent_type = intent_info.get('intent_type') if intent_info else None
+        
+        conversation_manager.add_message(
+            conv_id, "user", request.query,
+            intent=intent_type,
+            metadata={"query": request.query}
+        )
+        conversation_manager.add_message(
+            conv_id, "assistant", result['response'],
+            intent=intent_type,
+            metadata={
+                "retrieved_count": result.get('retrieved_count', 0),
+                "items_count": len(result.get('items', []))
+            }
+        )
         
         # Convert items to response model
         menu_items: List[MenuItem] = []
@@ -498,7 +552,8 @@ async def chat_text(request: ChatStreamRequest):
             query=result['query'],
             response=result['response'],
             items=menu_items,
-            retrieved_count=result['retrieved_count']
+            retrieved_count=result['retrieved_count'],
+            intent=result.get('intent')
         )
     
     except HTTPException:
@@ -522,8 +577,9 @@ async def stop_chat(request: StopRequest):
 @app.post("/conversation/new", tags=["Chat"])
 async def create_conversation():
     """Create a new conversation"""
-    conv_id = conversation_manager.create_conversation()
-    return {"conversation_id": conv_id}
+    session_id = str(uuid.uuid4())
+    conv_id = conversation_manager.create_conversation(session_id=session_id)
+    return {"conversation_id": session_id, "internal_id": conv_id}
 
 
 @app.get("/conversation/{conv_id}/history", tags=["Chat"])

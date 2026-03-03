@@ -12,6 +12,16 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+# Import intent classifier
+from intent_classifier import get_intent_classifier, IntentCategory, IntentType
+# Import response templates
+from response_templates import get_template, get_welcome_message, get_error_response
+# Import error handling
+from errors import (
+    RetrievalError, LLMError, IntentError, DatabaseError,
+    ValidationError, SystemError, handle_error
+)
+
 
 class RAGPipeline:
     def __init__(
@@ -88,8 +98,11 @@ class RAGPipeline:
     
     def get_embedding(self, text: str) -> List[float]:
         """Get embedding for text"""
-        response = ollama.embeddings(model=self.embedding_model, prompt=text)
-        return response['embedding']
+        try:
+            response = ollama.embeddings(model=self.embedding_model, prompt=text)
+            return response['embedding']
+        except Exception as e:
+            raise RetrievalError(f"Failed to generate embedding: {str(e)}", query=text)
     
     def retrieve(self, query: str, top_k: int = 10, doc_type: Optional[str] = None) -> List[Dict]:
         """Retrieve relevant items from ChromaDB"""
@@ -207,62 +220,20 @@ class RAGPipeline:
         """
         Returns the merged welcome message that should be shown only once per session.
         """
-        return """🌟 *Namaste & Welcome!* 🌟
-
-I'm *Chikku*, your personal food companion, flavor guide, and menu expert at Saigon Indian Restaurant. Think of me as your friendly in-house foodie who knows every spice, every secret recipe, and every chef's special on our menu!
-
-Welcome to *Saigon Indian Restaurant* — where the rich flavors of India meet warm hospitality in the heart of the city. 🇮🇳✨
-
-At Saigon Indian Restaurant, every dish is crafted with authentic Indian spices, traditional recipes, and a passion for great food. From aromatic biryanis and creamy curries to sizzling tandoori specialties and freshly baked naan, each meal is prepared to deliver a true taste of India.
-
-Craving something creamy and comforting?
-Want it extra spicy? 🌶️
-Looking for vegan, Jain, gluten-free, or kid-friendly options?
-Planning a romantic dinner or a big family feast?
-
-Just tell me your mood — and I'll surprise you with the perfect dish!
-
-🍽️ I can help you:
-
-* Explore our full menu with detailed descriptions
-* Recommend chef's specials and customer favorites
-* Customize dishes based on your taste preferences
-* Suggest the best starters, mains, breads, and desserts combo
-* Pair your meal with refreshing drinks
-* Answer any questions about ingredients and spice levels
-
-Whether you love rich North Indian curries, sizzling tandoori delights, or comforting biryanis, I'll make sure your experience at *Saigon Indian Restaurant* is unforgettable.
-
-💬 Just talk to me like you would to a friend.
-Tell me what you're craving… and let me take care of the rest.
-
-Ready to discover your next favorite dish? 😍🍽️"""
+        return get_welcome_message()
     
     def _build_system_prompt(self, context: str, conversation_history: Optional[List[Dict]] = None) -> str:
         """
         Build the complete system prompt with welcome message (only for new sessions) and restaurant info.
+        
+        NOTE: We intentionally ignore SYSTEM_PROMPT.md and always use this strong, inline prompt,
+        so that menu queries cannot fall back to a weaker external prompt that allows AI disclaimers.
         """
         # Check if this is a new session
         is_new_session = self._is_new_session(conversation_history)
         
-        # Load system prompt from file or use fallback
-        system_prompt_path = Path(__file__).parent.parent / "SYSTEM_PROMPT.md"
-        if system_prompt_path.exists():
-            with open(system_prompt_path, 'r', encoding='utf-8') as f:
-                prompt_content = f.read()
-                # Extract the prompt from markdown code block
-                if '```' in prompt_content:
-                    parts = prompt_content.split('```')
-                    if len(parts) >= 3:
-                        prompt_content = parts[1]
-                        if prompt_content.startswith('\n'):
-                            prompt_content = prompt_content[1:]
-                        if prompt_content.endswith('\n'):
-                            prompt_content = prompt_content[:-1]
-                base_prompt = prompt_content.replace('{context}', context)
-        else:
-            # Fallback prompt
-            base_prompt = """You are Chikku, the official hospitality assistant of Saigon Indian Restaurant.
+        # Strong inline prompt (single source of truth for Chikku's behavior)
+        base_prompt = """You are Chikku, the official hospitality assistant of Saigon Indian Restaurant.
 
 You are warm, polite, emotionally intelligent, confident, and professional.
 You speak like a premium restaurant host — never like an AI model, chatbot, or technical assistant.
@@ -591,7 +562,12 @@ Provide a helpful response that addresses the query completely."""
             print(f"❌ LLM error: {str(e)}")
             import traceback
             traceback.print_exc()
-            return f"I apologize, but I encountered an error: {str(e)}"
+            # Use error handler for user-friendly message
+            error_msg = handle_error(LLMError(str(e), model=self.llm_model), context={
+                "query": query,
+                "model": self.llm_model
+            })
+            return error_msg
     
     def filter_by_relevance(self, query: str, items: List[Dict]) -> List[Dict]:
         """Filter items by keyword relevance to query"""
@@ -655,53 +631,39 @@ Provide a helpful response that addresses the query completely."""
         
         return filtered_items
     
+    def _classify_intent(self, query: str):
+        """
+        Classify query intent using intent classifier.
+        Returns IntentResult object.
+        """
+        try:
+            classifier = get_intent_classifier()
+            return classifier.classify_intent(query)
+        except Exception as e:
+            # Log error but continue with default behavior
+            print(f"⚠️  Intent classification error: {str(e)}")
+            # Return default menu intent as fallback
+            from intent_classifier import IntentResult, IntentType, IntentCategory
+            return IntentResult(
+                intent_type=IntentType.MENU_SEARCH,
+                confidence=0.5,
+                category=IntentCategory.MENU
+            )
+    
     def is_menu_query(self, query: str) -> bool:
         """
         Detect if query is about menu items (food, dishes, prices) vs identity/about/restaurant info.
         Returns True if menu query, False if identity/about query.
+        Uses new intent classifier for accurate detection.
         """
-        query_lower = query.lower().strip()
+        intent_result = self._classify_intent(query)
+        is_menu = intent_result.is_menu_intent()
         
-        # Identity/about patterns (non-menu queries)
-        identity_patterns = [
-            'who are you', 'what are you', 'who is chikku', 'what is chikku',
-            'tell me about', 'about saigon', 'about restaurant', 'about the restaurant',
-            'where are you', 'location', 'address', 'located',
-            'hours', 'timings', 'opening', 'close', 'when are you open',
-            'phone', 'contact', 'email', 'call',
-            'reservation', 'reserve', 'booking', 'book a table',
-            'hello', 'hi', 'hey', 'greetings', 'namaste',
-            'thank you', 'thanks', 'bye', 'goodbye'
-        ]
+        print(f"🔍 Intent: {intent_result.intent_type.value} (confidence: {intent_result.confidence:.2f})")
         
-        # Check if query matches identity patterns
-        for pattern in identity_patterns:
-            if pattern in query_lower:
-                print(f"🔍 Detected non-menu query (identity/about): '{query}'")
-                return False
-        
-        # Menu-related keywords (food, dishes, prices)
-        menu_keywords = [
-            'menu', 'dish', 'food', 'item', 'price', 'cost',
-            'biryani', 'dosa', 'curry', 'naan', 'tandoori', 'paneer',
-            'vegetarian', 'non-vegetarian', 'vegan', 'spicy', 'mild',
-            'starter', 'main', 'dessert', 'drink', 'beverage',
-            'breakfast', 'lunch', 'dinner', 'appetizer',
-            'recommend', 'suggest', 'option', 'available', 'have'
-        ]
-        
-        # If query contains menu keywords, it's likely a menu query
-        has_menu_keywords = any(keyword in query_lower for keyword in menu_keywords)
-        
-        if has_menu_keywords:
-            print(f"🔍 Detected menu query: '{query}'")
-            return True
-        
-        # Default: if unclear, assume menu query (backward compatibility)
-        print(f"🔍 Unclear intent, defaulting to menu query: '{query}'")
-        return True
+        return is_menu
     
-    def answer_about_or_identity(self, query: str, conversation_history: Optional[List[Dict]] = None) -> str:
+    def answer_about_or_identity(self, query: str, conversation_history: Optional[List[Dict]] = None, intent_result=None) -> str:
         """
         Generate response for identity/about queries without menu retrieval.
         Uses deterministic welcome message for identity queries to prevent LLM hallucinations.
@@ -720,18 +682,35 @@ Provide a helpful response that addresses the query completely."""
             'tell me about', 'about saigon', 'about restaurant', 'about the restaurant'
         ])
         
-        # DETERMINISTIC: For identity/greeting queries, return welcome message directly
+        # DETERMINISTIC: Use templates for identity queries
         # This prevents LLM from hallucinating ChatGPT responses
         if is_greeting:
+            if intent_result and intent_result.intent_type:
+                template = get_template(intent_result.intent_type)
+                if template:
+                    if is_new_session and intent_result.intent_type == IntentType.IDENTITY_WHO_ARE_YOU:
+                        print("✅ Returning welcome message (deterministic, new session)")
+                        return template
+                    elif not is_new_session:
+                        print("✅ Returning identity response (deterministic)")
+                        return template
+            
+            # Fallback
             if is_new_session:
                 print("✅ Returning welcome message (deterministic, new session)")
                 return self._get_welcome_message()
             else:
-                # Not new session, but still identity query - return simple identity response
                 print("✅ Returning identity response (deterministic)")
                 return "I'm Chikku, your personal food companion, flavor guide, and menu expert at Saigon Indian Restaurant. I'm here to help you discover the perfect dish! What are you craving today? 😊"
         
-        # For "about" queries, use LLM with restaurant info but with very strict prompt
+        # Check if template exists for restaurant info queries
+        if intent_result and intent_result.intent_type:
+            template = get_template(intent_result.intent_type)
+            if template:
+                print(f"✅ Using template for {intent_result.intent_type.value}")
+                return template
+        
+        # For "about" queries without template, use LLM with restaurant info but with very strict prompt
         if is_about_query and self.restaurant_info:
             print("📋 Generating about response using restaurant info...")
             context = f"RESTAURANT INFORMATION:\n{self.restaurant_info}"
@@ -814,6 +793,34 @@ I'm Chikku, your personal food companion here. How can I help you discover our m
         # Default fallback
         return "I'm Chikku, your personal food companion at Saigon Indian Restaurant. How can I help you today?"
     
+    def answer_service_query(self, query: str, conversation_history: Optional[List[Dict]] = None, intent_result=None) -> str:
+        """
+        Handle service queries (reservations, events, etc.)
+        Uses deterministic templates to prevent LLM hallucinations.
+        TODO: Implement multi-turn reservation flow in Phase 2
+        """
+        # Use template if available
+        if intent_result and intent_result.intent_type:
+            template = get_template(intent_result.intent_type)
+            if template:
+                print(f"✅ Using template for {intent_result.intent_type.value}")
+                return template
+        
+        # Fallback
+        return """I can help you with reservations, events, catering, and more!
+
+For service inquiries, please call us at:
+📞 +84 (028) 6291 3672 or +84 (028) 3824 5671
+
+Or tell me what you need, and I'll guide you! 😊"""
+    
+    def ask_clarification(self, query: str, intent_result=None) -> str:
+        """
+        Ask user for clarification when intent is unclear.
+        Uses deterministic template.
+        """
+        return get_error_response('clarification_needed')
+    
     def query(
         self,
         user_query: str,
@@ -826,16 +833,49 @@ I'm Chikku, your personal food companion here. How can I help you discover our m
         top_k = max(1, top_k) if top_k is not None else self.top_k
         rerank_k = max(1, rerank_k) if rerank_k is not None else self.rerank_k
         
-        # Step 0: Check intent - is this a menu query or identity/about query?
-        if not self.is_menu_query(user_query):
+        # Step 0: Classify intent and route accordingly
+        intent_result = self._classify_intent(user_query)
+        print(f"📋 Intent classified: {intent_result.intent_type.value} ({intent_result.category.value})")
+        
+        # Route based on intent category
+        if intent_result.category == IntentCategory.MENU:
+            # Continue with menu RAG pipeline
+            pass
+        elif intent_result.category in [IntentCategory.IDENTITY, IntentCategory.RESTAURANT_INFO, IntentCategory.CONVERSATIONAL]:
+            # Use identity/about handler
             print(f"📋 Non-menu query detected, using identity/about handler...")
-            response = self.answer_about_or_identity(user_query, conversation_history)
+            response = self.answer_about_or_identity(user_query, conversation_history, intent_result)
             return {
                 'query': user_query,
                 'response': response,
                 'items': [],
-                'retrieved_count': 0
+                'retrieved_count': 0,
+                'intent': intent_result.to_dict()
             }
+        elif intent_result.category == IntentCategory.SERVICE:
+            # Service queries (reservations, etc.) - handle separately
+            print(f"📋 Service query detected: {intent_result.intent_type.value}")
+            response = self.answer_service_query(user_query, conversation_history, intent_result)
+            return {
+                'query': user_query,
+                'response': response,
+                'items': [],
+                'retrieved_count': 0,
+                'intent': intent_result.to_dict()
+            }
+        elif intent_result.requires_clarification:
+            # Need clarification
+            response = self.ask_clarification(user_query, intent_result)
+            return {
+                'query': user_query,
+                'response': response,
+                'items': [],
+                'retrieved_count': 0,
+                'intent': intent_result.to_dict()
+            }
+        else:
+            # Default: treat as menu query
+            print(f"📋 Unclear intent, defaulting to menu query...")
         
         # Step 1: Retrieve (only menu items)
         print(f"📥 Retrieving top {top_k} menu items...")
@@ -851,11 +891,14 @@ I'm Chikku, your personal food companion here. How can I help you discover our m
             print(f"   Without filter: {len(test_retrieved)} items")
             if test_retrieved:
                 print(f"   Sample item metadata keys: {list(test_retrieved[0].get('metadata', {}).keys())}")
+            
+            intent_result = self._classify_intent(user_query)
             return {
                 'query': user_query,
-                'response': "I couldn't find that in our current menu, but I'd be happy to suggest something similar.",
+                'response': get_error_response('no_menu_results'),
                 'items': [],
-                'retrieved_count': 0
+                'retrieved_count': 0,
+                'intent': intent_result.to_dict()
             }
         
         # Step 2: Filter by relevance
@@ -888,6 +931,7 @@ I'm Chikku, your personal food companion here. How can I help you discover our m
         print(f"✅ Response generated ({len(response)} chars)")
         
         # Prepare result (include all retrieved items)
+        intent_result = self._classify_intent(user_query)
         result = {
             'query': user_query,
             'response': response,
@@ -901,7 +945,8 @@ I'm Chikku, your personal food companion here. How can I help you discover our m
                 }
                 for item in retrieved
             ],
-            'retrieved_count': len(retrieved)
+            'retrieved_count': len(retrieved),
+            'intent': intent_result.to_dict()
         }
         
         return result
