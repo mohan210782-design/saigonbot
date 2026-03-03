@@ -1,0 +1,7018 @@
+[{
+  "id": "item_001",
+  "item_number": 1,
+  "item_name": "South Indian Filter Kaapi",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": 35000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "1. SOUTH INDIAN FILTER KAAPI VND 35,000",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_dairy",
+    "contains_caffeine",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Hot Beverages",
+  "description": "Traditional strong South Indian filter coffee prepared using metal filter decoction blended with hot milk.",
+  "serving_size": "150 ml",
+  "ingredients": ["Coffee decoction", "Milk", "Sugar"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 120,
+    "carbohydrates_g": 12,
+    "protein_g": 4,
+    "fat_g": 4,
+    "caffeine_mg": 80
+  },
+  "taste_profile": {
+    "flavor": "Bold, strong, slightly bitter with creamy finish",
+    "aroma": "Rich roasted aroma"
+  },
+  "health_information": {
+    "energy_boosting": true,
+    "glycemic_index": "Moderate"
+  },
+  "metadata": {
+    "is_hot": true,
+    "is_caffeinated": true,
+    "origin_region": "South India"
+  }
+},
+{
+  "id": "item_002",
+  "item_number": 2,
+  "item_name": "Karupatti Kaapi",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": 40000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "2. KARUPATTI KAAPI VND 40,000",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_dairy",
+    "contains_caffeine",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Hot Beverages",
+  "description": "Filter coffee sweetened with palm jaggery instead of refined sugar.",
+  "serving_size": "150 ml",
+  "ingredients": ["Coffee decoction", "Milk", "Palm jaggery"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 130,
+    "iron_mg": 1.2
+  },
+  "taste_profile": {
+    "flavor": "Earthy sweetness with strong coffee body"
+  },
+  "metadata": {
+    "natural_sweetener": true,
+    "is_hot": true
+  }
+},
+{
+  "id": "item_003",
+  "item_number": 3,
+  "item_name": "Karupatti Suku Kaapi",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": 45000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "3. KARUPATTI SUKU KAAPI VND 45,000",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_dairy",
+    "herbal",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Herbal Hot Drinks",
+  "description": "Dry ginger herbal coffee blended with palm jaggery and milk.",
+  "ingredients": ["Dry ginger", "Palm jaggery", "Milk"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 140
+  },
+  "health_information": {
+    "anti_inflammatory": true,
+    "improves_digestion": true
+  }
+},
+{
+  "id": "item_004",
+  "item_number": 4,
+  "item_name": "Suku Paal",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": 50000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "4. SUKU PAAL VND 50,000",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_dairy",
+    "herbal",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Herbal Milk Drinks",
+  "description": "Warm milk infused with dry ginger and mild spices.",
+  "ingredients": ["Milk", "Dry ginger", "Pepper"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 150,
+    "calcium_mg": 200
+  }
+},
+{
+  "id": "item_005",
+  "item_number": 5,
+  "item_name": "Panakarkandu Milagu Manjal Paal",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": 60000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "5. PANAKARKANDU MILAGU MANJAL PAAL VND 60,000",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_dairy",
+    "herbal",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Herbal Milk Drinks",
+  "description": "Turmeric milk sweetened with palm candy and infused with black pepper.",
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 160
+  },
+  "health_information": {
+    "anti_inflammatory": true,
+    "immune_support": true
+  }
+},
+{
+  "id": "item_006",
+  "item_number": 6,
+  "item_name": "Tea",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": 30000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "6. TEA VND 30,000",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_caffeine",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Hot Beverages",
+  "description": "Classic Indian brewed tea.",
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 90,
+    "caffeine_mg": 50
+  }
+},
+{
+  "id": "item_007",
+  "item_number": 7,
+  "item_name": "Lemon Tea",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": 35000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "7. LEMON TEA VND 35,000",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_caffeine",
+    "vegan",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Hot Beverages",
+  "description": "Light black tea infused with fresh lemon juice.",
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 25
+  }
+},
+{
+  "id": "item_008",
+  "item_number": 8,
+  "item_name": "Masala Chai",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": 45000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "8. MASALA CHAI VND 45,000",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_dairy",
+    "contains_caffeine",
+    "spiced",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Spiced Tea",
+  "description": "Spiced Indian tea brewed with milk and aromatic spices."
+},
+{
+  "id": "item_009",
+  "item_number": 9,
+  "item_name": "Karupatti Ginger Tea",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": 50000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "9. KARUPATTI GINGER TEA VND 50,000",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_caffeine",
+    "herbal",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Herbal Tea",
+  "description": "Strong ginger tea sweetened with palm jaggery."
+},
+{
+  "id": "item_010",
+  "item_number": 10,
+  "item_name": "Neer Mor",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "10. NEER MOR",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_dairy",
+    "probiotic",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Cold Traditional Drinks",
+  "description": "Traditional South Indian spiced buttermilk served chilled.",
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 40
+  }
+},
+{
+  "id": "item_011",
+  "item_number": 11,
+  "item_name": "Panagam",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "11. PANAGAM",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "traditional",
+    "herbal"
+  ],
+  "category": "Beverages",
+  "subcategory": "Traditional Drinks",
+  "description": "Traditional South Indian jaggery-based festive drink flavored with dry ginger and cardamom.",
+  "serving_size": "200 ml",
+  "ingredients": ["Jaggery", "Dry ginger", "Cardamom", "Water"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 90,
+    "carbohydrates_g": 22
+  },
+  "taste_profile": {
+    "flavor": "Sweet with warm spice undertones",
+    "sweetness_level": "Moderate"
+  },
+  "health_information": {
+    "digestive_support": true,
+    "energy_boosting": true
+  },
+  "metadata": {
+    "is_hot": false,
+    "is_traditional": true
+  }
+},
+
+{
+  "id": "item_012",
+  "item_number": 12,
+  "item_name": "Nannari Sharbath",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "12. NANNARI SHARBATH",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "herbal",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Cold Herbal Drinks",
+  "description": "Cooling herbal drink made from nannari root syrup mixed with water or soda.",
+  "serving_size": "250 ml",
+  "ingredients": ["Nannari root syrup", "Water", "Ice"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 100
+  },
+  "taste_profile": {
+    "flavor": "Sweet, earthy, cooling"
+  },
+  "health_information": {
+    "cooling_effect": true,
+    "hydrating": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+
+{
+  "id": "item_013",
+  "item_number": 13,
+  "item_name": "Soda Sharbath",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "13. SODA SHARBATH",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "carbonated"
+  ],
+  "category": "Beverages",
+  "subcategory": "Carbonated Drinks",
+  "description": "Sweet flavored syrup mixed with chilled soda water.",
+  "serving_size": "250 ml",
+  "ingredients": ["Flavored syrup", "Soda water"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 110
+  },
+  "taste_profile": {
+    "flavor": "Sweet and fizzy"
+  },
+  "health_information": {
+    "high_sugar": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+
+{
+  "id": "item_014",
+  "item_number": 14,
+  "item_name": "Masala Buttermilk",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "14. MASALA BUTTERMILK",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_dairy",
+    "probiotic",
+    "spiced",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Cold Traditional Drinks",
+  "description": "Spiced diluted yogurt drink tempered with curry leaves and mustard seeds.",
+  "serving_size": "250 ml",
+  "ingredients": ["Yogurt", "Water", "Curry leaves", "Mustard seeds", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 40,
+    "protein_g": 2
+  },
+  "taste_profile": {
+    "flavor": "Savory, mildly spiced, refreshing"
+  },
+  "health_information": {
+    "digestive_support": true,
+    "probiotic_benefit": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+
+{
+  "id": "item_015",
+  "item_number": 15,
+  "item_name": "Salt Lassi",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "15. SALT LASSI",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_dairy",
+    "probiotic",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Yogurt Drinks",
+  "description": "Savory churned yogurt drink lightly salted.",
+  "serving_size": "250 ml",
+  "ingredients": ["Yogurt", "Water", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 120,
+    "protein_g": 5
+  },
+  "taste_profile": {
+    "flavor": "Mildly salty and creamy"
+  },
+  "health_information": {
+    "gut_friendly": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+
+{
+  "id": "item_016",
+  "item_number": 16,
+  "item_name": "Sweet Lassi",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "16. SWEET LASSI",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_dairy",
+    "probiotic",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Yogurt Drinks",
+  "description": "Sweetened yogurt drink blended smooth and creamy.",
+  "serving_size": "250 ml",
+  "ingredients": ["Yogurt", "Sugar", "Water"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 160
+  },
+  "taste_profile": {
+    "flavor": "Sweet and creamy"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+
+{
+  "id": "item_017",
+  "item_number": 17,
+  "item_name": "Mango Lassi",
+  "section": "NATIVE HOT BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "17. MANGO LASSI",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_dairy",
+    "probiotic",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Fruit Yogurt Drinks",
+  "description": "Refreshing yogurt drink blended with ripe mango pulp.",
+  "serving_size": "250 ml",
+  "ingredients": ["Yogurt", "Mango pulp", "Sugar"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 180
+  },
+  "taste_profile": {
+    "flavor": "Sweet, fruity, creamy"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+
+{
+  "id": "item_018",
+  "item_number": 18,
+  "item_name": "Masala Dosa",
+  "section": "DOSA CORNER",
+  "price": 97000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "18. MASALA DOSA VND 97,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "contains_gluten"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Tiffin",
+  "description": "Crispy fermented rice and lentil crepe stuffed with spiced potato filling.",
+  "serving_size": "1 dosa (approx 250g)",
+  "ingredients": ["Rice batter", "Urad dal", "Potato", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 450,
+    "protein_g": 12,
+    "carbohydrates_g": 65
+  },
+  "taste_profile": {
+    "flavor": "Savory, mildly spiced",
+    "texture": "Crispy outside, soft inside"
+  },
+  "health_information": {
+    "fermented_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_019",
+  "item_number": 19,
+  "item_name": "Hot Milk",
+  "section": "HOT & COLD BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "19. HOT MILK",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_dairy"
+  ],
+  "category": "Beverages",
+  "subcategory": "Milk Drinks",
+  "description": "Plain warm milk served fresh.",
+  "serving_size": "200 ml",
+  "ingredients": ["Milk"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 150,
+    "protein_g": 6,
+    "calcium_mg": 200
+  },
+  "taste_profile": {
+    "flavor": "Mild and creamy"
+  },
+  "health_information": {
+    "bone_support": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_020",
+  "item_number": 20,
+  "item_name": "Horlicks",
+  "section": "HOT & COLD BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "20. HORLICKS",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_dairy",
+    "contains_gluten"
+  ],
+  "category": "Beverages",
+  "subcategory": "Health Drinks",
+  "description": "Malted milk drink blended with Horlicks powder.",
+  "serving_size": "250 ml",
+  "ingredients": ["Milk", "Horlicks powder"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 190,
+    "protein_g": 6
+  },
+  "taste_profile": {
+    "flavor": "Malted, mildly sweet"
+  },
+  "health_information": {
+    "energy_boosting": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_021",
+  "item_number": 21,
+  "item_name": "Boost",
+  "section": "HOT & COLD BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "21. BOOST",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "contains_dairy",
+    "contains_gluten"
+  ],
+  "category": "Beverages",
+  "subcategory": "Health Drinks",
+  "description": "Chocolate-flavored malted milk energy drink prepared with hot or cold milk.",
+  "serving_size": "250 ml",
+  "ingredients": ["Milk", "Boost malt powder"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 200,
+    "protein_g": 6,
+    "carbohydrates_g": 30
+  },
+  "taste_profile": {
+    "flavor": "Chocolatey, malty, mildly sweet"
+  },
+  "health_information": {
+    "energy_boosting": true,
+    "protein_source": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_022",
+  "item_number": 22,
+  "item_name": "Lemon Juice",
+  "section": "HOT & COLD BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "22. LEMON JUICE",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "vegan"
+  ],
+  "category": "Beverages",
+  "subcategory": "Fresh Juices",
+  "description": "Freshly squeezed lemon juice served sweetened or salted.",
+  "serving_size": "250 ml",
+  "ingredients": ["Fresh lemon juice", "Water", "Sugar or salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 40,
+    "vitamin_c_mg": 30
+  },
+  "taste_profile": {
+    "flavor": "Tangy, refreshing"
+  },
+  "health_information": {
+    "hydrating": true,
+    "immune_support": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+{
+  "id": "item_023",
+  "item_number": 23,
+  "item_name": "Watermelon Juice",
+  "section": "HOT & COLD BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "23. WATERMELON JUICE",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "vegan"
+  ],
+  "category": "Beverages",
+  "subcategory": "Fresh Juices",
+  "description": "Freshly blended watermelon juice served chilled.",
+  "serving_size": "250 ml",
+  "ingredients": ["Watermelon pulp"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 60
+  },
+  "taste_profile": {
+    "flavor": "Naturally sweet, juicy"
+  },
+  "health_information": {
+    "hydrating": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+{
+  "id": "item_024",
+  "item_number": 24,
+  "item_name": "Apple Juice",
+  "section": "HOT & COLD BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "24. APPLE JUICE",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "vegan"
+  ],
+  "category": "Beverages",
+  "subcategory": "Fresh Juices",
+  "description": "Fresh apple juice served chilled.",
+  "serving_size": "250 ml",
+  "ingredients": ["Apple pulp"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 80
+  },
+  "taste_profile": {
+    "flavor": "Sweet with mild tartness"
+  },
+  "health_information": {
+    "natural_sugars": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+{
+  "id": "item_025",
+  "item_number": 25,
+  "item_name": "Orange Juice",
+  "section": "HOT & COLD BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "25. ORANGE JUICE",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "vegan"
+  ],
+  "category": "Beverages",
+  "subcategory": "Fresh Juices",
+  "description": "Freshly squeezed orange juice rich in vitamin C.",
+  "serving_size": "250 ml",
+  "ingredients": ["Fresh oranges"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 75,
+    "vitamin_c_mg": 60
+  },
+  "taste_profile": {
+    "flavor": "Sweet and citrusy"
+  },
+  "health_information": {
+    "immune_support": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+{
+  "id": "item_026",
+  "item_number": 26,
+  "item_name": "Pineapple Juice",
+  "section": "HOT & COLD BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "26. PINEAPPLE JUICE",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "vegan"
+  ],
+  "category": "Beverages",
+  "subcategory": "Fresh Juices",
+  "description": "Sweet and tangy pineapple juice served chilled.",
+  "serving_size": "250 ml",
+  "ingredients": ["Fresh pineapple"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 80
+  },
+  "taste_profile": {
+    "flavor": "Tangy and tropical"
+  },
+  "health_information": {
+    "digestive_support": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+{
+  "id": "item_027",
+  "item_number": 27,
+  "item_name": "Soda Water",
+  "section": "HOT & COLD BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "27. SODA WATER",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "vegan",
+    "carbonated"
+  ],
+  "category": "Beverages",
+  "subcategory": "Carbonated Drinks",
+  "description": "Chilled carbonated water served plain.",
+  "serving_size": "300 ml",
+  "ingredients": ["Carbonated water"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 0
+  },
+  "taste_profile": {
+    "flavor": "Neutral and fizzy"
+  },
+  "health_information": {
+    "hydrating": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+{
+  "id": "item_028",
+  "item_number": 28,
+  "item_name": "Sweet / Salt Lime Soda",
+  "section": "HOT & COLD BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "28. SWEET / SALT LIME SODA",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "vegan",
+    "carbonated",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Carbonated Drinks",
+  "description": "Refreshing lime soda served sweet or salted.",
+  "serving_size": "300 ml",
+  "ingredients": ["Lime juice", "Sugar or salt", "Soda water"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 90
+  },
+  "taste_profile": {
+    "flavor": "Tangy and fizzy"
+  },
+  "health_information": {
+    "hydrating": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+{
+  "id": "item_029",
+  "item_number": 29,
+  "item_name": "Mineral Water",
+  "section": "HOT & COLD BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "29. MINERAL WATER",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "vegan"
+  ],
+  "category": "Beverages",
+  "subcategory": "Water",
+  "description": "Packaged mineral drinking water.",
+  "serving_size": "500 ml",
+  "ingredients": ["Mineral water"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 0
+  },
+  "taste_profile": {
+    "flavor": "Neutral"
+  },
+  "health_information": {
+    "essential_hydration": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+{
+  "id": "item_030",
+  "item_number": 30,
+  "item_name": "7 Up/ Sprite/Pepsi/Coke/Mirinda/Fanta",
+  "section": "HOT & COLD BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "30. 7 UP/ SPRITE/PEPSI/COKE/MIRINDA/FANTA",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "vegan",
+    "carbonated"
+  ],
+  "category": "Beverages",
+  "subcategory": "Soft Drinks",
+  "description": "Packaged carbonated soft drinks (varies by brand).",
+  "serving_size": "330 ml",
+  "ingredients": ["Carbonated water", "Sugar", "Flavoring"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 140,
+    "sugar_g": 35
+  },
+  "taste_profile": {
+    "flavor": "Sweet and fizzy"
+  },
+  "health_information": {
+    "high_sugar": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+{
+  "id": "item_031",
+  "item_number": 31,
+  "item_name": "Diet Coke/Tonic Water",
+  "section": "HOT & COLD BEVERAGES",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "31. DIET COKE/TONIC WATER",
+  "tags": [
+    "beverage",
+    "vegan",
+    "carbonated"
+  ],
+  "category": "Beverages",
+  "subcategory": "Soft Drinks",
+  "description": "Zero-sugar carbonated beverage served chilled. Includes diet cola or tonic water options.",
+  "serving_size": "300 ml",
+  "ingredients": ["Carbonated water", "Flavoring", "Sweetener (for diet variant)"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 0,
+    "sugar_g": 0
+  },
+  "taste_profile": {
+    "flavor": "Crisp, fizzy, mildly bitter (tonic) or cola-flavored",
+    "sweetness_level": "Low to None"
+  },
+  "health_information": {
+    "low_calorie": true,
+    "hydrating": false
+  },
+  "metadata": {
+    "is_hot": false,
+    "is_caffeinated": false
+  }
+},
+
+{
+  "id": "item_032",
+  "item_number": 32,
+  "item_name": "Gin Panagam",
+  "section": "COCKTAILS",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "32. GIN PANAGAM",
+  "tags": [
+    "beverage",
+    "alcohol",
+    "cocktail",
+    "contains_alcohol",
+    "traditional"
+  ],
+  "category": "Alcoholic Beverages",
+  "subcategory": "Cocktails",
+  "description": "Fusion cocktail blending gin with traditional jaggery-based panagam flavors and spices.",
+  "serving_size": "150 ml",
+  "ingredients": ["Gin", "Jaggery syrup", "Dry ginger", "Cardamom"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 180,
+    "alcohol_percent": 15
+  },
+  "taste_profile": {
+    "flavor": "Sweet-spiced with herbal undertones",
+    "intensity": "Medium"
+  },
+  "health_information": {
+    "contains_alcohol": true,
+    "moderation_required": true
+  },
+  "metadata": {
+    "is_alcoholic": true
+  }
+},
+
+{
+  "id": "item_033",
+  "item_number": 33,
+  "item_name": "The Vetrilai ( Betal Leaf Infused Whisky/Gooseberry Honey/Lemon",
+  "section": "COCKTAILS",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "33. THE VETRILAI ( Betal leaf infused whisky/gooseberry honey/lemon",
+  "tags": [
+    "beverage",
+    "alcohol",
+    "cocktail",
+    "contains_alcohol",
+    "herbal"
+  ],
+  "category": "Alcoholic Beverages",
+  "subcategory": "Cocktails",
+  "description": "Whisky infused with betel leaf balanced with gooseberry honey and lemon.",
+  "serving_size": "150 ml",
+  "ingredients": ["Whisky", "Betel leaf", "Gooseberry honey", "Lemon juice"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 210,
+    "alcohol_percent": 18
+  },
+  "taste_profile": {
+    "flavor": "Herbal, slightly sweet, citrus finish",
+    "intensity": "Strong"
+  },
+  "health_information": {
+    "contains_alcohol": true,
+    "moderation_required": true
+  },
+  "metadata": {
+    "is_alcoholic": true
+  }
+},
+
+{
+  "id": "item_034",
+  "item_number": 34,
+  "item_name": "Elaneer Sharbath",
+  "section": "MOCKTAILS",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "34. ELANEER SHARBATH",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "mocktail",
+    "vegan",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Mocktails",
+  "description": "Refreshing tender coconut based mocktail served chilled.",
+  "serving_size": "250 ml",
+  "ingredients": ["Tender coconut water", "Sugar syrup", "Lemon"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 80
+  },
+  "taste_profile": {
+    "flavor": "Light, naturally sweet, refreshing"
+  },
+  "health_information": {
+    "hydrating": true
+  },
+  "metadata": {
+    "is_alcoholic": false
+  }
+},
+
+{
+  "id": "item_035",
+  "item_number": 35,
+  "item_name": "Paan Shot",
+  "section": "MOCKTAILS",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "35. PAAN SHOT",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "mocktail",
+    "herbal",
+    "traditional"
+  ],
+  "category": "Beverages",
+  "subcategory": "Mocktails",
+  "description": "Non-alcoholic betel leaf flavored refreshing shot.",
+  "serving_size": "60 ml",
+  "ingredients": ["Betel leaf extract", "Sweet syrup", "Herbal essence"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 45
+  },
+  "taste_profile": {
+    "flavor": "Sweet, herbal, cooling finish"
+  },
+  "health_information": {
+    "digestive_support": true
+  },
+  "metadata": {
+    "is_alcoholic": false
+  }
+},
+
+{
+  "id": "item_036",
+  "item_number": 36,
+  "item_name": "Lychee Nector Homemade Lychee Nectar/ Coriander/Lemon",
+  "section": "MOCKTAILS",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "36. LYCHEE NECTOR Homemade lychee nectar/ coriander/lemon",
+  "tags": [
+    "vegetarian",
+    "beverage",
+    "mocktail",
+    "vegan"
+  ],
+  "category": "Beverages",
+  "subcategory": "Mocktails",
+  "description": "Homemade lychee nectar blended with coriander and lemon.",
+  "serving_size": "250 ml",
+  "ingredients": ["Lychee pulp", "Coriander", "Lemon juice"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 95
+  },
+  "taste_profile": {
+    "flavor": "Sweet, floral, citrus notes"
+  },
+  "health_information": {
+    "refreshing": true
+  },
+  "metadata": {
+    "is_alcoholic": false
+  }
+},
+
+{
+  "id": "item_037",
+  "item_number": 37,
+  "item_name": "Saigon Special",
+  "section": "BEER",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "37. SAIGON SPECIAL",
+  "tags": [
+    "beverage",
+    "alcohol",
+    "beer",
+    "contains_alcohol"
+  ],
+  "category": "Alcoholic Beverages",
+  "subcategory": "Beer",
+  "description": "Premium Vietnamese lager beer.",
+  "serving_size": "330 ml",
+  "ingredients": ["Barley malt", "Hops", "Yeast", "Water"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 150,
+    "alcohol_percent": 5
+  },
+  "taste_profile": {
+    "flavor": "Light, crisp, mild bitterness"
+  },
+  "health_information": {
+    "contains_alcohol": true,
+    "moderation_required": true
+  },
+  "metadata": {
+    "is_alcoholic": true
+  }
+},
+
+{
+  "id": "item_039",
+  "item_number": 39,
+  "item_name": "Heinekan",
+  "section": "BEER",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "39. HEINEKAN",
+  "tags": [
+    "beverage",
+    "alcohol",
+    "beer",
+    "contains_alcohol"
+  ],
+  "category": "Alcoholic Beverages",
+  "subcategory": "Beer",
+  "description": "International premium lager beer.",
+  "serving_size": "330 ml",
+  "ingredients": ["Barley malt", "Hops", "Yeast", "Water"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 150,
+    "alcohol_percent": 5
+  },
+  "taste_profile": {
+    "flavor": "Clean, balanced bitterness"
+  },
+  "health_information": {
+    "contains_alcohol": true,
+    "moderation_required": true
+  },
+  "metadata": {
+    "is_alcoholic": true
+  }
+},
+
+{
+  "id": "item_040",
+  "item_number": 40,
+  "item_name": "Tiger",
+  "section": "BEER",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "40. TIGER",
+  "tags": [
+    "beverage",
+    "alcohol",
+    "beer",
+    "contains_alcohol"
+  ],
+  "category": "Alcoholic Beverages",
+  "subcategory": "Beer",
+  "description": "Popular Asian lager beer.",
+  "serving_size": "330 ml",
+  "ingredients": ["Barley malt", "Hops", "Yeast", "Water"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 150,
+    "alcohol_percent": 5
+  },
+  "taste_profile": {
+    "flavor": "Smooth, light bitterness"
+  },
+  "health_information": {
+    "contains_alcohol": true,
+    "moderation_required": true
+  },
+  "metadata": {
+    "is_alcoholic": true
+  }
+},
+{
+  "id": "item_041",
+  "item_number": 41,
+  "item_name": "Red / White Wine By Glass",
+  "section": "WINE",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "41. RED WHITE BY GLASS42. WHITE WINE BY GLASS",
+  "tags": [
+    "beverage",
+    "alcohol",
+    "wine",
+    "contains_alcohol"
+  ],
+  "category": "Alcoholic Beverages",
+  "subcategory": "Wine",
+  "description": "Red or white wine served by the glass.",
+  "serving_size": "150 ml",
+  "ingredients": ["Fermented grape juice"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 125,
+    "alcohol_percent": 12
+  },
+  "taste_profile": {
+    "flavor": "Fruity, dry or semi-sweet depending on variety"
+  },
+  "health_information": {
+    "contains_alcohol": true,
+    "moderation_required": true
+  },
+  "metadata": {
+    "is_alcoholic": true
+  }
+},
+{
+  "id": "item_042",
+  "item_number": 42,
+  "item_name": "Extra Podi",
+  "section": "DOSA CORNER",
+  "price": 14000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "42. EXTRA PODI (GUN POWDER) VND 14,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "spiced"
+  ],
+  "category": "Side Dish",
+  "subcategory": "Condiments",
+  "description": "Spiced lentil and chili powder mix served as a condiment with dosa or idly.",
+  "serving_size": "20 g",
+  "ingredients": ["Roasted lentils", "Dry red chili", "Sesame seeds", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 90,
+    "protein_g": 3
+  },
+  "taste_profile": {
+    "flavor": "Spicy, nutty"
+  },
+  "health_information": {
+    "protein_source": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+{
+  "id": "item_043",
+  "item_number": 43,
+  "item_name": "Chivas Regal",
+  "section": "LIQUOR",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "43. CHIVAS REGAL",
+  "tags": [
+    "beverage",
+    "alcohol",
+    "whisky",
+    "contains_alcohol"
+  ],
+  "category": "Alcoholic Beverages",
+  "subcategory": "Whisky",
+  "description": "Premium blended Scotch whisky.",
+  "serving_size": "60 ml",
+  "ingredients": ["Grain whisky", "Malt whisky"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 130,
+    "alcohol_percent": 40
+  },
+  "taste_profile": {
+    "flavor": "Smooth, rich, slightly smoky"
+  },
+  "health_information": {
+    "contains_alcohol": true,
+    "moderation_required": true
+  },
+  "metadata": {
+    "is_alcoholic": true
+  }
+},
+{
+  "id": "item_044",
+  "item_number": 44,
+  "item_name": "JW Gold Label",
+  "section": "LIQUOR",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "44. JW GOLD LABEL",
+  "tags": [
+    "beverage",
+    "alcohol",
+    "whisky",
+    "contains_alcohol"
+  ],
+  "category": "Alcoholic Beverages",
+  "subcategory": "Whisky",
+  "description": "Premium blended Scotch whisky (Gold Label).",
+  "serving_size": "60 ml",
+  "ingredients": ["Blended Scotch whisky"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 130,
+    "alcohol_percent": 40
+  },
+  "taste_profile": {
+    "flavor": "Rich, honeyed, smooth"
+  },
+  "health_information": {
+    "contains_alcohol": true,
+    "moderation_required": true
+  },
+  "metadata": {
+    "is_alcoholic": true
+  }
+},
+{
+  "id": "item_045",
+  "item_number": 45,
+  "item_name": "JW Black Label",
+  "section": "LIQUOR",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "45. JW BLACK LABEL",
+  "tags": [
+    "beverage",
+    "alcohol",
+    "whisky",
+    "contains_alcohol"
+  ],
+  "category": "Alcoholic Beverages",
+  "subcategory": "Whisky",
+  "description": "Blended Scotch whisky aged 12 years.",
+  "serving_size": "60 ml",
+  "ingredients": ["Blended Scotch whisky"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 130,
+    "alcohol_percent": 40
+  },
+  "taste_profile": {
+    "flavor": "Smoky, rich, smooth"
+  },
+  "health_information": {
+    "contains_alcohol": true,
+    "moderation_required": true
+  },
+  "metadata": {
+    "is_alcoholic": true
+  }
+},
+{
+  "id": "item_046",
+  "item_number": 46,
+  "item_name": "JW Red Label",
+  "section": "LIQUOR",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "46. JW RED LABEL",
+  "tags": [
+    "beverage",
+    "alcohol",
+    "whisky",
+    "contains_alcohol"
+  ],
+  "category": "Alcoholic Beverages",
+  "subcategory": "Whisky",
+  "description": "Blended Scotch whisky with bold flavor.",
+  "serving_size": "60 ml",
+  "ingredients": ["Blended Scotch whisky"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 130,
+    "alcohol_percent": 40
+  },
+  "taste_profile": {
+    "flavor": "Bold, smoky"
+  },
+  "health_information": {
+    "contains_alcohol": true,
+    "moderation_required": true
+  },
+  "metadata": {
+    "is_alcoholic": true
+  }
+},
+{
+  "id": "item_047",
+  "item_number": 47,
+  "item_name": "Bacardi Rum",
+  "section": "LIQUOR",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "47. BACARDI RUM",
+  "tags": [
+    "beverage",
+    "alcohol",
+    "rum",
+    "contains_alcohol"
+  ],
+  "category": "Alcoholic Beverages",
+  "subcategory": "Rum",
+  "description": "Light rum distilled from sugarcane.",
+  "serving_size": "60 ml",
+  "ingredients": ["Distilled sugarcane spirit"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 130,
+    "alcohol_percent": 37
+  },
+  "taste_profile": {
+    "flavor": "Light, slightly sweet"
+  },
+  "health_information": {
+    "contains_alcohol": true,
+    "moderation_required": true
+  },
+  "metadata": {
+    "is_alcoholic": true
+  }
+},
+{
+  "id": "item_048",
+  "item_number": 48,
+  "item_name": "Gordons Rum",
+  "section": "LIQUOR",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "48. GORDONS RUM",
+  "tags": [
+    "beverage",
+    "alcohol",
+    "rum",
+    "contains_alcohol"
+  ],
+  "category": "Alcoholic Beverages",
+  "subcategory": "Rum",
+  "description": "Classic rum spirit.",
+  "serving_size": "60 ml",
+  "ingredients": ["Distilled spirit"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 130,
+    "alcohol_percent": 37
+  },
+  "taste_profile": {
+    "flavor": "Strong, slightly sweet"
+  },
+  "health_information": {
+    "contains_alcohol": true
+  },
+  "metadata": {
+    "is_alcoholic": true
+  }
+},
+{
+  "id": "item_049",
+  "item_number": 49,
+  "item_name": "Smirnoff Vodka",
+  "section": "LIQUOR",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "49. SMIRNOFF VODKA",
+  "tags": [
+    "beverage",
+    "alcohol",
+    "vodka",
+    "contains_alcohol"
+  ],
+  "category": "Alcoholic Beverages",
+  "subcategory": "Vodka",
+  "description": "Premium distilled vodka.",
+  "serving_size": "60 ml",
+  "ingredients": ["Distilled grain spirit"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 130,
+    "alcohol_percent": 40
+  },
+  "taste_profile": {
+    "flavor": "Clean, neutral"
+  },
+  "health_information": {
+    "contains_alcohol": true,
+    "moderation_required": true
+  },
+  "metadata": {
+    "is_alcoholic": true
+  }
+},
+{
+  "id": "item_050",
+  "item_number": 50,
+  "item_name": "Idly",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "50. IDLY",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "fermented"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Soft steamed fermented rice and lentil cakes.",
+  "serving_size": "2 pieces (approx 200g)",
+  "ingredients": ["Rice", "Urad dal", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 220,
+    "protein_g": 8,
+    "carbohydrates_g": 40
+  },
+  "taste_profile": {
+    "flavor": "Mild and slightly tangy",
+    "texture": "Soft and fluffy"
+  },
+  "health_information": {
+    "easy_to_digest": true,
+    "fermented_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_051",
+  "item_number": 51,
+  "item_name": "Medhu Vada",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "51. MEDHU VADA",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "fried"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Deep-fried savory lentil doughnut made from urad dal batter.",
+  "serving_size": "2 pieces (approx 150g)",
+  "ingredients": ["Urad dal", "Black pepper", "Curry leaves", "Salt", "Oil"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 300,
+    "protein_g": 10,
+    "carbohydrates_g": 35,
+    "fat_g": 14
+  },
+  "taste_profile": {
+    "flavor": "Savory, mildly spiced",
+    "texture": "Crispy outside, soft inside"
+  },
+  "health_information": {
+    "protein_source": true,
+    "fried_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_052",
+  "item_number": 52,
+  "item_name": "Mysore Bonda",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "52. MYSORE BONDA",
+  "tags": [
+    "vegetarian",
+    "food",
+    "fried",
+    "traditional"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Fluffy deep-fried snack made from maida and yogurt batter.",
+  "serving_size": "3 pieces (approx 180g)",
+  "ingredients": ["Maida", "Yogurt", "Green chili", "Ginger", "Oil"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 380,
+    "carbohydrates_g": 50,
+    "fat_g": 18
+  },
+  "taste_profile": {
+    "flavor": "Savory with mild tanginess",
+    "texture": "Crispy outside, fluffy inside"
+  },
+  "health_information": {
+    "fried_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_053",
+  "item_number": 53,
+  "item_name": "Sambar Vada",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "53. SAMBAR VADA",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "fried"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Medhu vada soaked in hot lentil-based sambar.",
+  "serving_size": "2 pieces with sambar (approx 250g)",
+  "ingredients": ["Urad dal vada", "Toor dal", "Vegetables", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 350,
+    "protein_g": 12
+  },
+  "taste_profile": {
+    "flavor": "Savory and mildly tangy",
+    "texture": "Soft and soaked"
+  },
+  "health_information": {
+    "protein_source": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_054",
+  "item_number": 54,
+  "item_name": "Ghee Podi Thatte Idly",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "54. GHEE PODI THATTE IDLY",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "contains_dairy",
+    "fermented"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Soft thatte idly topped with ghee and spicy podi powder.",
+  "serving_size": "2 pieces (approx 250g)",
+  "ingredients": ["Rice", "Urad dal", "Ghee", "Podi powder"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 320,
+    "protein_g": 9
+  },
+  "taste_profile": {
+    "flavor": "Savory with spicy undertone",
+    "texture": "Soft and fluffy"
+  },
+  "health_information": {
+    "fermented_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_055",
+  "item_number": 55,
+  "item_name": "Ghee Podi Sambar Button Idly",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "55. GHEE PODI SAMBAR BUTTON IDLY",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "contains_dairy",
+    "fermented"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Mini idlies tossed with ghee and podi, served with sambar.",
+  "serving_size": "10 mini pieces (approx 250g)",
+  "ingredients": ["Rice batter", "Urad dal", "Ghee", "Podi powder", "Sambar"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 350,
+    "protein_g": 10
+  },
+  "taste_profile": {
+    "flavor": "Spicy, savory"
+  },
+  "health_information": {
+    "fermented_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_056",
+  "item_number": 56,
+  "item_name": "Ellu Poondu Podi Button Idly",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "56. ELLU POONDU PODI BUTTON IDLY",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "fermented"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Mini idlies tossed with sesame-garlic spice powder.",
+  "serving_size": "10 mini pieces (approx 250g)",
+  "ingredients": ["Rice batter", "Urad dal", "Sesame seeds", "Garlic", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 330
+  },
+  "taste_profile": {
+    "flavor": "Nutty and garlicky"
+  },
+  "health_information": {
+    "fermented_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_057",
+  "item_number": 57,
+  "item_name": "Ven Pongal",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "57. VEN PONGAL",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "contains_dairy"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Soft savory rice and moong dal porridge tempered with ghee and pepper.",
+  "serving_size": "300 g",
+  "ingredients": ["Rice", "Moong dal", "Ghee", "Black pepper", "Cumin"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 400,
+    "protein_g": 12
+  },
+  "taste_profile": {
+    "flavor": "Mildly spiced, buttery"
+  },
+  "health_information": {
+    "easy_to_digest": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_058",
+  "item_number": 58,
+  "item_name": "Khara Bath",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "58. KHARA BATH",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "contains_gluten"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Savory semolina upma cooked with vegetables and spices.",
+  "serving_size": "300 g",
+  "ingredients": ["Semolina", "Vegetables", "Mustard seeds", "Oil"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 420
+  },
+  "taste_profile": {
+    "flavor": "Savory and mildly spiced"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_059",
+  "item_number": 59,
+  "item_name": "Kesari Bath",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "59. KESARI BATH",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "contains_dairy",
+    "contains_gluten"
+  ],
+  "category": "Dessert",
+  "subcategory": "South Indian Sweet",
+  "description": "Sweet semolina pudding flavored with saffron and ghee.",
+  "serving_size": "250 g",
+  "ingredients": ["Semolina", "Sugar", "Ghee", "Cardamom", "Cashews"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 500
+  },
+  "taste_profile": {
+    "flavor": "Sweet and aromatic"
+  },
+  "health_information": {
+    "high_sugar": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_060",
+  "item_number": 60,
+  "item_name": "Ghee Podi Khara Bath",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "60. GHEE PODI KHARA BATH",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "contains_dairy",
+    "contains_gluten"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Savory semolina upma enriched with ghee and spicy podi powder.",
+  "serving_size": "300 g",
+  "ingredients": ["Semolina", "Ghee", "Podi powder", "Vegetables"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 450
+  },
+  "taste_profile": {
+    "flavor": "Savory with spicy undertones"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_061",
+  "item_number": 61,
+  "item_name": "Plain Dosa",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "61. PLAIN DOSA",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "fermented",
+    "contains_gluten"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Thin crispy fermented rice and lentil crepe served plain.",
+  "serving_size": "1 dosa (approx 200g)",
+  "ingredients": ["Rice batter", "Urad dal", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 350,
+    "protein_g": 8,
+    "carbohydrates_g": 55
+  },
+  "taste_profile": {
+    "flavor": "Mild and savory",
+    "texture": "Crispy"
+  },
+  "health_information": {
+    "fermented_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_062",
+  "item_number": 62,
+  "item_name": "Masala Dosa",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "62. MASALA DOSA",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "fermented",
+    "contains_gluten"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Crispy dosa stuffed with spiced potato masala filling.",
+  "serving_size": "1 dosa (approx 250g)",
+  "ingredients": ["Rice batter", "Urad dal", "Potato", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 450,
+    "protein_g": 12,
+    "carbohydrates_g": 65
+  },
+  "taste_profile": {
+    "flavor": "Savory, mildly spiced"
+  },
+  "health_information": {
+    "fermented_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_063",
+  "item_number": 63,
+  "item_name": "Ghee Roast Dosa",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "63. GHEE ROAST DOSA",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "fermented",
+    "contains_dairy",
+    "contains_gluten"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Extra crispy dosa roasted generously with ghee.",
+  "serving_size": "1 dosa (approx 220g)",
+  "ingredients": ["Rice batter", "Urad dal", "Ghee"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 420,
+    "fat_g": 18
+  },
+  "taste_profile": {
+    "flavor": "Buttery and crisp"
+  },
+  "health_information": {
+    "high_fat": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_064",
+  "item_number": 64,
+  "item_name": "Ghee Roast Masala Dosa",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "64. GHEE ROAST MASALA DOSA",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "fermented",
+    "contains_dairy",
+    "contains_gluten"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Crispy ghee-roasted dosa stuffed with spiced potato filling.",
+  "serving_size": "1 dosa (approx 270g)",
+  "ingredients": ["Rice batter", "Urad dal", "Ghee", "Potato masala"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 500
+  },
+  "taste_profile": {
+    "flavor": "Rich, buttery and savory"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_065",
+  "item_number": 65,
+  "item_name": "Mysore Masala Dosa",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "65. MYSORE MASALA DOSA",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "fermented",
+    "contains_gluten",
+    "spiced"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Masala dosa with spicy red chutney spread inside.",
+  "serving_size": "1 dosa (approx 260g)",
+  "ingredients": ["Rice batter", "Urad dal", "Red chutney", "Potato masala"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 480
+  },
+  "taste_profile": {
+    "flavor": "Spicy and savory"
+  },
+  "health_information": {
+    "fermented_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_066",
+  "item_number": 66,
+  "item_name": "Ghee Podi Dosa",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "66. GHEE PODI DOSA",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "fermented",
+    "contains_dairy",
+    "contains_gluten",
+    "spiced"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Crispy dosa topped with ghee and spicy podi powder.",
+  "serving_size": "1 dosa (approx 230g)",
+  "ingredients": ["Rice batter", "Urad dal", "Ghee", "Podi powder"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 430
+  },
+  "taste_profile": {
+    "flavor": "Spicy, nutty"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_067",
+  "item_number": 67,
+  "item_name": "Ghee Podi Masala Dosa",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "67. GHEE PODI MASALA DOSA",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "fermented",
+    "contains_dairy",
+    "contains_gluten",
+    "spiced"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Masala dosa enhanced with ghee and podi spice mix.",
+  "serving_size": "1 dosa (approx 280g)",
+  "ingredients": ["Rice batter", "Urad dal", "Ghee", "Podi powder", "Potato masala"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 520
+  },
+  "taste_profile": {
+    "flavor": "Rich and spicy"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_068",
+  "item_number": 68,
+  "item_name": "Set Dosa",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "68. SET DOSA",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "fermented",
+    "contains_gluten"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Soft and thick small dosas served in a set of three.",
+  "serving_size": "3 dosas (approx 300g)",
+  "ingredients": ["Rice batter", "Urad dal"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 480
+  },
+  "taste_profile": {
+    "flavor": "Mild and soft"
+  },
+  "health_information": {
+    "fermented_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_069",
+  "item_number": 69,
+  "item_name": "Podi Onion Uthappam",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "69. PODI ONION UTHAPPAM",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional",
+    "fermented",
+    "contains_gluten",
+    "spiced"
+  ],
+  "category": "Main Course",
+  "subcategory": "South Indian Breakfast",
+  "description": "Thick dosa topped with onions and podi spice mix.",
+  "serving_size": "1 uthappam (approx 300g)",
+  "ingredients": ["Rice batter", "Urad dal", "Onion", "Podi powder"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 450
+  },
+  "taste_profile": {
+    "flavor": "Savory with spicy and sweet onion notes"
+  },
+  "health_information": {
+    "fermented_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_070",
+  "item_number": 70,
+  "item_name": "Mini Tiffin (South Indian Cuisine)",
+  "section": "BREAKFAST",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "70. MINI TIFFINSOUTH INDIAN CUISINE",
+  "tags": [
+    "vegetarian",
+    "food",
+    "traditional"
+  ],
+  "category": "Combo Meal",
+  "subcategory": "South Indian Breakfast",
+  "description": "Assorted mini South Indian breakfast items served as a platter.",
+  "serving_size": "1 platter (approx 500g)",
+  "ingredients": ["Idly", "Vada", "Dosa", "Sambar", "Chutney"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 750
+  },
+  "taste_profile": {
+    "flavor": "Varied savory flavors"
+  },
+  "health_information": {
+    "balanced_meal": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_071",
+  "item_number": 71,
+  "item_name": "Indian Non Veg Set Lunch (Limited)",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": null,
+  "currency": null,
+  "source": "saigon.pdf",
+  "raw_text": "71. INDIAN NON VEG SET LUNCH {Limited} Plain Naan or Chappathi (1), Rice, Chicken, Fish, Subzi, Dal, Sambar, Rasam, Curd, Papad, Pickle & Sweet",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "combo_meal",
+    "contains_dairy",
+    "contains_gluten"
+  ],
+  "category": "Combo Meal",
+  "subcategory": "Indian Thali",
+  "description": "Complete Indian non-vegetarian set lunch including naan or chapathi, rice, chicken, fish, vegetables, dal, sambar, rasam, curd, papad, pickle and sweet.",
+  "serving_size": "1 full thali (approx 900g)",
+  "ingredients": ["Chicken curry", "Fish curry", "Rice", "Naan/Chapathi", "Dal", "Vegetables", "Curd"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 1100,
+    "protein_g": 55,
+    "carbohydrates_g": 130,
+    "fat_g": 45
+  },
+  "taste_profile": {
+    "flavor": "Balanced spicy, savory and mildly sweet components"
+  },
+  "health_information": {
+    "high_protein": true,
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true,
+    "is_combo": true
+  }
+},
+
+{
+  "id": "item_072",
+  "item_number": 72,
+  "item_name": "Appalam",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 15000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "72. APPALAM VND 15,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "side_dish"
+  ],
+  "category": "Side Dish",
+  "subcategory": "Papad",
+  "description": "Thin crispy lentil wafer served as an accompaniment.",
+  "serving_size": "1 piece (20g)",
+  "ingredients": ["Urad dal flour", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 70
+  },
+  "taste_profile": {
+    "flavor": "Salty and crisp"
+  },
+  "health_information": {
+    "low_calorie": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+
+{
+  "id": "item_073",
+  "item_number": 73,
+  "item_name": "Garden Vegetable Salad",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 54000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "73. GARDEN VEGETABLE SALAD VND 54,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "salad",
+    "vegan"
+  ],
+  "category": "Starter",
+  "subcategory": "Salads",
+  "description": "Fresh mixed garden vegetables served raw or lightly tossed.",
+  "serving_size": "250g",
+  "ingredients": ["Cucumber", "Tomato", "Carrot", "Lettuce", "Onion"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 120
+  },
+  "taste_profile": {
+    "flavor": "Fresh and light"
+  },
+  "health_information": {
+    "low_calorie": true,
+    "fiber_rich": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+
+{
+  "id": "item_074",
+  "item_number": 74,
+  "item_name": "Cucumber Yogurt Salad",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 64000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "74. CUCUMBER YOGURT SALAD VND 64,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "salad",
+    "contains_dairy"
+  ],
+  "category": "Starter",
+  "subcategory": "Raita",
+  "description": "Cooling cucumber salad mixed with seasoned yogurt.",
+  "serving_size": "250g",
+  "ingredients": ["Cucumber", "Yogurt", "Cumin", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 150
+  },
+  "taste_profile": {
+    "flavor": "Cool and mildly tangy"
+  },
+  "health_information": {
+    "digestive_support": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+
+{
+  "id": "item_075",
+  "item_number": 75,
+  "item_name": "Roasted Papad",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 22000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "75. ROASTED PAPAD VND 22,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "side_dish"
+  ],
+  "category": "Side Dish",
+  "subcategory": "Papad",
+  "description": "Roasted crispy lentil wafer.",
+  "serving_size": "1 piece",
+  "ingredients": ["Lentil flour", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 60
+  },
+  "taste_profile": {
+    "flavor": "Salty and crisp"
+  },
+  "health_information": {
+    "low_fat": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+
+{
+  "id": "item_076",
+  "item_number": 76,
+  "item_name": "Roasted Masala Papad",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 26000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "76. ROASTED MASALA PAPAD VND 26,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "side_dish",
+    "spiced"
+  ],
+  "category": "Starter",
+  "subcategory": "Papad",
+  "description": "Roasted papad topped with chopped onions, tomatoes and spices.",
+  "serving_size": "1 piece (100g with topping)",
+  "ingredients": ["Papad", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 120
+  },
+  "taste_profile": {
+    "flavor": "Spicy and tangy"
+  },
+  "health_information": {
+    "light_snack": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+
+{
+  "id": "item_077",
+  "item_number": 77,
+  "item_name": "Chana Samosa Chat",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 84000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "77. CHANA SAMOSA CHAT VND 84,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten",
+    "fried"
+  ],
+  "category": "Starter",
+  "subcategory": "Chaat",
+  "description": "Crispy samosa topped with spicy chickpeas, chutneys and yogurt.",
+  "serving_size": "300g",
+  "ingredients": ["Samosa", "Chickpeas", "Yogurt", "Chutneys"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 550
+  },
+  "taste_profile": {
+    "flavor": "Sweet, spicy and tangy"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_078",
+  "item_number": 78,
+  "item_name": "Vegetable Samosa",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 64000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "78. VEGETABLE SAMOSA VND 64,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "fried",
+    "contains_gluten"
+  ],
+  "category": "Starter",
+  "subcategory": "Snacks",
+  "description": "Deep-fried pastry stuffed with spiced vegetables.",
+  "serving_size": "2 pieces (200g)",
+  "ingredients": ["Flour", "Potato", "Peas", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 480
+  },
+  "taste_profile": {
+    "flavor": "Savory and mildly spiced"
+  },
+  "health_information": {
+    "fried_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_079",
+  "item_number": 79,
+  "item_name": "Paneer Tikka",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 114000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "79. PANEER TIKKA VND 114,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy",
+    "grilled"
+  ],
+  "category": "Starter",
+  "subcategory": "Tandoori",
+  "description": "Marinated cottage cheese cubes grilled in tandoor.",
+  "serving_size": "250g",
+  "ingredients": ["Paneer", "Yogurt", "Spices", "Capsicum"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 420,
+    "protein_g": 20
+  },
+  "taste_profile": {
+    "flavor": "Smoky and mildly spiced"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_081",
+  "item_number": 81,
+  "item_name": "Paneer Hariyali Tikka",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 124000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "81. PANEER HARIYALI TIKKA VND 124,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy",
+    "grilled"
+  ],
+  "category": "Starter",
+  "subcategory": "Tandoori",
+  "description": "Paneer cubes marinated in mint-coriander paste and grilled in tandoor.",
+  "serving_size": "250g",
+  "ingredients": ["Paneer", "Mint", "Coriander", "Yogurt", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 420,
+    "protein_g": 20
+  },
+  "taste_profile": {
+    "flavor": "Fresh, herby and mildly spiced"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_082",
+  "item_number": 82,
+  "item_name": "Gobi Golden Tikka",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 104000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "82. GOBI GOLDEN TIKKA VND 104,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "grilled"
+  ],
+  "category": "Starter",
+  "subcategory": "Tandoori",
+  "description": "Cauliflower florets marinated in spices and roasted until golden.",
+  "serving_size": "250g",
+  "ingredients": ["Cauliflower", "Yogurt", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 280
+  },
+  "taste_profile": {
+    "flavor": "Smoky and mildly spiced"
+  },
+  "health_information": {
+    "fiber_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_083",
+  "item_number": 83,
+  "item_name": "Hara Bara Kebab",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 84000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "83. HARA BARA KEBAB VND 84,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "fried"
+  ],
+  "category": "Starter",
+  "subcategory": "Kebab",
+  "description": "Spinach and green pea patties shallow fried.",
+  "serving_size": "5 pieces (250g)",
+  "ingredients": ["Spinach", "Green peas", "Potato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 350
+  },
+  "taste_profile": {
+    "flavor": "Savory and mildly spiced"
+  },
+  "health_information": {
+    "fiber_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_084",
+  "item_number": 84,
+  "item_name": "Paneer/Mushroom/Gobi/Babycorn – Pepper Dry",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 114000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "84. PANEER/MUSHROOM/GOBI/BABYCORN – PEPPER DRY VND 114.000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "spiced"
+  ],
+  "category": "Starter",
+  "subcategory": "Indo-Chinese",
+  "description": "Choice of vegetable tossed in black pepper sauce.",
+  "serving_size": "300g",
+  "ingredients": ["Paneer or Mushroom or Gobi or Babycorn", "Black pepper", "Garlic", "Capsicum"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 420
+  },
+  "taste_profile": {
+    "flavor": "Spicy and peppery"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_085",
+  "item_number": 85,
+  "item_name": "Paneer/Mushroom/Gobi/Babycorn – Manchurian Dry",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 114000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "85. PANEER/MUSHROOM/GOBI/BABYCORN–MANCHURIAN DRY VND 114.000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "indo_chinese",
+    "fried"
+  ],
+  "category": "Starter",
+  "subcategory": "Indo-Chinese",
+  "description": "Crispy vegetable balls tossed in tangy Manchurian sauce.",
+  "serving_size": "300g",
+  "ingredients": ["Mixed vegetables", "Corn flour", "Soy sauce", "Garlic"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 500
+  },
+  "taste_profile": {
+    "flavor": "Sweet, spicy and tangy"
+  },
+  "health_information": {
+    "fried_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_086",
+  "item_number": 86,
+  "item_name": "Paneer/Mushroom/Gobi/Babycorn – Chilly",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 114000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "86. PANEER/MUSHROOM/GOBI/BABYCORN – CHILLY VND 114.000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "indo_chinese",
+    "spicy"
+  ],
+  "category": "Starter",
+  "subcategory": "Indo-Chinese",
+  "description": "Choice of vegetable cooked in spicy chilli garlic sauce.",
+  "serving_size": "300g",
+  "ingredients": ["Paneer or Mushroom or Gobi or Babycorn", "Chilli", "Garlic", "Soy sauce"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 480
+  },
+  "taste_profile": {
+    "flavor": "Spicy and savory"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_087",
+  "item_number": 87,
+  "item_name": "Bhindi Jaipuri",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "87. BHINDI JAIPURI VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food"
+  ],
+  "category": "Main Course",
+  "subcategory": "Vegetarian Curry",
+  "description": "Okra cooked in rich onion-tomato gravy with spices.",
+  "serving_size": "300g",
+  "ingredients": ["Okra", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 320
+  },
+  "taste_profile": {
+    "flavor": "Savory and mildly spiced"
+  },
+  "health_information": {
+    "fiber_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_088",
+  "item_number": 88,
+  "item_name": "Tandoori Chicken – King Of Tandoor",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 170000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "88. TANDOORI CHICKEN – KING OF TANDOOR VND 170.000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "grilled",
+    "high_protein"
+  ],
+  "category": "Starter",
+  "subcategory": "Tandoori",
+  "description": "Whole chicken marinated in yogurt and spices roasted in clay oven.",
+  "serving_size": "1 full (600g)",
+  "ingredients": ["Chicken", "Yogurt", "Spices", "Lemon"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 900,
+    "protein_g": 75
+  },
+  "taste_profile": {
+    "flavor": "Smoky, spicy and tangy"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_090",
+  "item_number": 90,
+  "item_name": "Chicken Hariyali Tikka",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 134000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "90. CHICKEN HARIYALI TIKKA VND 134.000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "grilled",
+    "high_protein"
+  ],
+  "category": "Starter",
+  "subcategory": "Tandoori",
+  "description": "Chicken cubes marinated in mint-coriander paste and grilled.",
+  "serving_size": "300g",
+  "ingredients": ["Chicken", "Mint", "Coriander", "Yogurt", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 520,
+    "protein_g": 45
+  },
+  "taste_profile": {
+    "flavor": "Fresh, smoky and mildly spicy"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_091",
+  "item_number": 91,
+  "item_name": "Chicken Malai Tikka",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 134000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "91. CHICKEN MALAI TIKKA VND 134,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "grilled",
+    "contains_dairy",
+    "high_protein"
+  ],
+  "category": "Starter",
+  "subcategory": "Tandoori",
+  "description": "Creamy marinated chicken cubes grilled in tandoor with mild spices.",
+  "serving_size": "300g",
+  "ingredients": ["Chicken", "Cream", "Yogurt", "Cheese", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 560,
+    "protein_g": 48,
+    "fat_g": 32
+  },
+  "taste_profile": {
+    "flavor": "Creamy, mildly spiced, smoky"
+  },
+  "health_information": {
+    "high_protein": true,
+    "high_fat": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_092",
+  "item_number": 92,
+  "item_name": "Chicken Reshmi Tikka",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 134000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "92. CHICKEN RESHMI TIKKA VND 134,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "grilled",
+    "contains_dairy",
+    "high_protein"
+  ],
+  "category": "Starter",
+  "subcategory": "Tandoori",
+  "description": "Soft and silky chicken tikka marinated in cream and spices.",
+  "serving_size": "300g",
+  "ingredients": ["Chicken", "Cream", "Yogurt", "Ginger-garlic paste"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 540,
+    "protein_g": 46
+  },
+  "taste_profile": {
+    "flavor": "Mild, creamy and smoky"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_093",
+  "item_number": 93,
+  "item_name": "Chicken Tangdi Kebab",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 134000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "93. CHICKEN TANGDI KEBAB VND 134,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "grilled",
+    "high_protein"
+  ],
+  "category": "Starter",
+  "subcategory": "Kebab",
+  "description": "Spiced chicken drumsticks marinated and roasted in tandoor.",
+  "serving_size": "4 drumsticks (400g)",
+  "ingredients": ["Chicken drumsticks", "Yogurt", "Spices", "Lemon"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 700,
+    "protein_g": 65
+  },
+  "taste_profile": {
+    "flavor": "Spicy, smoky and juicy"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_094",
+  "item_number": 94,
+  "item_name": "Mutton Sheek Kebab",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 154000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "94. MUTTON SHEEK KEBAB VND 154,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "grilled",
+    "high_protein"
+  ],
+  "category": "Starter",
+  "subcategory": "Kebab",
+  "description": "Minced mutton blended with spices and grilled on skewers.",
+  "serving_size": "300g",
+  "ingredients": ["Minced mutton", "Onion", "Spices", "Herbs"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 680,
+    "protein_g": 42,
+    "fat_g": 50
+  },
+  "taste_profile": {
+    "flavor": "Rich, spicy and smoky"
+  },
+  "health_information": {
+    "high_protein": true,
+    "high_fat": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_095",
+  "item_number": 95,
+  "item_name": "Fish Tikka",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 144000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "95. FISH TIKKA VND 144,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "grilled",
+    "high_protein"
+  ],
+  "category": "Starter",
+  "subcategory": "Tandoori",
+  "description": "Boneless fish cubes marinated with spices and grilled.",
+  "serving_size": "300g",
+  "ingredients": ["Fish fillet", "Yogurt", "Spices", "Lemon"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 420,
+    "protein_g": 50
+  },
+  "taste_profile": {
+    "flavor": "Light, smoky and mildly spiced"
+  },
+  "health_information": {
+    "high_protein": true,
+    "omega_3_source": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_096",
+  "item_number": 96,
+  "item_name": "Fish Tikka Kalimirch",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 154000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "96. FISH TIKKA KALIMIRCH VND 154,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "grilled",
+    "spicy",
+    "high_protein"
+  ],
+  "category": "Starter",
+  "subcategory": "Tandoori",
+  "description": "Fish tikka flavored with crushed black pepper and herbs.",
+  "serving_size": "300g",
+  "ingredients": ["Fish fillet", "Black pepper", "Yogurt", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 450,
+    "protein_g": 52
+  },
+  "taste_profile": {
+    "flavor": "Peppery and smoky"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_097",
+  "item_number": 97,
+  "item_name": "Tandoori Tiger Prawns",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 164000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "97. TANDOORI TIGER PRAWNS VND 164,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "grilled",
+    "high_protein",
+    "seafood"
+  ],
+  "category": "Starter",
+  "subcategory": "Tandoori",
+  "description": "Large tiger prawns marinated in spices and grilled in clay oven.",
+  "serving_size": "6 prawns (350g)",
+  "ingredients": ["Tiger prawns", "Yogurt", "Spices", "Lemon"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 380,
+    "protein_g": 55
+  },
+  "taste_profile": {
+    "flavor": "Smoky, juicy and spicy"
+  },
+  "health_information": {
+    "high_protein": true,
+    "low_fat": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_100",
+  "item_number": 100,
+  "item_name": "Chicken Pepper Dry",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 134000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "100.CHICKEN PEPPER DRY VND 134,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "spicy",
+    "high_protein"
+  ],
+  "category": "Starter",
+  "subcategory": "Indo-Chinese",
+  "description": "Boneless chicken stir-fried with crushed black pepper and spices.",
+  "serving_size": "300g",
+  "ingredients": ["Chicken", "Black pepper", "Garlic", "Capsicum"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 520,
+    "protein_g": 45
+  },
+  "taste_profile": {
+    "flavor": "Spicy and peppery"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_102",
+  "item_number": 102,
+  "item_name": "Prawn Pepper Dry",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 154000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "102. PRAWN PEPPER DRY VND 154,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "seafood",
+    "spicy",
+    "high_protein"
+  ],
+  "category": "Starter",
+  "subcategory": "Indo-Chinese",
+  "description": "Prawns stir-fried with crushed black pepper and spices.",
+  "serving_size": "300g",
+  "ingredients": ["Prawns", "Black pepper", "Garlic", "Onion", "Capsicum"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 460,
+    "protein_g": 48
+  },
+  "taste_profile": {
+    "flavor": "Spicy and peppery"
+  },
+  "health_information": {
+    "high_protein": true,
+    "low_fat": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_103",
+  "item_number": 103,
+  "item_name": "Egg Chilly",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 104000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "103. EGG CHILLY VND 104,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "indo_chinese",
+    "spicy"
+  ],
+  "category": "Starter",
+  "subcategory": "Indo-Chinese",
+  "description": "Boiled egg pieces tossed in spicy chilli garlic sauce.",
+  "serving_size": "250g",
+  "ingredients": ["Eggs", "Chilli sauce", "Garlic", "Soy sauce"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 350,
+    "protein_g": 22
+  },
+  "taste_profile": {
+    "flavor": "Spicy and savory"
+  },
+  "health_information": {
+    "good_protein_source": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_104",
+  "item_number": 104,
+  "item_name": "Chicken Manchurian",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 134000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "104. CHICKEN MANCHURIAN VND 134,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "indo_chinese",
+    "fried"
+  ],
+  "category": "Starter",
+  "subcategory": "Indo-Chinese",
+  "description": "Crispy chicken pieces tossed in tangy Manchurian sauce.",
+  "serving_size": "300g",
+  "ingredients": ["Chicken", "Corn flour", "Soy sauce", "Garlic", "Chilli"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 600,
+    "protein_g": 42
+  },
+  "taste_profile": {
+    "flavor": "Sweet, spicy and tangy"
+  },
+  "health_information": {
+    "high_protein": true,
+    "fried_food": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_105",
+  "item_number": 105,
+  "item_name": "Chilly Chicken",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 134000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "105. CHILLY CHICKEN VND 134,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "indo_chinese",
+    "spicy"
+  ],
+  "category": "Starter",
+  "subcategory": "Indo-Chinese",
+  "description": "Boneless chicken cooked with green chilli and capsicum.",
+  "serving_size": "300g",
+  "ingredients": ["Chicken", "Green chilli", "Capsicum", "Soy sauce"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 520,
+    "protein_g": 45
+  },
+  "taste_profile": {
+    "flavor": "Spicy and savory"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_106",
+  "item_number": 106,
+  "item_name": "Fish Chilly",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 154000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "106. FISH CHILLY VND 154,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "indo_chinese",
+    "seafood",
+    "spicy"
+  ],
+  "category": "Starter",
+  "subcategory": "Indo-Chinese",
+  "description": "Crispy fish cubes tossed in spicy chilli garlic sauce.",
+  "serving_size": "300g",
+  "ingredients": ["Fish fillet", "Chilli", "Garlic", "Soy sauce"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 500,
+    "protein_g": 48
+  },
+  "taste_profile": {
+    "flavor": "Spicy and tangy"
+  },
+  "health_information": {
+    "high_protein": true,
+    "omega_3_source": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_107",
+  "item_number": 107,
+  "item_name": "Plain Naan",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 44000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "107. PLAIN NAAN VND 44,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten"
+  ],
+  "category": "Bread",
+  "subcategory": "Indian Bread",
+  "description": "Soft leavened flatbread baked in tandoor.",
+  "serving_size": "1 piece (120g)",
+  "ingredients": ["Wheat flour", "Yeast", "Salt", "Water"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 300,
+    "carbohydrates_g": 50
+  },
+  "taste_profile": {
+    "flavor": "Mild and soft"
+  },
+  "health_information": {
+    "energy_source": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_108",
+  "item_number": 108,
+  "item_name": "Butter Naan",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 48000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "108. BUTTER NAAN VND 48,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten",
+    "contains_dairy"
+  ],
+  "category": "Bread",
+  "subcategory": "Indian Bread",
+  "description": "Tandoor baked naan brushed with butter.",
+  "serving_size": "1 piece (130g)",
+  "ingredients": ["Wheat flour", "Butter", "Yeast", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 350
+  },
+  "taste_profile": {
+    "flavor": "Buttery and soft"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_109",
+  "item_number": 109,
+  "item_name": "Onion Naan",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 54000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "109. ONION NAAN VND 54,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten"
+  ],
+  "category": "Bread",
+  "subcategory": "Indian Bread",
+  "description": "Soft naan stuffed with chopped onions.",
+  "serving_size": "1 piece (140g)",
+  "ingredients": ["Wheat flour", "Onion", "Yeast", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 360
+  },
+  "taste_profile": {
+    "flavor": "Savory with sweet onion notes"
+  },
+  "health_information": {
+    "energy_source": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_110",
+  "item_number": 110,
+  "item_name": "Pudina Naan",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 54000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "110. PUDINA NAAN VND 54,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten"
+  ],
+  "category": "Bread",
+  "subcategory": "Indian Bread",
+  "description": "Naan flavored with fresh mint leaves.",
+  "serving_size": "1 piece (140g)",
+  "ingredients": ["Wheat flour", "Mint leaves", "Yeast", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 340
+  },
+  "taste_profile": {
+    "flavor": "Fresh minty and soft"
+  },
+  "health_information": {
+    "energy_source": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_111",
+  "item_number": 111,
+  "item_name": "Garlic Naan",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 54000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "111. GARLIC NAAN VND 54,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten"
+  ],
+  "category": "Bread",
+  "subcategory": "Indian Bread",
+  "description": "Soft tandoor-baked naan topped with fresh garlic.",
+  "serving_size": "1 piece (130g)",
+  "ingredients": ["Wheat flour", "Garlic", "Yeast", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 340
+  },
+  "taste_profile": {
+    "flavor": "Savory with strong garlic aroma"
+  },
+  "health_information": {
+    "energy_source": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_112",
+  "item_number": 112,
+  "item_name": "Butter Garlic Naan",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 57000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "112. BUTTER GARLIC NAAN VND 57,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten",
+    "contains_dairy"
+  ],
+  "category": "Bread",
+  "subcategory": "Indian Bread",
+  "description": "Garlic naan brushed generously with melted butter.",
+  "serving_size": "1 piece (140g)",
+  "ingredients": ["Wheat flour", "Garlic", "Butter", "Yeast"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 380
+  },
+  "taste_profile": {
+    "flavor": "Buttery and garlicky"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_113",
+  "item_number": 113,
+  "item_name": "Cheese Naan",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 57000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "113. CHEESE NAAN VND 57,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten",
+    "contains_dairy"
+  ],
+  "category": "Bread",
+  "subcategory": "Indian Bread",
+  "description": "Naan stuffed with melted cheese.",
+  "serving_size": "1 piece (150g)",
+  "ingredients": ["Wheat flour", "Cheese", "Yeast", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 420,
+    "protein_g": 15
+  },
+  "taste_profile": {
+    "flavor": "Rich and cheesy"
+  },
+  "health_information": {
+    "high_fat": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_114",
+  "item_number": 114,
+  "item_name": "Cheese Garlic Naan",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 60000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "114. CHEESE GARLIC NAAN VND 60,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten",
+    "contains_dairy"
+  ],
+  "category": "Bread",
+  "subcategory": "Indian Bread",
+  "description": "Naan stuffed with cheese and topped with fresh garlic.",
+  "serving_size": "1 piece (160g)",
+  "ingredients": ["Wheat flour", "Cheese", "Garlic", "Yeast"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 450
+  },
+  "taste_profile": {
+    "flavor": "Rich, cheesy and garlicky"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_115",
+  "item_number": 115,
+  "item_name": "Seasami Naan",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 54000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "115. SEASAMI NAAN VND 54,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten",
+    "contains_nuts"
+  ],
+  "category": "Bread",
+  "subcategory": "Indian Bread",
+  "description": "Soft naan topped with sesame seeds.",
+  "serving_size": "1 piece (130g)",
+  "ingredients": ["Wheat flour", "Sesame seeds", "Yeast", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 350
+  },
+  "taste_profile": {
+    "flavor": "Nutty and soft"
+  },
+  "health_information": {
+    "contains_healthy_fats": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_116",
+  "item_number": 116,
+  "item_name": "Plain Kulcha",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 44000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "116. PLAIN KULCHA VND 44,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten"
+  ],
+  "category": "Bread",
+  "subcategory": "Kulcha",
+  "description": "Soft leavened flatbread baked in tandoor.",
+  "serving_size": "1 piece (120g)",
+  "ingredients": ["Wheat flour", "Yeast", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 290
+  },
+  "taste_profile": {
+    "flavor": "Mild and soft"
+  },
+  "health_information": {
+    "energy_source": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_117",
+  "item_number": 117,
+  "item_name": "Butter Kulcha",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 48000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "117. BUTTER KULCHA VND 48,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten",
+    "contains_dairy"
+  ],
+  "category": "Bread",
+  "subcategory": "Kulcha",
+  "description": "Kulcha brushed with butter after baking.",
+  "serving_size": "1 piece (130g)",
+  "ingredients": ["Wheat flour", "Butter", "Yeast"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 340
+  },
+  "taste_profile": {
+    "flavor": "Buttery and soft"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_118",
+  "item_number": 118,
+  "item_name": "Onion Kulcha",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 54000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "118. ONION KULCHA VND 54,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten"
+  ],
+  "category": "Bread",
+  "subcategory": "Kulcha",
+  "description": "Kulcha stuffed with chopped onion and spices.",
+  "serving_size": "1 piece (140g)",
+  "ingredients": ["Wheat flour", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 360
+  },
+  "taste_profile": {
+    "flavor": "Savory with sweet onion notes"
+  },
+  "health_information": {
+    "energy_source": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_119",
+  "item_number": 119,
+  "item_name": "Stuffed Masala Kulcha",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 60000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "119. STUFFED MASALA KULCHA VND 60,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten"
+  ],
+  "category": "Bread",
+  "subcategory": "Kulcha",
+  "description": "Kulcha stuffed with spiced vegetable filling.",
+  "serving_size": "1 piece (160g)",
+  "ingredients": ["Wheat flour", "Potato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 400
+  },
+  "taste_profile": {
+    "flavor": "Savory and mildly spiced"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_120",
+  "item_number": 120,
+  "item_name": "Tandoori Roti",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 40000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "120. TANDOORI ROTI VND 40,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten"
+  ],
+  "category": "Bread",
+  "subcategory": "Indian Bread",
+  "description": "Whole wheat flatbread baked in tandoor.",
+  "serving_size": "1 piece (100g)",
+  "ingredients": ["Whole wheat flour", "Water", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 220
+  },
+  "taste_profile": {
+    "flavor": "Earthy and soft"
+  },
+  "health_information": {
+    "higher_fiber_than_naan": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_121",
+  "item_number": 121,
+  "item_name": "Butter Tandoori Roti",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 44000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "121. BUTTER TANDOORI ROTI VND 44,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten",
+    "contains_dairy"
+  ],
+  "category": "Bread",
+  "subcategory": "Indian Bread",
+  "description": "Whole wheat roti baked in tandoor and brushed with butter.",
+  "serving_size": "1 piece (110g)",
+  "ingredients": ["Whole wheat flour", "Butter", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 260
+  },
+  "taste_profile": {
+    "flavor": "Buttery and earthy"
+  },
+  "health_information": {
+    "higher_fiber_than_naan": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_122",
+  "item_number": 122,
+  "item_name": "Mixed Naan Basket",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 180000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "122. MIXED NAAN BASKET VND 180,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten",
+    "combo_meal"
+  ],
+  "category": "Bread",
+  "subcategory": "Indian Bread Combo",
+  "description": "Assorted naan selection including butter, garlic and plain naan.",
+  "serving_size": "4 assorted naan pieces",
+  "ingredients": ["Wheat flour", "Butter", "Garlic", "Yeast"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 1200
+  },
+  "taste_profile": {
+    "flavor": "Buttery and savory variety"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true,
+    "is_combo": true
+  }
+},
+
+{
+  "id": "item_123",
+  "item_number": 123,
+  "item_name": "Phulka Roti",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 34000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "123. PHULKA ROTI VND 34,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten"
+  ],
+  "category": "Bread",
+  "subcategory": "Indian Bread",
+  "description": "Soft whole wheat roti puffed directly on flame.",
+  "serving_size": "1 piece (90g)",
+  "ingredients": ["Whole wheat flour", "Water"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 180
+  },
+  "taste_profile": {
+    "flavor": "Light and earthy"
+  },
+  "health_information": {
+    "high_fiber": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_124",
+  "item_number": 124,
+  "item_name": "Chappathi",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 34000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "124. CHAPPATHI VND 34,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten"
+  ],
+  "category": "Bread",
+  "subcategory": "Indian Bread",
+  "description": "Thin soft whole wheat bread cooked on tawa.",
+  "serving_size": "1 piece (100g)",
+  "ingredients": ["Whole wheat flour", "Water", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 200
+  },
+  "taste_profile": {
+    "flavor": "Soft and mild"
+  },
+  "health_information": {
+    "higher_fiber_than_naan": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_125",
+  "item_number": 125,
+  "item_name": "Tawa Paratha",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 40000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "125. TAWA PARATHA VND 40,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten",
+    "contains_dairy"
+  ],
+  "category": "Bread",
+  "subcategory": "Paratha",
+  "description": "Layered whole wheat flatbread cooked with ghee on tawa.",
+  "serving_size": "1 piece (150g)",
+  "ingredients": ["Whole wheat flour", "Ghee", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 380
+  },
+  "taste_profile": {
+    "flavor": "Rich and flaky"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_126",
+  "item_number": 126,
+  "item_name": "Aloo Paratha",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 60000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "126. ALOO PARATHA VND 60,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten",
+    "contains_dairy"
+  ],
+  "category": "Bread",
+  "subcategory": "Stuffed Paratha",
+  "description": "Whole wheat flatbread stuffed with spiced mashed potatoes.",
+  "serving_size": "1 piece (200g)",
+  "ingredients": ["Whole wheat flour", "Potato", "Spices", "Ghee"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 450
+  },
+  "taste_profile": {
+    "flavor": "Savory and mildly spiced"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_127",
+  "item_number": 127,
+  "item_name": "Gobi Paratha",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 64000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "127. GOBI PARATHA VND 64,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_gluten",
+    "contains_dairy"
+  ],
+  "category": "Bread",
+  "subcategory": "Stuffed Paratha",
+  "description": "Flatbread stuffed with spiced grated cauliflower.",
+  "serving_size": "1 piece (200g)",
+  "ingredients": ["Whole wheat flour", "Cauliflower", "Spices", "Ghee"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 430
+  },
+  "taste_profile": {
+    "flavor": "Savory and lightly spiced"
+  },
+  "health_information": {
+    "fiber_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_128",
+  "item_number": 128,
+  "item_name": "Mixed Vegetable Kadahi",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "128. MIXED VEGETABLE KADAHI VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food"
+  ],
+  "category": "Main Course",
+  "subcategory": "Vegetarian Curry",
+  "description": "Mixed vegetables cooked in spicy tomato-onion kadahi gravy.",
+  "serving_size": "300g",
+  "ingredients": ["Mixed vegetables", "Tomato", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 320
+  },
+  "taste_profile": {
+    "flavor": "Spicy and tangy"
+  },
+  "health_information": {
+    "fiber_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_129",
+  "item_number": 129,
+  "item_name": "Vegetable Jalfrezi",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 104000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "129. VEGETABLE JALFREZI VND 104,000",
+  "tags": [
+    "vegetarian",
+    "food"
+  ],
+  "category": "Main Course",
+  "subcategory": "Vegetarian Curry",
+  "description": "Stir-fried vegetables cooked in spicy jalfrezi sauce.",
+  "serving_size": "300g",
+  "ingredients": ["Mixed vegetables", "Capsicum", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 340
+  },
+  "taste_profile": {
+    "flavor": "Spicy and vibrant"
+  },
+  "health_information": {
+    "fiber_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_130",
+  "item_number": 130,
+  "item_name": "Mixed Vegetable",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "130. MIXED VEGETABLE VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food"
+  ],
+  "category": "Main Course",
+  "subcategory": "Vegetarian Curry",
+  "description": "Seasonal vegetables cooked in mild spiced gravy.",
+  "serving_size": "300g",
+  "ingredients": ["Mixed vegetables", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 300
+  },
+  "taste_profile": {
+    "flavor": "Mild and savory"
+  },
+  "health_information": {
+    "fiber_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_131",
+  "item_number": 131,
+  "item_name": "Aloo Zeera",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 84000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "131. ALOO ZEERA VND 84,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "vegan"
+  ],
+  "category": "Main Course",
+  "subcategory": "Vegetarian Dry Curry",
+  "description": "Boiled potatoes sautéed with cumin seeds and mild spices.",
+  "serving_size": "300g",
+  "ingredients": ["Potato", "Cumin seeds", "Turmeric", "Green chili", "Oil"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 320,
+    "carbohydrates_g": 50
+  },
+  "taste_profile": {
+    "flavor": "Earthy and mildly spiced",
+    "spice_level": "Mild"
+  },
+  "health_information": {
+    "vegan": true,
+    "fiber_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_132",
+  "item_number": 132,
+  "item_name": "Aloo Matter",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 84000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "132. ALOO MATTER VND 84,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "vegan"
+  ],
+  "category": "Main Course",
+  "subcategory": "Vegetarian Curry",
+  "description": "Potatoes and green peas cooked in tomato-based gravy.",
+  "serving_size": "300g",
+  "ingredients": ["Potato", "Green peas", "Tomato", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 340
+  },
+  "taste_profile": {
+    "flavor": "Savory and slightly sweet",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "plant_protein_source": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_133",
+  "item_number": 133,
+  "item_name": "Aloo Baingan",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "133. ALOO BAINGAN VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "vegan"
+  ],
+  "category": "Main Course",
+  "subcategory": "Vegetarian Curry",
+  "description": "Potatoes and eggplant cooked in traditional Indian spices.",
+  "serving_size": "300g",
+  "ingredients": ["Potato", "Eggplant", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 310
+  },
+  "taste_profile": {
+    "flavor": "Soft, earthy and mildly spiced",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "fiber_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_134",
+  "item_number": 134,
+  "item_name": "Aloo Gobhi",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 84000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "134. ALOO GOBHI VND 84,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "vegan"
+  ],
+  "category": "Main Course",
+  "subcategory": "Vegetarian Dry Curry",
+  "description": "Potatoes and cauliflower sautéed with turmeric and spices.",
+  "serving_size": "300g",
+  "ingredients": ["Potato", "Cauliflower", "Turmeric", "Cumin", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 300
+  },
+  "taste_profile": {
+    "flavor": "Earthy and aromatic",
+    "spice_level": "Mild"
+  },
+  "health_information": {
+    "fiber_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_135",
+  "item_number": 135,
+  "item_name": "Aloo Palak",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "135. ALOO PALAK VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "vegan"
+  ],
+  "category": "Main Course",
+  "subcategory": "Vegetarian Curry",
+  "description": "Potatoes cooked in fresh spinach gravy.",
+  "serving_size": "300g",
+  "ingredients": ["Potato", "Spinach", "Garlic", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 290,
+    "iron_mg": 3
+  },
+  "taste_profile": {
+    "flavor": "Creamy and mildly spiced",
+    "spice_level": "Mild"
+  },
+  "health_information": {
+    "iron_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_136",
+  "item_number": 136,
+  "item_name": "Gobi Masala",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "136. GOBI MASALA VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "vegan"
+  ],
+  "category": "Main Course",
+  "subcategory": "Vegetarian Curry",
+  "description": "Cauliflower cooked in rich onion-tomato masala.",
+  "serving_size": "300g",
+  "ingredients": ["Cauliflower", "Tomato", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 280
+  },
+  "taste_profile": {
+    "flavor": "Tangy and spiced",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "low_fat": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_137",
+  "item_number": 137,
+  "item_name": "Bhindi Masala",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "137. BHINDI MASALA VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "vegan"
+  ],
+  "category": "Main Course",
+  "subcategory": "Vegetarian Dry Curry",
+  "description": "Ladies finger sautéed with onions, tomatoes and spices.",
+  "serving_size": "300g",
+  "ingredients": ["Okra", "Onion", "Tomato", "Turmeric", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 260
+  },
+  "taste_profile": {
+    "flavor": "Savory and aromatic",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "fiber_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_138",
+  "item_number": 138,
+  "item_name": "Malai Kofta",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 114000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "138. MALAI KOFTA VND 114,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy"
+  ],
+  "category": "Main Course",
+  "subcategory": "Paneer Special Curry",
+  "description": "Soft paneer and vegetable dumplings served in rich creamy gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Paneer", "Potato", "Cream", "Cashew", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 480
+  },
+  "taste_profile": {
+    "flavor": "Rich, creamy and mildly sweet",
+    "spice_level": "Mild"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_139",
+  "item_number": 139,
+  "item_name": "Paneer Bhurji",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "139. PANEER BHURJI VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Paneer Special",
+  "description": "Scrambled paneer cooked with onions, tomatoes and spices.",
+  "serving_size": "300g",
+  "ingredients": ["Paneer", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 420,
+    "protein_g": 20
+  },
+  "taste_profile": {
+    "flavor": "Savory and mildly spicy",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_140",
+  "item_number": 140,
+  "item_name": "Paneer Tikka Masala",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 114000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "140. PANEER TIKKA MASALA VND 114,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy"
+  ],
+  "category": "Main Course",
+  "subcategory": "Paneer Special Curry",
+  "description": "Grilled paneer cubes cooked in rich tomato and cream gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Paneer", "Tomato", "Cream", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 460
+  },
+  "taste_profile": {
+    "flavor": "Creamy, tangy and mildly spiced",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_141",
+  "item_number": 141,
+  "item_name": "Paneer Butter Masala",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 104000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "141. PANEER BUTTER MASALA VND 104,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy"
+  ],
+  "category": "Main Course",
+  "subcategory": "Paneer Special Curry",
+  "description": "Paneer cubes cooked in rich buttery tomato cream gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Paneer", "Butter", "Tomato", "Cream", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 480,
+    "protein_g": 18
+  },
+  "taste_profile": {
+    "flavor": "Rich, creamy and mildly sweet",
+    "spice_level": "Mild"
+  },
+  "health_information": {
+    "high_protein": true,
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_142",
+  "item_number": 142,
+  "item_name": "Mattar Paneer",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 104000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "142. MATTAR PANEER VND 104,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy"
+  ],
+  "category": "Main Course",
+  "subcategory": "Paneer Curry",
+  "description": "Paneer and green peas cooked in onion-tomato gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Paneer", "Green peas", "Tomato", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 430,
+    "protein_g": 20
+  },
+  "taste_profile": {
+    "flavor": "Savory and mildly spiced",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_143",
+  "item_number": 143,
+  "item_name": "Kadahi Paneer",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 114000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "143. KADAHI PANEER VND 114,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy"
+  ],
+  "category": "Main Course",
+  "subcategory": "Paneer Curry",
+  "description": "Paneer cooked with capsicum and onions in spicy kadahi masala.",
+  "serving_size": "350g",
+  "ingredients": ["Paneer", "Capsicum", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 450
+  },
+  "taste_profile": {
+    "flavor": "Spicy and aromatic",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_144",
+  "item_number": 144,
+  "item_name": "Palak Paneer",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 114000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "144. PALAK PANEER VND 114,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy",
+    "iron_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Paneer Curry",
+  "description": "Paneer cubes simmered in fresh spinach puree.",
+  "serving_size": "350g",
+  "ingredients": ["Paneer", "Spinach", "Garlic", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 420,
+    "iron_mg": 4
+  },
+  "taste_profile": {
+    "flavor": "Creamy and earthy",
+    "spice_level": "Mild"
+  },
+  "health_information": {
+    "iron_rich": true,
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_145",
+  "item_number": 145,
+  "item_name": "Mushroom Masala",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "145. MUSHROOM MASALA VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "vegan"
+  ],
+  "category": "Main Course",
+  "subcategory": "Vegetarian Curry",
+  "description": "Mushrooms cooked in spicy onion-tomato masala gravy.",
+  "serving_size": "300g",
+  "ingredients": ["Mushroom", "Tomato", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 280
+  },
+  "taste_profile": {
+    "flavor": "Savory and earthy",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "low_fat": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_146",
+  "item_number": 146,
+  "item_name": "Mushroom Matter",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "146. MUSHROOM MATTER VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "vegan"
+  ],
+  "category": "Main Course",
+  "subcategory": "Vegetarian Curry",
+  "description": "Mushrooms and green peas cooked in rich gravy.",
+  "serving_size": "300g",
+  "ingredients": ["Mushroom", "Green peas", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 300
+  },
+  "taste_profile": {
+    "flavor": "Savory and mildly sweet",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "plant_protein_source": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_147",
+  "item_number": 147,
+  "item_name": "Mushroom Do Piazza",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "147. MUSHROOM DO PIAZZA VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "vegan"
+  ],
+  "category": "Main Course",
+  "subcategory": "Vegetarian Curry",
+  "description": "Mushrooms cooked with double onions in spicy masala.",
+  "serving_size": "300g",
+  "ingredients": ["Mushroom", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 290
+  },
+  "taste_profile": {
+    "flavor": "Onion-rich and aromatic",
+    "spice_level": "Medium"
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_148",
+  "item_number": 148,
+  "item_name": "Chana Masala",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "148. CHANA MASALA VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "vegan",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Lentil & Legume Curry",
+  "description": "Chickpeas cooked in spicy North Indian masala gravy.",
+  "serving_size": "300g",
+  "ingredients": ["Chickpeas", "Tomato", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 350,
+    "protein_g": 15
+  },
+  "taste_profile": {
+    "flavor": "Spicy and tangy",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true,
+    "fiber_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_149",
+  "item_number": 149,
+  "item_name": "Daal Makhani",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "149. DAAL MAKHANI VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Lentil Curry",
+  "description": "Black lentils slow-cooked with butter and cream.",
+  "serving_size": "300g",
+  "ingredients": ["Black lentils", "Butter", "Cream", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 420,
+    "protein_g": 18
+  },
+  "taste_profile": {
+    "flavor": "Rich and creamy",
+    "spice_level": "Mild"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_150",
+  "item_number": 150,
+  "item_name": "Daal Tadka",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "150. DAAL TADKA VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Lentil Curry",
+  "description": "Yellow lentils tempered with butter, garlic and cumin.",
+  "serving_size": "300g",
+  "ingredients": ["Yellow lentils", "Butter", "Garlic", "Cumin", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 380,
+    "protein_g": 16
+  },
+  "taste_profile": {
+    "flavor": "Savory and aromatic",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_151",
+  "item_number": 151,
+  "item_name": "Daal Palak",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 104000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "151. DAAL PALAK VND 104,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "high_protein",
+    "iron_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Lentil Curry",
+  "description": "Yellow lentils cooked with fresh spinach and tempered spices.",
+  "serving_size": "300g",
+  "ingredients": ["Yellow lentils", "Spinach", "Garlic", "Cumin", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 360,
+    "protein_g": 18
+  },
+  "taste_profile": {
+    "flavor": "Savory and mildly earthy",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true,
+    "iron_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_152",
+  "item_number": 152,
+  "item_name": "Onion Raita",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 44000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "152. ONION RAITA VND 44,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy"
+  ],
+  "category": "Side Dish",
+  "subcategory": "Raita",
+  "description": "Fresh yogurt mixed with chopped onions and mild spices.",
+  "serving_size": "200g",
+  "ingredients": ["Yogurt", "Onion", "Salt", "Cumin powder"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 150,
+    "protein_g": 6
+  },
+  "taste_profile": {
+    "flavor": "Cooling and mildly tangy",
+    "spice_level": "Mild"
+  },
+  "health_information": {
+    "probiotic": true
+  },
+  "metadata": {
+    "is_cold": true
+  }
+},
+
+{
+  "id": "item_153",
+  "item_number": 153,
+  "item_name": "Cucumber Raita",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 44000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "153. CUCUMBER RAITA VND 44,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy"
+  ],
+  "category": "Side Dish",
+  "subcategory": "Raita",
+  "description": "Grated cucumber mixed with fresh yogurt and spices.",
+  "serving_size": "200g",
+  "ingredients": ["Yogurt", "Cucumber", "Cumin", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 140
+  },
+  "taste_profile": {
+    "flavor": "Refreshing and cooling",
+    "spice_level": "Mild"
+  },
+  "health_information": {
+    "low_calorie": true,
+    "probiotic": true
+  },
+  "metadata": {
+    "is_cold": true
+  }
+},
+
+{
+  "id": "item_154",
+  "item_number": 154,
+  "item_name": "Mixed Raita",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 50000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "154. MIXED RAITA VND 50,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy"
+  ],
+  "category": "Side Dish",
+  "subcategory": "Raita",
+  "description": "Yogurt mixed with assorted vegetables and mild spices.",
+  "serving_size": "200g",
+  "ingredients": ["Yogurt", "Cucumber", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 160
+  },
+  "taste_profile": {
+    "flavor": "Tangy and refreshing",
+    "spice_level": "Mild"
+  },
+  "health_information": {
+    "probiotic": true
+  },
+  "metadata": {
+    "is_cold": true
+  }
+},
+
+{
+  "id": "item_155",
+  "item_number": 155,
+  "item_name": "Pineapple Raita",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 50000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "155. PINEAPPLE RAITA VND 50,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy"
+  ],
+  "category": "Side Dish",
+  "subcategory": "Raita",
+  "description": "Sweet pineapple chunks mixed with yogurt.",
+  "serving_size": "200g",
+  "ingredients": ["Yogurt", "Pineapple", "Sugar", "Salt"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 180
+  },
+  "taste_profile": {
+    "flavor": "Sweet and tangy",
+    "spice_level": "Mild"
+  },
+  "health_information": {
+    "probiotic": true
+  },
+  "metadata": {
+    "is_cold": true
+  }
+},
+
+{
+  "id": "item_156",
+  "item_number": 156,
+  "item_name": "Boondi Raita",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 50000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "156. BOONDI RAITA VND 50,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy",
+    "contains_gluten"
+  ],
+  "category": "Side Dish",
+  "subcategory": "Raita",
+  "description": "Yogurt mixed with crispy fried gram flour pearls (boondi).",
+  "serving_size": "200g",
+  "ingredients": ["Yogurt", "Gram flour boondi", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 220
+  },
+  "taste_profile": {
+    "flavor": "Creamy with crunchy texture",
+    "spice_level": "Mild"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_cold": true
+  }
+},
+
+{
+  "id": "item_157",
+  "item_number": 157,
+  "item_name": "Dahi",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 34000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "157. DAHI VND 34,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "contains_dairy"
+  ],
+  "category": "Side Dish",
+  "subcategory": "Yogurt",
+  "description": "Fresh plain yogurt served chilled.",
+  "serving_size": "200g",
+  "ingredients": ["Milk", "Live cultures"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 120,
+    "protein_g": 6
+  },
+  "taste_profile": {
+    "flavor": "Mildly tangy",
+    "spice_level": "None"
+  },
+  "health_information": {
+    "probiotic": true,
+    "good_for_digestion": true
+  },
+  "metadata": {
+    "is_cold": true
+  }
+},
+
+{
+  "id": "item_159",
+  "item_number": 159,
+  "item_name": "Chicken Tikka Masala",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 144000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "159. CHICKEN TIKKA MASALA VND 144,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "contains_dairy",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Chicken Curry",
+  "description": "Grilled chicken cooked in creamy tomato masala gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Chicken", "Tomato", "Cream", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 520,
+    "protein_g": 35
+  },
+  "taste_profile": {
+    "flavor": "Creamy, rich and moderately spiced",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_160",
+  "item_number": 160,
+  "item_name": "Chicken Kadahi",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 134000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "160. CHICKEN KADAHI VND 134,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Chicken Curry",
+  "description": "Chicken cooked with capsicum and onions in spicy kadahi masala.",
+  "serving_size": "350g",
+  "ingredients": ["Chicken", "Capsicum", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 480,
+    "protein_g": 38
+  },
+  "taste_profile": {
+    "flavor": "Spicy and aromatic",
+    "spice_level": "Medium-High"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_161",
+  "item_number": 161,
+  "item_name": "Chicken Masala",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 134000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "161. CHICKEN MASALA VND 134,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Chicken Curry",
+  "description": "Chicken cooked in traditional Indian onion-tomato masala gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Chicken", "Onion", "Tomato", "Ginger", "Garlic", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 480,
+    "protein_g": 38
+  },
+  "taste_profile": {
+    "flavor": "Savory and aromatic",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_162",
+  "item_number": 162,
+  "item_name": "Kalimirch Chicken",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 134000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "162. KALIMIRCH CHICKEN VND 134,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Chicken Curry",
+  "description": "Chicken cooked in rich black pepper based gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Chicken", "Black pepper", "Onion", "Garlic", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 470,
+    "protein_g": 37
+  },
+  "taste_profile": {
+    "flavor": "Peppery and bold",
+    "spice_level": "Medium-High"
+  },
+  "health_information": {
+    "high_protein": true,
+    "metabolism_boosting": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_163",
+  "item_number": 163,
+  "item_name": "Dahi Chicken",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 134000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "163. DAHI CHICKEN VND 134,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "contains_dairy",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Chicken Curry",
+  "description": "Chicken cooked in yogurt-based mildly spiced gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Chicken", "Yogurt", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 490,
+    "protein_g": 36
+  },
+  "taste_profile": {
+    "flavor": "Tangy and mildly spiced",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_164",
+  "item_number": 164,
+  "item_name": "Palak Chicken",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 134000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "164. PALAK CHICKEN VND 134,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein",
+    "iron_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Chicken Curry",
+  "description": "Chicken cooked in fresh spinach gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Chicken", "Spinach", "Garlic", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 460,
+    "protein_g": 38
+  },
+  "taste_profile": {
+    "flavor": "Earthy and mildly spiced",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true,
+    "iron_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_165",
+  "item_number": 165,
+  "item_name": "Chicken Vindaloo",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 144000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "165. CHICKEN VINDALOO VND 144,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Chicken Curry",
+  "description": "Goan-style spicy chicken curry cooked with vinegar and red chilies.",
+  "serving_size": "350g",
+  "ingredients": ["Chicken", "Vinegar", "Red chili", "Garlic", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 500,
+    "protein_g": 40
+  },
+  "taste_profile": {
+    "flavor": "Spicy and tangy",
+    "spice_level": "High"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_166",
+  "item_number": 166,
+  "item_name": "Chicken Curry",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 134000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "166. CHICKEN CURRY VND 134,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Chicken Curry",
+  "description": "Traditional Indian chicken curry in spiced gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Chicken", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 470,
+    "protein_g": 38
+  },
+  "taste_profile": {
+    "flavor": "Classic savory curry",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_167",
+  "item_number": 167,
+  "item_name": "Chicken Jhal Frezy",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 144000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "167. CHICKEN JHAL FREZY VND 144,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Chicken Curry",
+  "description": "Stir-fried chicken cooked with capsicum in spicy Jalfrezi sauce.",
+  "serving_size": "350g",
+  "ingredients": ["Chicken", "Capsicum", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 490,
+    "protein_g": 39
+  },
+  "taste_profile": {
+    "flavor": "Spicy and tangy",
+    "spice_level": "High"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_168",
+  "item_number": 168,
+  "item_name": "Chicken Korma",
+  "section": "MAIN COURSE VEG & NON-VEG",
+  "price": 144000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "168. CHICKEN KORMA VND 144,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "contains_dairy",
+    "contains_nuts",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Chicken Curry",
+  "description": "Chicken cooked in rich creamy cashew-based gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Chicken", "Cream", "Cashew", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 550,
+    "protein_g": 37
+  },
+  "taste_profile": {
+    "flavor": "Rich, creamy and mildly sweet",
+    "spice_level": "Mild"
+  },
+  "health_information": {
+    "high_protein": true,
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_169",
+  "item_number": 169,
+  "item_name": "Mutton Kadahi",
+  "section": "MUTTON",
+  "price": 164000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "169. MUTTON KADAHI VND 164,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Mutton Curry",
+  "description": "Tender mutton cooked with capsicum and onions in spicy kadahi masala.",
+  "serving_size": "350g",
+  "ingredients": ["Mutton", "Capsicum", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 620,
+    "protein_g": 42
+  },
+  "taste_profile": {
+    "flavor": "Rich and spicy",
+    "spice_level": "Medium-High"
+  },
+  "health_information": {
+    "high_protein": true,
+    "iron_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_171",
+  "item_number": 171,
+  "item_name": "Mutton Rogan Josh",
+  "section": "MUTTON",
+  "price": 164000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "171. MUTTON ROGAN JOSH VND 164,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Mutton Curry",
+  "description": "Kashmiri-style mutton curry cooked in aromatic red chili gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Mutton", "Yogurt", "Kashmiri chili", "Garlic", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 620,
+    "protein_g": 42
+  },
+  "taste_profile": {
+    "flavor": "Rich and aromatic",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true,
+    "iron_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_172",
+  "item_number": 172,
+  "item_name": "Pepper Mutton",
+  "section": "MUTTON",
+  "price": 154000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "172. PEPPER MUTTON VND 154,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Mutton Curry",
+  "description": "Mutton cooked in bold black pepper masala.",
+  "serving_size": "350g",
+  "ingredients": ["Mutton", "Black pepper", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 600,
+    "protein_g": 41
+  },
+  "taste_profile": {
+    "flavor": "Peppery and bold",
+    "spice_level": "High"
+  },
+  "health_information": {
+    "high_protein": true,
+    "metabolism_boosting": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_173",
+  "item_number": 173,
+  "item_name": "Dahi Mutton",
+  "section": "MUTTON",
+  "price": 154000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "173. DAHI MUTTON VND 154,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "contains_dairy",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Mutton Curry",
+  "description": "Mutton cooked in yogurt-based mildly spiced gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Mutton", "Yogurt", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 610,
+    "protein_g": 40
+  },
+  "taste_profile": {
+    "flavor": "Tangy and savory",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_174",
+  "item_number": 174,
+  "item_name": "Saag Mutton",
+  "section": "MUTTON",
+  "price": 164000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "174. SAAG MUTTON VND 164,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein",
+    "iron_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Mutton Curry",
+  "description": "Mutton cooked with fresh spinach puree and spices.",
+  "serving_size": "350g",
+  "ingredients": ["Mutton", "Spinach", "Garlic", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 590,
+    "protein_g": 41
+  },
+  "taste_profile": {
+    "flavor": "Earthy and rich",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "iron_rich": true,
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_175",
+  "item_number": 175,
+  "item_name": "Daal Gosht",
+  "section": "MUTTON",
+  "price": 154000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "175. DAAL GOSHT VND 154,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Mutton & Lentil Curry",
+  "description": "Mutton cooked with lentils in spiced gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Mutton", "Lentils", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 630,
+    "protein_g": 45
+  },
+  "taste_profile": {
+    "flavor": "Hearty and savory",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_176",
+  "item_number": 176,
+  "item_name": "Mutton Vindaloo",
+  "section": "MUTTON",
+  "price": 164000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "176. MUTTON VINDALOO VND 164,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Mutton Curry",
+  "description": "Goan-style spicy mutton curry cooked with vinegar and red chilies.",
+  "serving_size": "350g",
+  "ingredients": ["Mutton", "Vinegar", "Red chili", "Garlic", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 650,
+    "protein_g": 43
+  },
+  "taste_profile": {
+    "flavor": "Spicy and tangy",
+    "spice_level": "High"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_177",
+  "item_number": 177,
+  "item_name": "Mutton Curry",
+  "section": "MUTTON",
+  "price": 154000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "177. MUTTON CURRY VND 154,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Mutton Curry",
+  "description": "Traditional Indian mutton curry cooked in rich spiced gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Mutton", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 610,
+    "protein_g": 42
+  },
+  "taste_profile": {
+    "flavor": "Classic and savory",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true,
+    "iron_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_178",
+  "item_number": 178,
+  "item_name": "Mutton Korma",
+  "section": "MUTTON",
+  "price": 164000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "178. MUTTON KORMA VND 164,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "contains_dairy",
+    "contains_nuts",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Mutton Curry",
+  "description": "Mutton cooked in creamy cashew-based korma gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Mutton", "Cream", "Cashew", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 700,
+    "protein_g": 40
+  },
+  "taste_profile": {
+    "flavor": "Rich and creamy",
+    "spice_level": "Mild"
+  },
+  "health_information": {
+    "high_protein": true,
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_179",
+  "item_number": 179,
+  "item_name": "Mutton Kebab Masala",
+  "section": "MUTTON",
+  "price": 194000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "179. MUTTON KEBAB MASALA VND 194,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Mutton Curry",
+  "description": "Grilled mutton kebabs simmered in rich masala gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Mutton kebab", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 680,
+    "protein_g": 45
+  },
+  "taste_profile": {
+    "flavor": "Smoky and spicy",
+    "spice_level": "Medium-High"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_180",
+  "item_number": 180,
+  "item_name": "Keema Mattar",
+  "section": "MUTTON",
+  "price": 184000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "180. KEEMA MATTAR VND 184,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Mutton Curry",
+  "description": "Minced mutton cooked with green peas in spiced gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Minced mutton", "Green peas", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 640,
+    "protein_g": 44
+  },
+  "taste_profile": {
+    "flavor": "Savory and hearty",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true,
+    "iron_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_181",
+  "item_number": 181,
+  "item_name": "Mutton Lababdaar",
+  "section": "MUTTON",
+  "price": 164000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "181. MUTTON LABABDAAR VND 164,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein",
+    "contains_dairy"
+  ],
+  "category": "Main Course",
+  "subcategory": "Mutton Curry",
+  "description": "Rich and creamy mutton curry cooked in tomato-cashew gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Mutton", "Tomato", "Cream", "Cashew", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 720,
+    "protein_g": 42
+  },
+  "taste_profile": {
+    "flavor": "Rich, creamy and mildly spicy",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true,
+    "iron_rich": true,
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_182",
+  "item_number": 182,
+  "item_name": "Fish Curry",
+  "section": "MUTTON",
+  "price": 144000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "182. FISH CURRY VND 144,000 Boneless cubes of fish cooked in north indian style with plenty of spices",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "seafood",
+    "high_protein",
+    "omega_3_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Fish Curry",
+  "description": "Boneless fish cubes cooked in North Indian spiced gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Fish", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 420,
+    "protein_g": 38
+  },
+  "taste_profile": {
+    "flavor": "Savory and aromatic",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true,
+    "heart_healthy": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_183",
+  "item_number": 183,
+  "item_name": "Fish Masala",
+  "section": "MUTTON",
+  "price": 154000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "183. FISH MASALA VND 154,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "seafood",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Fish Curry",
+  "description": "Fish cooked in thick onion-tomato masala gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Fish", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 450,
+    "protein_g": 39
+  },
+  "taste_profile": {
+    "flavor": "Rich and mildly spicy",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_184",
+  "item_number": 184,
+  "item_name": "Fish Amritsari Curry",
+  "section": "MUTTON",
+  "price": 144000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "184. FISH AMRITSARI CURRY VND 144,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "seafood",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Fish Curry",
+  "description": "Punjabi-style fish curry with bold spices and tangy flavor.",
+  "serving_size": "350g",
+  "ingredients": ["Fish", "Ginger", "Garlic", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 460,
+    "protein_g": 38
+  },
+  "taste_profile": {
+    "flavor": "Spicy and tangy",
+    "spice_level": "Medium-High"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_185",
+  "item_number": 185,
+  "item_name": "Kashmiri Fish Curry",
+  "section": "MUTTON",
+  "price": 164000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "185. KASHMIRI FISH CURRY VND 164,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "seafood",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Fish Curry",
+  "description": "Fish cooked in aromatic Kashmiri style gravy with mild spices.",
+  "serving_size": "350g",
+  "ingredients": ["Fish", "Yogurt", "Kashmiri chili", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 470,
+    "protein_g": 37
+  },
+  "taste_profile": {
+    "flavor": "Aromatic and mildly spicy",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true,
+    "heart_healthy": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_186",
+  "item_number": 186,
+  "item_name": "Prawn Curry",
+  "section": "MUTTON",
+  "price": 154000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "186. PRAWN CURRY VND 154,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "seafood",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Prawn Curry",
+  "description": "Juicy prawns cooked in traditional Indian curry gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Prawns", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 440,
+    "protein_g": 40
+  },
+  "taste_profile": {
+    "flavor": "Savory and slightly sweet",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true,
+    "low_fat": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_187",
+  "item_number": 187,
+  "item_name": "Prawn Masala",
+  "section": "MUTTON",
+  "price": 164000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "187. PRAWN MASALA VND 164,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "seafood",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Prawn Curry",
+  "description": "Prawns cooked in thick masala gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Prawns", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 460,
+    "protein_g": 41
+  },
+  "taste_profile": {
+    "flavor": "Rich and mildly spicy",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_188",
+  "item_number": 188,
+  "item_name": "Kadahi Prawns",
+  "section": "MUTTON",
+  "price": 164000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "188. KADAHI PRAWNS VND 164,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "seafood",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Prawn Curry",
+  "description": "Prawns cooked with capsicum and onions in kadahi masala.",
+  "serving_size": "350g",
+  "ingredients": ["Prawns", "Capsicum", "Onion", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 470,
+    "protein_g": 40
+  },
+  "taste_profile": {
+    "flavor": "Bold and spicy",
+    "spice_level": "Medium-High"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_189",
+  "item_number": 189,
+  "item_name": "Palak Prawns",
+  "section": "MUTTON",
+  "price": 154000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "189. PALAK PRAWNS VND 154,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "seafood",
+    "high_protein",
+    "iron_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Prawn Curry",
+  "description": "Prawns cooked with fresh spinach gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Prawns", "Spinach", "Garlic", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 430,
+    "protein_g": 39
+  },
+  "taste_profile": {
+    "flavor": "Earthy and mildly spiced",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true,
+    "iron_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_190",
+  "item_number": 190,
+  "item_name": "Prawn Butter Masala",
+  "section": "MUTTON",
+  "price": 164000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "190. PRAWN BUTTER MASALA VND 164,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "seafood",
+    "high_protein",
+    "contains_dairy"
+  ],
+  "category": "Main Course",
+  "subcategory": "Prawn Curry",
+  "description": "Prawns cooked in rich buttery tomato cream gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Prawns", "Butter", "Tomato", "Cream", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 520,
+    "protein_g": 41
+  },
+  "taste_profile": {
+    "flavor": "Rich, creamy and mildly sweet",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true,
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_191",
+  "item_number": 191,
+  "item_name": "Egg Bhurji - A Traditional Punjabi Quickie",
+  "section": "MUTTON",
+  "price": 74000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "191. EGG BHURJI - A TRADITIONAL PUNJABI QUICKIE VND 74,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Egg Dish",
+  "description": "Scrambled eggs cooked with onions, tomatoes and Punjabi spices.",
+  "serving_size": "300g",
+  "ingredients": ["Eggs", "Onion", "Tomato", "Green chili", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 380,
+    "protein_g": 26
+  },
+  "taste_profile": {
+    "flavor": "Spicy and savory",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_192",
+  "item_number": 192,
+  "item_name": "Egg Curry",
+  "section": "MUTTON",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "192. EGG CURRY VND 94,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Egg Dish",
+  "description": "Boiled eggs simmered in traditional Indian curry gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Eggs", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 420,
+    "protein_g": 28
+  },
+  "taste_profile": {
+    "flavor": "Savory and mildly spicy",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_193",
+  "item_number": 193,
+  "item_name": "Egg Masala",
+  "section": "MUTTON",
+  "price": 104000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "193. EGG MASALA VND 104,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Egg Dish",
+  "description": "Eggs cooked in thick onion-tomato masala gravy.",
+  "serving_size": "350g",
+  "ingredients": ["Eggs", "Onion", "Tomato", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 450,
+    "protein_g": 30
+  },
+  "taste_profile": {
+    "flavor": "Rich and spicy",
+    "spice_level": "Medium-High"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_195",
+  "item_number": 195,
+  "item_name": "Mix Vegetable Pulao",
+  "section": "MUTTON",
+  "price": 84000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "195. MIX VEGETABLE PULAO VND 84,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "carbs_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Rice Dish",
+  "description": "Basmati rice cooked with mixed vegetables and mild spices.",
+  "serving_size": "400g",
+  "ingredients": ["Rice", "Carrot", "Beans", "Peas", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 480,
+    "protein_g": 10
+  },
+  "taste_profile": {
+    "flavor": "Mild and aromatic",
+    "spice_level": "Low"
+  },
+  "health_information": {
+    "carbohydrate_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_196",
+  "item_number": 196,
+  "item_name": "Green Peas Pulao",
+  "section": "MUTTON",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "196. GREEN PEAS PULAO VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "carbs_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Rice Dish",
+  "description": "Fragrant basmati rice cooked with green peas and mild spices.",
+  "serving_size": "400g",
+  "ingredients": ["Rice", "Green peas", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 460,
+    "protein_g": 11
+  },
+  "taste_profile": {
+    "flavor": "Mild and slightly sweet",
+    "spice_level": "Low"
+  },
+  "health_information": {
+    "carbohydrate_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_197",
+  "item_number": 197,
+  "item_name": "Jeera Rice",
+  "section": "MUTTON",
+  "price": 94000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "197. JEERA RICE VND 94,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "carbs_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Rice Dish",
+  "description": "Basmati rice tempered with cumin seeds and ghee.",
+  "serving_size": "400g",
+  "ingredients": ["Rice", "Cumin seeds", "Ghee"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 450,
+    "protein_g": 9
+  },
+  "taste_profile": {
+    "flavor": "Aromatic and mild",
+    "spice_level": "Low"
+  },
+  "health_information": {
+    "carbohydrate_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_198",
+  "item_number": 198,
+  "item_name": "Daal Khicdi",
+  "section": "MUTTON",
+  "price": 114000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "198. DAAL KHICDI VND 114,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "comfort_food",
+    "high_protein"
+  ],
+  "category": "Main Course",
+  "subcategory": "Rice Dish",
+  "description": "Rice and lentils cooked together into soft comforting khichdi.",
+  "serving_size": "400g",
+  "ingredients": ["Rice", "Lentils", "Turmeric", "Ghee"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 500,
+    "protein_g": 15
+  },
+  "taste_profile": {
+    "flavor": "Mild and comforting",
+    "spice_level": "Low"
+  },
+  "health_information": {
+    "easy_to_digest": true,
+    "balanced_meal": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_199",
+  "item_number": 199,
+  "item_name": "Plain Steamed Rice",
+  "section": "MUTTON",
+  "price": 40000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "199. PLAIN STEAMED RICE VND 40,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "carbs_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Rice Dish",
+  "description": "Simple steamed white rice.",
+  "serving_size": "400g",
+  "ingredients": ["Rice"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 420,
+    "protein_g": 8
+  },
+  "taste_profile": {
+    "flavor": "Neutral",
+    "spice_level": "None"
+  },
+  "health_information": {
+    "carbohydrate_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_200",
+  "item_number": 200,
+  "item_name": "Vegetable Fried Rice",
+  "section": "MUTTON",
+  "price": 114000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "200. VEGETABLE FRIED RICE VND 114,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "carbs_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Rice Dish",
+  "description": "Stir-fried rice with mixed vegetables and Indo-Chinese flavors.",
+  "serving_size": "400g",
+  "ingredients": ["Rice", "Carrot", "Beans", "Capsicum", "Soy sauce"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 520,
+    "protein_g": 12
+  },
+  "taste_profile": {
+    "flavor": "Savory and mildly spicy",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "carbohydrate_rich": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+{
+  "id": "item_201",
+  "item_number": 201,
+  "item_name": "Chicken Biryani",
+  "section": "MUTTON",
+  "price": 164000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "201. CHICKEN BIRYANI VND 164,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein",
+    "carbs_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Biryani",
+  "description": "Fragrant basmati rice layered with spiced chicken and dum cooked.",
+  "serving_size": "450g",
+  "ingredients": ["Basmati rice", "Chicken", "Yogurt", "Spices", "Ghee"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 750,
+    "protein_g": 42
+  },
+  "taste_profile": {
+    "flavor": "Aromatic and spicy",
+    "spice_level": "Medium-High"
+  },
+  "health_information": {
+    "high_protein": true,
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_202",
+  "item_number": 202,
+  "item_name": "Mutton Biryani",
+  "section": "MUTTON",
+  "price": 194000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "202. MUTTON BIRYANI VND 194,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein",
+    "carbs_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Biryani",
+  "description": "Premium basmati rice layered with tender mutton and aromatic spices.",
+  "serving_size": "450g",
+  "ingredients": ["Basmati rice", "Mutton", "Yogurt", "Spices", "Ghee"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 850,
+    "protein_g": 45
+  },
+  "taste_profile": {
+    "flavor": "Rich and aromatic",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true,
+    "iron_rich": true,
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_203",
+  "item_number": 203,
+  "item_name": "Fish Biryani",
+  "section": "MUTTON",
+  "price": 164000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "203. FISH BIRYANI VND 164,000 Premium long grain fragrant basmati rice cooked with ghee, cumin, cloves",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "seafood",
+    "high_protein",
+    "carbs_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Biryani",
+  "description": "Fragrant basmati rice cooked with spiced boneless fish pieces.",
+  "serving_size": "450g",
+  "ingredients": ["Basmati rice", "Fish", "Ghee", "Spices"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 720,
+    "protein_g": 40
+  },
+  "taste_profile": {
+    "flavor": "Aromatic and mildly spicy",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true,
+    "heart_healthy": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_204",
+  "item_number": 204,
+  "item_name": "Prawn Biryani",
+  "section": "MUTTON",
+  "price": 184000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "204. PRAWN BIRYANI VND 184,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "seafood",
+    "high_protein",
+    "carbs_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Biryani",
+  "description": "Aromatic basmati rice layered with juicy prawns and spices.",
+  "serving_size": "450g",
+  "ingredients": ["Basmati rice", "Prawns", "Spices", "Ghee"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 760,
+    "protein_g": 43
+  },
+  "taste_profile": {
+    "flavor": "Savory and aromatic",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_205",
+  "item_number": 205,
+  "item_name": "Egg Biryani",
+  "section": "MUTTON",
+  "price": 124000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "205. EGG BIRYANI VND 124,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein",
+    "carbs_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Biryani",
+  "description": "Fragrant rice cooked with boiled eggs and spices.",
+  "serving_size": "450g",
+  "ingredients": ["Basmati rice", "Eggs", "Spices", "Ghee"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 700,
+    "protein_g": 32
+  },
+  "taste_profile": {
+    "flavor": "Aromatic and mildly spicy",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_206",
+  "item_number": 206,
+  "item_name": "Egg Fried Rice",
+  "section": "MUTTON",
+  "price": 124000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "206. EGG FRIED RICE VND 124,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein",
+    "carbs_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Fried Rice",
+  "description": "Stir-fried rice with scrambled egg and Indo-Chinese flavors.",
+  "serving_size": "400g",
+  "ingredients": ["Rice", "Egg", "Vegetables", "Soy sauce"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 650,
+    "protein_g": 24
+  },
+  "taste_profile": {
+    "flavor": "Savory and mildly spicy",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_207",
+  "item_number": 207,
+  "item_name": "Chicken Fried Rice",
+  "section": "MUTTON",
+  "price": 144000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "207. CHICKEN FRIED RICE VND 144,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "high_protein",
+    "carbs_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Fried Rice",
+  "description": "Fried rice tossed with chicken pieces and vegetables.",
+  "serving_size": "400g",
+  "ingredients": ["Rice", "Chicken", "Vegetables", "Soy sauce"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 720,
+    "protein_g": 36
+  },
+  "taste_profile": {
+    "flavor": "Savory and spicy",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_208",
+  "item_number": 208,
+  "item_name": "Prawn Fried Rice",
+  "section": "MUTTON",
+  "price": 164000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "208. PRAWN FRIED RICE VND 164,000",
+  "tags": [
+    "non-vegetarian",
+    "food",
+    "seafood",
+    "high_protein",
+    "carbs_rich"
+  ],
+  "category": "Main Course",
+  "subcategory": "Fried Rice",
+  "description": "Fried rice tossed with juicy prawns and vegetables.",
+  "serving_size": "400g",
+  "ingredients": ["Rice", "Prawns", "Vegetables", "Soy sauce"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 740,
+    "protein_g": 38
+  },
+  "taste_profile": {
+    "flavor": "Savory and aromatic",
+    "spice_level": "Medium"
+  },
+  "health_information": {
+    "high_protein": true
+  },
+  "metadata": {
+    "is_hot": true
+  }
+},
+
+{
+  "id": "item_209",
+  "item_number": 209,
+  "item_name": "Gulab Jamun",
+  "section": "MUTTON",
+  "price": 74000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "209. GULAB JAMUN VND 74,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "dessert",
+    "contains_dairy",
+    "contains_sugar"
+  ],
+  "category": "Dessert",
+  "subcategory": "Indian Sweet",
+  "description": "Deep-fried milk dumplings soaked in sugar syrup.",
+  "serving_size": "2 pieces",
+  "ingredients": ["Milk solids", "Sugar syrup", "Cardamom"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 380,
+    "protein_g": 6
+  },
+  "taste_profile": {
+    "flavor": "Sweet and rich",
+    "spice_level": "None"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+
+{
+  "id": "item_210",
+  "item_number": 210,
+  "item_name": "Rava Kesari",
+  "section": "MUTTON",
+  "price": 84000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "210. RAVA KESARI VND 84,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "dessert",
+    "contains_dairy",
+    "contains_sugar"
+  ],
+  "category": "Dessert",
+  "subcategory": "Indian Sweet",
+  "description": "Semolina dessert cooked with ghee, sugar and saffron.",
+  "serving_size": "200g",
+  "ingredients": ["Semolina", "Sugar", "Ghee", "Saffron", "Cashew"],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 420,
+    "protein_g": 7
+  },
+  "taste_profile": {
+    "flavor": "Sweet and aromatic",
+    "spice_level": "None"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": false
+  }
+},
+{
+  "id": "item_211",
+  "item_number": 211,
+  "item_name": "Payasam Of The Day",
+  "section": "MUTTON",
+  "price": 64000.0,
+  "currency": "VND",
+  "source": "saigon.pdf",
+  "raw_text": "211. PAYASAM OF THE DAY VND 64,000",
+  "tags": [
+    "vegetarian",
+    "food",
+    "dessert",
+    "contains_dairy",
+    "contains_sugar",
+    "comfort_food"
+  ],
+  "category": "Dessert",
+  "subcategory": "Indian Sweet",
+  "description": "Traditional South Indian milk-based pudding that varies daily (may include vermicelli, rice, jaggery, or lentils).",
+  "serving_size": "200ml",
+  "ingredients": [
+    "Milk",
+    "Sugar or jaggery",
+    "Cardamom",
+    "Nuts",
+    "Vermicelli or rice (varies)"
+  ],
+  "nutrition_per_serving_approx": {
+    "calories_kcal": 320,
+    "protein_g": 8
+  },
+  "taste_profile": {
+    "flavor": "Sweet and aromatic",
+    "spice_level": "None"
+  },
+  "health_information": {
+    "energy_dense": true
+  },
+  "metadata": {
+    "is_hot": true,
+    "dynamic_item": true
+  }
+}
+
+
+]
