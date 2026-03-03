@@ -1,0 +1,1101 @@
+[
+    {
+        "query": "what's your spiciest non-veg dish?",
+        "expected" :{
+            "query": "what's your spiciest non-veg dish?",
+            "response": "Namaste! 🌶️ If you’re looking for our spiciest non-vegetarian dish, I would highly recommend Chicken Pepper Dry. It’s bold, fiery, and loaded with crushed black pepper and aromatic Indian spices — perfect for guests who truly enjoy strong heat. You can also try Fish Chilly, which is tangy, spicy, and cooked Indo-Chinese style with green chillies and garlic for an extra kick. Both are excellent choices if you love intense flavors. Would you prefer a dry spicy dish or something with gravy?",
+            "items": [
+              {
+                "name": "Chicken Pepper Dry",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "134000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "spicy",
+                  "high_protein"
+                ]
+              },
+              {
+                "name": "Fish Chilly",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "154000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "seafood",
+                  "spicy"
+                ]
+              },
+              {
+                "name": "Egg Chilly",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "104000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "spicy"
+                ]
+              }
+            ],
+            "retrieved_count": 3,
+            "intent": {
+              "intent_type": "menu_recommendation",
+              "confidence": 0.97,
+              "category": "menu",
+              "entities": {
+                "diet": "non-vegetarian",
+                "taste": "spicy"
+              },
+              "requires_clarification": false
+            }
+          },
+        "current_response":{
+            "query": "what's your spiciest non-veg dish?",
+            "response": "I'm I'm sorry developed by based on its architecture, I don't have real-time access to current events or data such as menu items in restaurants like Saigon Indian Restaurant do not provide this information directly from their website due to privacy and security reasons. However, if you are looking for a spiciest non-veg dish at your restaurant (assuming the dishes have been cooked properly), I would recommend checking out other reviews or ratings online as they may give more specific details about each item in relation with its taste profile such as heat levels and preparation methods. Please note that this information is only provided for educational purposes, not commercial use due to privacy concerns related to restaurant data accessibility from third-party sources like the website of Saigon Indian Restaurant mentioned above. Always make sure you have permission before accessing or using any personal data in a real world scenario such as restaurants' websites and menus databases.",
+            "items": [
+              {
+                "name": "Egg Chilly",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "104000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "spicy"
+                ]
+              },
+              {
+                "name": "Indian Non Veg Set Lunch (Limited)",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": null,
+                "currency": null,
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "combo_meal",
+                  "contains_dairy",
+                  "contains_gluten"
+                ]
+              },
+              {
+                "name": "Paneer/Mushroom/Gobi/Babycorn – Chilly",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "114000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "spicy"
+                ]
+              },
+              {
+                "name": "Fish Chilly",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "154000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "seafood",
+                  "spicy"
+                ]
+              }
+            ],
+            "retrieved_count": 4,
+            "intent": {
+              "intent_type": "menu_recommendation",
+              "confidence": 0.85,
+              "category": "menu",
+              "entities": {},
+              "requires_clarification": false
+            }
+          }
+    },
+    {
+        "query": "What do you recommend today?",
+        "expected" :{
+            "query": "What do you recommend today?",
+            "response": "Namaste! 🌟 If you're asking for my recommendation today, I would love to suggest a beautiful combination that many of our guests truly enjoy. For a rich and flavorful experience, you can start with Chicken Hariyali Tikka — it’s aromatic, mildly spiced, and grilled to perfection in our tandoor. For the main course, our Chicken Biryani is always a favorite — fragrant basmati rice cooked with traditional spices and tender chicken. If you prefer something vegetarian, Paneer Butter Masala paired with Butter Naan makes a comforting and satisfying choice. And to finish on a sweet note, Gulab Jamun is always a delightful treat. Would you like something spicy, creamy, or light today?",
+            "items": [
+              {
+                "name": "Chicken Hariyali Tikka",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "134000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "tandoori",
+                  "grilled",
+                  "high_protein"
+                ]
+              },
+              {
+                "name": "Chicken Biryani",
+                "section": "MUTTON",
+                "price": "164000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "high_protein",
+                  "carbs_rich"
+                ]
+              },
+              {
+                "name": "Paneer Butter Masala",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "104000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "creamy",
+                  "contains_dairy"
+                ]
+              },
+              {
+                "name": "Butter Naan",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "48000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "contains_gluten"
+                ]
+              },
+              {
+                "name": "Gulab Jamun",
+                "section": "MUTTON",
+                "price": "74000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "dessert",
+                  "contains_dairy"
+                ]
+              }
+            ],
+            "retrieved_count": 5,
+            "intent": {
+              "intent_type": "menu_recommendation",
+              "confidence": 0.96,
+              "category": "menu",
+              "entities": {},
+              "requires_clarification": false
+            }
+          },
+        "current_response":{
+            "query": "What do you recommend today?",
+            "response": "I'm sorry but your request is not clear enough to provide an appropriate answer based on it alone, as there are no details about what kind of food or restaurant you want recommendations for today in Ho Chi Minh City (Vietnam). Could you please specify more information such as the type of dishes/restaurants that match with this query?\n",
+            "items": [
+              {
+                "name": "Payasam Of The Day",
+                "section": "MUTTON",
+                "price": "64000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "dessert",
+                  "contains_dairy",
+                  "contains_sugar",
+                  "comfort_food"
+                ]
+              },
+              {
+                "name": "Ellu Poondu Podi Button Idly",
+                "section": "BREAKFAST",
+                "price": null,
+                "currency": null,
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "traditional",
+                  "fermented"
+                ]
+              },
+              {
+                "name": "Idly",
+                "section": "BREAKFAST",
+                "price": null,
+                "currency": null,
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "traditional",
+                  "fermented"
+                ]
+              },
+              {
+                "name": "Kesari Bath",
+                "section": "BREAKFAST",
+                "price": null,
+                "currency": null,
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "traditional",
+                  "contains_dairy",
+                  "contains_gluten"
+                ]
+              }
+            ],
+            "retrieved_count": 4,
+            "intent": {
+              "intent_type": "menu_recommendation",
+              "confidence": 0.85,
+              "category": "menu",
+              "entities": {},
+              "requires_clarification": false
+            }
+          }
+    },
+    {
+        "query": "Something spicy please.",
+        "expected" :{
+            "query": "Something spicy please.",
+            "response": "Namaste! 🌶️ If you're in the mood for something spicy, I have some bold and flavorful options for you. For a fiery non-vegetarian choice, Chicken Pepper Dry is a fantastic pick — it’s packed with crushed black pepper and aromatic Indian spices for a strong heat kick. If you prefer seafood, Fish Chilly is tangy, spicy, and cooked Indo-Chinese style with green chillies and garlic. For a vegetarian spicy option, Paneer/Mushroom/Gobi/Babycorn – Chilly delivers a delicious punch with vibrant flavors. Would you like it dry and intense, or spicy with gravy?",
+            "items": [
+              {
+                "name": "Chicken Pepper Dry",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "134000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "spicy",
+                  "high_protein"
+                ]
+              },
+              {
+                "name": "Fish Chilly",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "154000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "seafood",
+                  "spicy"
+                ]
+              },
+              {
+                "name": "Paneer/Mushroom/Gobi/Babycorn – Chilly",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "114000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "spicy"
+                ]
+              }
+            ],
+            "retrieved_count": 3,
+            "intent": {
+              "intent_type": "menu_recommendation",
+              "confidence": 0.95,
+              "category": "menu",
+              "entities": {
+                "taste": "spicy"
+              },
+              "requires_clarification": false
+            }
+          },
+        "current_response":{
+            "query": "Something spicy please.",
+            "response": "I'm I'm sorry developed by based on its deep learning algorithmic system, I don't have access to real-time databases or external systems such as your restaurant database for this specific request of \"Something spicy\". My main function is to provide information and answer questions related directly with the technology. However, if you are looking specifically about something like Indian cuisine (like Spices), I can certainly help explain how they work in a nutshell: Spice refers to the subtlety or characteristic that makes an ingredient taste better than others do at first sight - it's what gives flavors their unique character. In India, spicy foods are usually served with hot curries and biryani which have been marinated for hours on one side before being cooked in a pan (hot oil).",
+            "items": [
+              {
+                "name": "Egg Chilly",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "104000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "spicy"
+                ]
+              },
+              {
+                "name": "Paneer/Mushroom/Gobi/Babycorn – Chilly",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "114000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "spicy"
+                ]
+              },
+              {
+                "name": "Paneer/Mushroom/Gobi/Babycorn – Pepper Dry",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "114000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "spiced"
+                ]
+              },
+              {
+                "name": "Chilly Chicken",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "134000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "spicy"
+                ]
+              }
+            ],
+            "retrieved_count": 4,
+            "intent": {
+              "intent_type": "menu_search",
+              "confidence": 0.85,
+              "category": "menu",
+              "entities": {},
+              "requires_clarification": false
+            }
+          }
+    },
+    {
+        "query": "I feel like eating biryani — what do you have?",
+        "expected" :{
+            "query": "I feel like eating biryani — what do you have?",
+            "response": "Namaste! 🍛 If you're craving biryani, you’re in for something special today. We have a wonderful selection of aromatic biryanis cooked with long-grain basmati rice and authentic Indian spices. You can enjoy Chicken Biryani or Fish Biryani at 164,000 VND each — both rich, flavorful, and perfectly balanced. If you love tender red meat, Mutton Biryani at 194,000 VND is a hearty and indulgent choice. For something lighter, Egg Biryani at 124,000 VND is comforting and satisfying. Each biryani is a complete meal on its own. Would you prefer chicken, mutton, seafood, or egg today?",
+            "items": [
+              {
+                "name": "Chicken Biryani",
+                "section": "MUTTON",
+                "price": "164000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "high_protein",
+                  "carbs_rich"
+                ]
+              },
+              {
+                "name": "Fish Biryani",
+                "section": "MUTTON",
+                "price": "164000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "seafood",
+                  "high_protein",
+                  "carbs_rich"
+                ]
+              },
+              {
+                "name": "Mutton Biryani",
+                "section": "MUTTON",
+                "price": "194000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "high_protein",
+                  "carbs_rich"
+                ]
+              },
+              {
+                "name": "Egg Biryani",
+                "section": "MUTTON",
+                "price": "124000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "high_protein",
+                  "carbs_rich"
+                ]
+              }
+            ],
+            "retrieved_count": 4,
+            "intent": {
+              "intent_type": "menu_recommendation",
+              "confidence": 0.98,
+              "category": "menu",
+              "entities": {
+                "dish_type": "biryani"
+              },
+              "requires_clarification": false
+            }
+          },
+        "current_response":{
+            "query": "I feel like eating biryani — what do you have?",
+            "response": "I'm I'm sorry developed by ChikenAI based on language models like GPT3, I don't have real-time access to databases or external systems such as food delivery apps for personalized recommendations of biryani items in Ho Chi Minh City (Vietnam). My main function is to provide information and answer questions related to computer science.",
+            "items": [
+              {
+                "name": "Fish Biryani",
+                "section": "MUTTON",
+                "price": "164000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "seafood",
+                  "high_protein",
+                  "carbs_rich"
+                ]
+              },
+              {
+                "name": "Egg Biryani",
+                "section": "MUTTON",
+                "price": "124000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "high_protein",
+                  "carbs_rich"
+                ]
+              },
+              {
+                "name": "Chicken Biryani",
+                "section": "MUTTON",
+                "price": "164000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "high_protein",
+                  "carbs_rich"
+                ]
+              }
+            ],
+            "retrieved_count": 3,
+            "intent": {
+              "intent_type": "menu_search",
+              "confidence": 0.85,
+              "category": "menu",
+              "entities": {},
+              "requires_clarification": false
+            }
+          }
+    },
+    {
+        "query": "Which chicken dish is popular here?",
+        "expected" :{
+            "query": "Which chicken dish is popular here?",
+            "response": "Namaste! 🍗 If you’re curious about a popular chicken dish at Saigon Indian Restaurant, our **Chicken Biryani** is a favorite among guests — fragrant basmati rice layered with tender chicken and aromatic spices. Another well-loved choice is **Chicken Hariyali Tikka**, marinated in green herbs and grilled in the tandoor for rich flavor. For something spicier, **Chicken Pepper Dry** offers bold heat and peppery kick. Which style of chicken dish are you in the mood for — biryani, tandoori, or spicy today?",
+            "items": [
+              {
+                "name": "Chicken Biryani",
+                "section": "MUTTON",
+                "price": "164000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "high_protein",
+                  "carbs_rich"
+                ]
+              },
+              {
+                "name": "Chicken Hariyali Tikka",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "134000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "tandoori",
+                  "grilled",
+                  "high_protein"
+                ]
+              },
+              {
+                "name": "Chicken Pepper Dry",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "134000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "spicy",
+                  "high_protein"
+                ]
+              }
+            ],
+            "retrieved_count": 3,
+            "intent": {
+              "intent_type": "menu_recommendation",
+              "confidence": 0.96,
+              "category": "menu",
+              "entities": {
+                "protein": "chicken"
+              },
+              "requires_clarification": false
+            }
+          },
+        "current_response":{
+            "query": "Which chicken dish is popular here?",
+            "response": "I'm I'm sorry developed by ChikenAI based on language models like GPT2, I don't have real-time access to databases or external systems such as restaurant menus and prices for specific locations (like Ho Chi Minh City). Therefore, the best information about which chicken dish is popular here can only be obtained through user interactions with our platform.",
+            "items": [
+              {
+                "name": "Chilly Chicken",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "134000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "spicy"
+                ]
+              },
+              {
+                "name": "Chicken Manchurian",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "134000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "fried"
+                ]
+              },
+              {
+                "name": "Chicken Biryani",
+                "section": "MUTTON",
+                "price": "164000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "high_protein",
+                  "carbs_rich"
+                ]
+              },
+              {
+                "name": "Chicken Fried Rice",
+                "section": "MUTTON",
+                "price": "144000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "high_protein",
+                  "carbs_rich"
+                ]
+              }
+            ],
+            "retrieved_count": 4,
+            "intent": {
+              "intent_type": "menu_recommendation",
+              "confidence": 0.85,
+              "category": "menu",
+              "entities": {},
+              "requires_clarification": false
+            }
+          }
+    },
+    {
+        "query": "Do you have something not too oily?",
+        "expected" :{
+            "query": "Do you have something not too oily?",
+            "response": "Namaste! 🌿 Yes, we do have lighter options that are not too oily. If you prefer something gentle and balanced, Palak Chicken is a great choice — it’s cooked with spinach-based gravy and is flavorful without being heavy. You can also try Fish Tikka, which is grilled in the tandoor rather than fried, making it lighter and high in protein. If you prefer vegetarian, Chana Masala is a wholesome option with moderate oil and rich in plant protein. Would you prefer chicken, seafood, or vegetarian today?",
+            "items": [
+              {
+                "name": "Palak Chicken",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "134000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "contains_spinach",
+                  "high_protein"
+                ]
+              },
+              {
+                "name": "Fish Tikka",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "144000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "seafood",
+                  "tandoori",
+                  "grilled",
+                  "high_protein"
+                ]
+              },
+              {
+                "name": "Chana Masala",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "94000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "plant_protein"
+                ]
+              }
+            ],
+            "retrieved_count": 3,
+            "intent": {
+              "intent_type": "menu_recommendation",
+              "confidence": 0.95,
+              "category": "menu",
+              "entities": {
+                "preference": "less_oily"
+              },
+              "requires_clarification": false
+            }
+          },
+        "current_response":{
+            "query": "Do you have something not too oily?",
+            "response": "I'm I'm sorry developed by based on their machine learning model, I don't have personal experiences or sensitivities like human beings do. Therefore, my responses are generated in accordance with general knowledge and best practices for natural language processing tasks such as matching items from a context query to provide helpful information about them according to the given instructions above without any specific preferences related to oily food queries.",
+            "items": [
+              {
+                "name": "Ghee Podi Thatte Idly",
+                "section": "BREAKFAST",
+                "price": null,
+                "currency": null,
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "traditional",
+                  "contains_dairy",
+                  "fermented"
+                ]
+              },
+              {
+                "name": "Ghee Podi Sambar Button Idly",
+                "section": "BREAKFAST",
+                "price": null,
+                "currency": null,
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "traditional",
+                  "contains_dairy",
+                  "fermented"
+                ]
+              },
+              {
+                "name": "Kesari Bath",
+                "section": "BREAKFAST",
+                "price": null,
+                "currency": null,
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "traditional",
+                  "contains_dairy",
+                  "contains_gluten"
+                ]
+              },
+              {
+                "name": "Ghee Podi Khara Bath",
+                "section": "BREAKFAST",
+                "price": null,
+                "currency": null,
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "traditional",
+                  "contains_dairy",
+                  "contains_gluten"
+                ]
+              }
+            ],
+            "retrieved_count": 4,
+            "intent": {
+              "intent_type": "menu_search",
+              "confidence": 0.85,
+              "category": "menu",
+              "entities": {},
+              "requires_clarification": false
+            }
+          }
+    },
+    {
+        "query": "What's good with naan?",
+        "expected" :{
+            "query": "What's good with naan?",
+            "response": "Namaste! 🫓 Naan pairs beautifully with rich and flavorful curries. If you enjoy creamy dishes, Paneer Butter Masala at 104,000 VND is a wonderful vegetarian choice — smooth, mildly spiced, and perfect for scooping with naan. For non-vegetarian lovers, Chicken Tikka Masala at 144,000 VND is a popular option with bold tomato-based gravy that complements naan perfectly. If you prefer something indulgent, Mutton Korma at 164,000 VND offers a rich and aromatic experience. Would you like something creamy, spicy, or mildly flavored with your naan today?",
+            "items": [
+              {
+                "name": "Paneer Butter Masala",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "104000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "creamy",
+                  "contains_dairy"
+                ]
+              },
+              {
+                "name": "Chicken Tikka Masala",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "144000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "creamy",
+                  "high_protein"
+                ]
+              },
+              {
+                "name": "Mutton Korma",
+                "section": "MUTTON",
+                "price": "164000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "rich",
+                  "high_protein"
+                ]
+              }
+            ],
+            "retrieved_count": 3,
+            "intent": {
+              "intent_type": "menu_recommendation",
+              "confidence": 0.97,
+              "category": "menu",
+              "entities": {
+                "dish_pairing": "naan"
+              },
+              "requires_clarification": false
+            }
+          },
+        "current_response":{
+            "query": "What's good with naan?",
+            "response": "Sure, here's an example of how you might respond to your question about good with naan in Chikki Restaurant (a popular Vietnamese restaurant):\n\n1. **Naan Burrito** - A traditional dish from South and North Vietnam, it is made by stir-frying a flour tortilla filled with ground beef or chicken for 3 minutes on the hot pan heat until well done then topped with your favorite condiments such as mayonnaise, ketchup.\n2. **Naan Pizza** - A popular dish in South and North Vietnam where it is made by combining dough of wheat flour mixed with water into a ball shape for 30 minutes at low temperature to knead the pizza then bake until golden brown on topping mayonnaise, ketchup or other condiments you prefer.\n3. **Naan Soup** - A soup dish from South and North Vietnam that is made by combining ground beef with vegetables (like broccoli) for 5 minutes in a hot pan heat then add your favorite condiment such as fish sauce to taste, it's perfect if served over rice or noodles.\n4. **Naan Steak**",
+            "items": [
+              {
+                "name": "Plain Naan",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "44000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "contains_gluten"
+                ]
+              },
+              {
+                "name": "Butter Naan",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "48000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "contains_gluten",
+                  "contains_dairy"
+                ]
+              },
+              {
+                "name": "Mixed Naan Basket",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "180000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "contains_gluten",
+                  "combo_meal"
+                ]
+              },
+              {
+                "name": "Butter Garlic Naan",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "57000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "contains_gluten",
+                  "contains_dairy"
+                ]
+              }
+            ],
+            "retrieved_count": 4,
+            "intent": {
+              "intent_type": "menu_search",
+              "confidence": 0.7,
+              "category": "menu",
+              "entities": {},
+              "requires_clarification": false
+            }
+          }
+    },
+    {
+        "query": "I want something filling.",
+        "expected" :{
+            "query": "I want something filling.",
+            "response": "Namaste! 🍛 If you’re looking for something truly filling and satisfying, I’d recommend our Chicken Biryani at 164,000 VND — it’s a complete meal with fragrant basmati rice and tender chicken, rich in flavor and very satisfying. If you prefer red meat, Mutton Biryani at 194,000 VND is hearty and indulgent. For a vegetarian option, Daal Khicdi at 114,000 VND is comforting, wholesome, and quite filling. Would you prefer chicken, mutton, or vegetarian today?",
+            "items": [
+              {
+                "name": "Chicken Biryani",
+                "section": "MUTTON",
+                "price": "164000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "high_protein",
+                  "carbs_rich"
+                ]
+              },
+              {
+                "name": "Mutton Biryani",
+                "section": "MUTTON",
+                "price": "194000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "high_protein",
+                  "carbs_rich"
+                ]
+              },
+              {
+                "name": "Daal Khicdi",
+                "section": "MUTTON",
+                "price": "114000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "carbs_rich",
+                  "comfort_food"
+                ]
+              }
+            ],
+            "retrieved_count": 3,
+            "intent": {
+              "intent_type": "menu_recommendation",
+              "confidence": 0.96,
+              "category": "menu",
+              "entities": {
+                "preference": "filling"
+              },
+              "requires_clarification": false
+            }
+          },
+        "current_response":{
+            "query": "I want something filling",
+            "response": "I'm sorry but your request is not clear enough to provide an appropriate answer in this case because there are no items mentioned or provided as part of my previous responses, so I can only give you general instructions on how should be filled out for each item from context matching a \"sweet\" query. \n\n1) If the relevant tags include sweetness (like sourdough bread), then mention all sweets that match this criteria in your response: Sweets like savory pancakes, cheesy burgers with fresh berries and crunchy tofu fried rice are examples. \n   2) If the relevant tags do not include sweetness (like plain bread), then mention all sweets that match this criteria in your response: Sweets like savory pancakes, cheesey burgers with fresh berries and crunchy tofu fried rice are examples. \n   3) If the relevant tags contain both sourdough (sweet bread made from a dough of wheat that has been sifted by hand or mixed in water until it becomes a batter, then kneaded into an oval shape for use as a sandwich biscuit",
+            "items": [
+              {
+                "name": "Idly",
+                "section": "BREAKFAST",
+                "price": null,
+                "currency": null,
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "traditional",
+                  "fermented"
+                ]
+              },
+              {
+                "name": "Stuffed Masala Kulcha",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "60000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "contains_gluten"
+                ]
+              },
+              {
+                "name": "Ellu Poondu Podi Button Idly",
+                "section": "BREAKFAST",
+                "price": null,
+                "currency": null,
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "traditional",
+                  "fermented"
+                ]
+              },
+              {
+                "name": "Mixed Vegetable",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "94000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food"
+                ]
+              }
+            ],
+            "retrieved_count": 4,
+            "intent": {
+              "intent_type": "menu_search",
+              "confidence": 0.85,
+              "category": "menu",
+              "entities": {},
+              "requires_clarification": false
+            }
+          }
+    },
+    {
+        "query": "Can you suggest something for dinner?",
+        "expected" :{
+            "query": "Can you suggest something for dinner?",
+            "response": "Namaste! 🌙 For a satisfying dinner, I would love to suggest a balanced and flavorful combination. You can start with Chicken Malai Tikka at 134,000 VND — it’s creamy, tender, and grilled beautifully in our tandoor. For the main course, Chicken Biryani at 164,000 VND is always a hearty and popular choice. If you prefer something with naan, Paneer Butter Masala at 104,000 VND pairs perfectly and offers a rich, comforting flavor. To end your meal on a sweet note, Gulab Jamun at 74,000 VND is a delightful dessert. Would you prefer a spicy dinner, something creamy, or a lighter option tonight?",
+            "items": [
+              {
+                "name": "Chicken Malai Tikka",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "134000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "tandoori",
+                  "creamy",
+                  "high_protein"
+                ]
+              },
+              {
+                "name": "Chicken Biryani",
+                "section": "MUTTON",
+                "price": "164000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "high_protein",
+                  "carbs_rich"
+                ]
+              },
+              {
+                "name": "Paneer Butter Masala",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "104000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "creamy",
+                  "contains_dairy"
+                ]
+              },
+              {
+                "name": "Gulab Jamun",
+                "section": "MUTTON",
+                "price": "74000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food",
+                  "dessert",
+                  "contains_dairy"
+                ]
+              }
+            ],
+            "retrieved_count": 4,
+            "intent": {
+              "intent_type": "menu_recommendation",
+              "confidence": 0.96,
+              "category": "menu",
+              "entities": {
+                "meal_time": "dinner"
+              },
+              "requires_clarification": false
+            }
+          },
+        "current_response":{
+            "query": "Can you suggest something for dinner?",
+            "response": "Sure, here's an example of how you might respond to your dinner-related question using all these instructions: \n\n1. Matched Items (Numbering):\n    - Item Name: Spicy Tofu with Vegetables 🌮🍅(Vegan)  \n      Section/Type: Main Course / Asian Style, Price $20 per portion    \n      ✔️Tags : Vegaian, Indian, Soy-based.   \n        \n    - Item Name: Stir Fry with Vegetables 🌮🍅(Vegan)  \n      Section/Type: Main Course / Asian Style , Price $20 per portion    \n      ✔️Tags : Vegaian, Indian  .   \n        \n2. Unmatched Items (Excluding Savory Dishes):\n    - Item Name: Vegetable Soup with Rice 🍚🥗  \n      Section/Type: Side Dish / Asian Style , Price $10 per portion    \n      ❌Tags : None  .        \n          \n3. Unmatched Items (",
+            "items": [
+              {
+                "name": "Mixed Vegetable",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "94000.0",
+                "currency": "VND",
+                "tags": [
+                  "vegetarian",
+                  "food"
+                ]
+              },
+              {
+                "name": "Egg Chilly",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "104000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "spicy"
+                ]
+              },
+              {
+                "name": "Fish Chilly",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "154000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "seafood",
+                  "spicy"
+                ]
+              },
+              {
+                "name": "Chilly Chicken",
+                "section": "MAIN COURSE VEG & NON-VEG",
+                "price": "134000.0",
+                "currency": "VND",
+                "tags": [
+                  "non-vegetarian",
+                  "food",
+                  "indo_chinese",
+                  "spicy"
+                ]
+              }
+            ],
+            "retrieved_count": 4,
+            "intent": {
+              "intent_type": "menu_recommendation",
+              "confidence": 0.85,
+              "category": "menu",
+              "entities": {},
+              "requires_clarification": false
+            }
+          }
+    },
+    
+]

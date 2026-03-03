@@ -40,6 +40,14 @@ class ResponseValidator:
             r'\bdeep\s+learning\b',
             r'\bmachine\s+learning\b',
             r'\bneural\s+network\b',
+            r'\bi\s+don\'t\s+have\s+(real-time\s+)?access\b',
+            r'\bdeveloped\s+by\b',
+            r'\bbased\s+on\s+language\s+models\b',
+            r'\bi\'m\s+sorry\s+developed\b',
+            r'\bthird-party\s+sources\b',
+            r'\bexternal\s+systems\b',
+            r'\bdatabase\s+access\b',
+            r'\bdon\'t\s+have\s+access\s+to\s+current\s+events\b',
         ]
         
         # Technical jargon that breaks persona

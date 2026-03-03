@@ -21,30 +21,44 @@ def parse_queries(file_path: Path) -> List[Dict]:
     current_category = None
     
     with open(file_path, 'r', encoding='utf-8') as f:
-        for line in f:
-            line = line.strip()
-            if not line or line.startswith('•'):
-                continue
-            
-            # Category headers
-            if line.startswith('🍛') or line.startswith('🌶') or line.startswith('🥦') or \
-               line.startswith('👨') or line.startswith('🍽') or line.startswith('🏨') or \
-               line.startswith('💬'):
-                current_category = line
-                continue
-            
-            # Query lines
-            if line.startswith('"') and line.endswith('"'):
-                query = line[1:-1]  # Remove quotes
-                queries.append({
-                    'query': query,
-                    'category': current_category or 'Unknown'
-                })
-            elif line.startswith('•'):
-                # Extract query from bullet point
+        content = f.read()
+    
+    # Split by lines
+    lines = content.split('\n')
+    
+    for line in lines:
+        original_line = line
+        line = line.strip()
+        if not line:
+            continue
+        
+        # Category headers (emoji + text)
+        if any(line.startswith(emoji) for emoji in ['🍛', '🌶', '🥦', '👨', '🍽', '🏨', '💬']):
+            current_category = line
+            continue
+        
+        # Query lines (bullet points with quotes) - handle various bullet characters
+        bullet_chars = ['•', '·', '-', '*']
+        is_bullet = any(line.startswith(char) for char in bullet_chars)
+        
+        if is_bullet:
+            # Extract query from bullet point
+            for bullet in bullet_chars:
+                if line.startswith(bullet):
+                    query = line[len(bullet):].strip()
+                    break
+            else:
                 query = line[1:].strip()
-                if query.startswith('"') and query.endswith('"'):
-                    query = query[1:-1]
+            
+            # Remove quotes if present (handle both regular and curly quotes)
+            # Remove from start
+            while query and query[0] in ['"', '"', '"', "'", "'"]:
+                query = query[1:]
+            # Remove from end
+            while query and query[-1] in ['"', '"', '"', "'", "'"]:
+                query = query[:-1]
+            
+            if query:  # Only add non-empty queries
                 queries.append({
                     'query': query,
                     'category': current_category or 'Unknown'
@@ -73,7 +87,7 @@ def test_intent_detection(queries: List[Dict]) -> Dict:
         query = item['query']
         category = item['category']
         
-        intent_result = classifier.classify(query)
+        intent_result = classifier.classify_intent(query)
         intent_type = intent_result.intent_type
         intent_category = intent_result.category
         confidence = intent_result.confidence

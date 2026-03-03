@@ -1,0 +1,65 @@
+🍛 Casual & Natural Requests
+
+• "What do you recommend today?"
+• "What's your best non-veg dish?"
+• "Something spicy please."
+• "I feel like eating biryani — what do you have?"
+• "Which chicken dish is popular here?"
+• "Do you have something not too oily?"
+• "What's good with naan?"
+• "I want something filling."
+• "Can you suggest something for dinner?"
+
+🌶 Spicy / Taste Preference Queries
+
+• "I want something really spicy."
+• "Can you make it extra spicy?"
+• "What's your spiciest non-veg dish?"
+• "Something with strong Indian masala."
+• "Not too spicy, medium please."
+• "Something rich and creamy."
+• "What's tangy and spicy?"
+
+🥦 Vegetarian / Non-Vegetarian Queries
+
+• "Show me vegetarian options."
+• "Any spicy veg starters?"
+• "What non-veg starters do you have?"
+• "Do you have egg dishes?"
+• "What's good in mutton?"
+• "Any seafood options?"
+• "Is this dish vegetarian?"
+
+👨‍👩‍👧 Family / Group Style Queries
+
+• "We're four people, what do you suggest?"
+• "Something kids will like."
+• "Best dish to share?"
+• "Combo meals available?"
+• "Set lunch options?"
+• "What goes well with butter naan?"
+
+🍽 Order-Like Requests
+
+• "I'll take something spicy with chicken."
+• "Give me one chicken biryani."
+• "Add one Fish Chilly."
+• "Make it less spicy."
+• "Can you suggest starters first?"
+
+🏨 Restaurant Information Queries
+
+• "What time do you close?"
+• "Where exactly are you located?"
+• "Can I reserve a table?"
+• "Do you do party bookings?"
+• "Is parking available?"
+• "Do you serve breakfast?"
+
+💬 Emotional / Mood-Based Queries
+
+• "I had a long day, suggest something comforting."
+• "I'm really hungry."
+• "Surprise me."
+• "Something special today?"
+• "Chef's recommendation?"

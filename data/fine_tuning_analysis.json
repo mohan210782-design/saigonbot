@@ -1,0 +1,403 @@
+{
+  "intent_results": {
+    "by_intent": {
+      "menu_recommendation": [
+        "What do you recommend today?",
+        "What's your best non-veg dish?",
+        "Which chicken dish is popular here?",
+        "Can you suggest something for dinner?",
+        "What's your spiciest non-veg dish?",
+        "Something with strong Indian masala.",
+        "What's good in mutton?",
+        "We're four people, what do you suggest?",
+        "Something kids will like.",
+        "Best dish to share?",
+        "Can you suggest starters first?",
+        "I had a long day, suggest something comforting.",
+        "I'm really hungry.",
+        "Surprise me.",
+        "Something special today?",
+        "Chef's recommendation?"
+      ],
+      "menu_search": [
+        "Something spicy please.",
+        "I feel like eating biryani — what do you have?",
+        "Do you have something not too oily?",
+        "What's good with naan?",
+        "I want something filling.",
+        "I want something really spicy.",
+        "Can you make it extra spicy?",
+        "Not too spicy, medium please.",
+        "Something rich and creamy.",
+        "What's tangy and spicy?",
+        "Show me vegetarian options.",
+        "Any spicy veg starters?",
+        "What non-veg starters do you have?",
+        "Do you have egg dishes?",
+        "Any seafood options?",
+        "Combo meals available?",
+        "Set lunch options?",
+        "What goes well with butter naan?",
+        "I'll take something spicy with chicken.",
+        "Give me one chicken biryani.",
+        "Add one Fish Chilly.",
+        "Make it less spicy."
+      ],
+      "menu_dietary": [
+        "Is this dish vegetarian?"
+      ],
+      "restaurant_hours": [
+        "What time do you close?",
+        "Do you serve breakfast?"
+      ],
+      "restaurant_location": [
+        "Where exactly are you located?"
+      ],
+      "service_reservation": [
+        "Can I reserve a table?"
+      ],
+      "service_event_booking": [
+        "Do you do party bookings?"
+      ],
+      "restaurant_parking": [
+        "Is parking available?"
+      ]
+    },
+    "misclassified": [
+      {
+        "query": "Can I reserve a table?",
+        "expected": "restaurant_info",
+        "got": "service",
+        "confidence": 0.9
+      },
+      {
+        "query": "Do you do party bookings?",
+        "expected": "restaurant_info",
+        "got": "service",
+        "confidence": 0.9
+      }
+    ],
+    "low_confidence": []
+  },
+  "retrieval_results": {
+    "zero_results": [],
+    "low_results": [],
+    "coverage_stats": {
+      "What do you recommend today?": {
+        "retrieved": 7,
+        "items": [
+          "Payasam Of The Day",
+          "Ellu Poondu Podi Button Idly",
+          "Idly"
+        ]
+      },
+      "What's your best non-veg dish?": {
+        "retrieved": 7,
+        "items": [
+          "Indian Non Veg Set Lunch (Limited)",
+          "Chicken Vindaloo",
+          "Garden Vegetable Salad"
+        ]
+      },
+      "Something spicy please.": {
+        "retrieved": 7,
+        "items": [
+          "Egg Chilly",
+          "Paneer/Mushroom/Gobi/Babycorn – Chilly",
+          "Paneer/Mushroom/Gobi/Babycorn – Pepper Dry"
+        ]
+      },
+      "I feel like eating biryani — what do you have?": {
+        "retrieved": 7,
+        "items": [
+          "Fish Biryani",
+          "Egg Biryani",
+          "Chicken Biryani"
+        ]
+      },
+      "Which chicken dish is popular here?": {
+        "retrieved": 7,
+        "items": [
+          "Chilly Chicken",
+          "Chicken Manchurian",
+          "Chicken Biryani"
+        ]
+      },
+      "Do you have something not too oily?": {
+        "retrieved": 7,
+        "items": [
+          "Ghee Podi Thatte Idly",
+          "Ghee Podi Sambar Button Idly",
+          "Kesari Bath"
+        ]
+      },
+      "What's good with naan?": {
+        "retrieved": 7,
+        "items": [
+          "Plain Naan",
+          "Butter Naan",
+          "Mixed Naan Basket"
+        ]
+      },
+      "I want something filling.": {
+        "retrieved": 7,
+        "items": [
+          "Idly",
+          "Stuffed Masala Kulcha",
+          "Mixed Vegetable"
+        ]
+      },
+      "Can you suggest something for dinner?": {
+        "retrieved": 7,
+        "items": [
+          "Mixed Vegetable",
+          "Egg Chilly",
+          "Fish Chilly"
+        ]
+      },
+      "I want something really spicy.": {
+        "retrieved": 7,
+        "items": [
+          "Chicken Pepper Dry",
+          "Egg Chilly",
+          "Paneer/Mushroom/Gobi/Babycorn – Chilly"
+        ]
+      },
+      "Can you make it extra spicy?": {
+        "retrieved": 7,
+        "items": [
+          "Egg Chilly",
+          "Paneer/Mushroom/Gobi/Babycorn – Chilly",
+          "Chicken Pepper Dry"
+        ]
+      },
+      "What's your spiciest non-veg dish?": {
+        "retrieved": 7,
+        "items": [
+          "Egg Chilly",
+          "Indian Non Veg Set Lunch (Limited)",
+          "Paneer/Mushroom/Gobi/Babycorn – Chilly"
+        ]
+      },
+      "Something with strong Indian masala.": {
+        "retrieved": 7,
+        "items": [
+          "Masala Chai",
+          "Masala Buttermilk",
+          "Masala Dosa"
+        ]
+      },
+      "Not too spicy, medium please.": {
+        "retrieved": 7,
+        "items": [
+          "Paneer/Mushroom/Gobi/Babycorn – Pepper Dry",
+          "Sweet Lassi",
+          "Paneer/Mushroom/Gobi/Babycorn – Chilly"
+        ]
+      },
+      "Something rich and creamy.": {
+        "retrieved": 7,
+        "items": [
+          "Masala Buttermilk",
+          "Sweet Lassi",
+          "Ghee Podi Thatte Idly"
+        ]
+      },
+      "What's tangy and spicy?": {
+        "retrieved": 7,
+        "items": [
+          "Egg Chilly",
+          "Paneer/Mushroom/Gobi/Babycorn – Chilly",
+          "Chicken Pepper Dry"
+        ]
+      },
+      "Show me vegetarian options.": {
+        "retrieved": 7,
+        "items": [
+          "Mixed Vegetable",
+          "Mixed Raita",
+          "Dahi"
+        ]
+      },
+      "Any spicy veg starters?": {
+        "retrieved": 7,
+        "items": [
+          "Paneer/Mushroom/Gobi/Babycorn – Chilly",
+          "Paneer/Mushroom/Gobi/Babycorn – Pepper Dry",
+          "Egg Chilly"
+        ]
+      },
+      "What non-veg starters do you have?": {
+        "retrieved": 7,
+        "items": [
+          "Indian Non Veg Set Lunch (Limited)",
+          "Boost",
+          "Lychee Nector Homemade Lychee Nectar/ Coriander/Lemon"
+        ]
+      },
+      "Do you have egg dishes?": {
+        "retrieved": 7,
+        "items": [
+          "Egg Curry",
+          "Egg Chilly",
+          "Set Dosa"
+        ]
+      },
+      "What's good in mutton?": {
+        "retrieved": 7,
+        "items": [
+          "Pepper Mutton",
+          "Mutton Rogan Josh",
+          "Daal Gosht"
+        ]
+      },
+      "Any seafood options?": {
+        "retrieved": 7,
+        "items": [
+          "Fish Chilly",
+          "Fish Curry",
+          "Fish Masala"
+        ]
+      },
+      "Is this dish vegetarian?": {
+        "retrieved": 7,
+        "items": [
+          "Idly",
+          "Mixed Raita",
+          "Mixed Vegetable"
+        ]
+      },
+      "We're four people, what do you suggest?": {
+        "retrieved": 7,
+        "items": [
+          "Ellu Poondu Podi Button Idly",
+          "Aloo Matter",
+          "7 Up/ Sprite/Pepsi/Coke/Mirinda/Fanta"
+        ]
+      },
+      "Something kids will like.": {
+        "retrieved": 7,
+        "items": [
+          "7 Up/ Sprite/Pepsi/Coke/Mirinda/Fanta",
+          "Ellu Poondu Podi Button Idly",
+          "Idly"
+        ]
+      },
+      "Best dish to share?": {
+        "retrieved": 7,
+        "items": [
+          "Appalam",
+          "Mixed Vegetable",
+          "Fish Chilly"
+        ]
+      },
+      "Combo meals available?": {
+        "retrieved": 7,
+        "items": [
+          "Indian Non Veg Set Lunch (Limited)",
+          "Mixed Vegetable",
+          "Mixed Naan Basket"
+        ]
+      },
+      "Set lunch options?": {
+        "retrieved": 7,
+        "items": [
+          "Indian Non Veg Set Lunch (Limited)",
+          "Set Dosa",
+          "Mysore Bonda"
+        ]
+      },
+      "What goes well with butter naan?": {
+        "retrieved": 7,
+        "items": [
+          "Butter Naan",
+          "Butter Garlic Naan",
+          "Mixed Naan Basket"
+        ]
+      },
+      "I'll take something spicy with chicken.": {
+        "retrieved": 7,
+        "items": [
+          "Chilly Chicken",
+          "Chicken Pepper Dry",
+          "Chicken Curry"
+        ]
+      },
+      "Give me one chicken biryani.": {
+        "retrieved": 7,
+        "items": [
+          "Chicken Biryani",
+          "Egg Biryani",
+          "Chicken Hariyali Tikka"
+        ]
+      },
+      "Add one Fish Chilly.": {
+        "retrieved": 7,
+        "items": [
+          "Fish Chilly",
+          "Fish Curry",
+          "Paneer/Mushroom/Gobi/Babycorn – Chilly"
+        ]
+      },
+      "Make it less spicy.": {
+        "retrieved": 7,
+        "items": [
+          "Egg Chilly",
+          "Paneer/Mushroom/Gobi/Babycorn – Chilly",
+          "Chicken Pepper Dry"
+        ]
+      },
+      "Can you suggest starters first?": {
+        "retrieved": 7,
+        "items": [
+          "Boost",
+          "Ellu Poondu Podi Button Idly",
+          "Set Dosa"
+        ]
+      },
+      "I had a long day, suggest something comforting.": {
+        "retrieved": 7,
+        "items": [
+          "Idly",
+          "Kesari Bath",
+          "Khara Bath"
+        ]
+      },
+      "I'm really hungry.": {
+        "retrieved": 7,
+        "items": [
+          "Chicken Fried Rice",
+          "Chicken Biryani",
+          "Egg Fried Rice"
+        ]
+      },
+      "Surprise me.": {
+        "retrieved": 7,
+        "items": [
+          "Ellu Poondu Podi Button Idly",
+          "Idly",
+          "Ghee Podi Sambar Button Idly"
+        ]
+      },
+      "Something special today?": {
+        "retrieved": 7,
+        "items": [
+          "Payasam Of The Day",
+          "Extra Podi",
+          "Ellu Poondu Podi Button Idly"
+        ]
+      },
+      "Chef's recommendation?": {
+        "retrieved": 7,
+        "items": [
+          "Fish Chilly",
+          "Paneer/Mushroom/Gobi/Babycorn – Chilly",
+          "Appalam"
+        ]
+      }
+    }
+  },
+  "recommendations": [
+    "INTENT: Add patterns for misclassified queries in intent_classifier.py"
+  ]
+}

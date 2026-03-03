@@ -243,15 +243,32 @@ class RAGPipeline:
         """Format retrieved items as context for LLM"""
         context_parts = []
         
-        for i, item in enumerate(items, 1):
+        for item in items:
             metadata = item['metadata']
-            doc = item['document']
+            item_name = metadata.get('item_name', 'Unknown')
+            section = metadata.get('section', 'Unknown')
+            price = metadata.get('price')
+            currency = metadata.get('currency', 'VND')
+            tags = metadata.get('tags', [])
+            
+            # Format price correctly (X,XXX VND)
+            price_str = "N/A"
+            if price is not None:
+                try:
+                    # Convert to int/float and format with commas
+                    price_num = float(price) if isinstance(price, str) else price
+                    price_str = f"{price_num:,.0f} {currency}".replace(',', ',')
+                except (ValueError, TypeError):
+                    price_str = f"{price} {currency}" if price else "N/A"
+            
+            # Format tags naturally
+            tags_str = ", ".join(tags) if tags else "N/A"
             
             context_parts.append(
-                f"{i}. {metadata.get('item_name', 'Unknown')}\n"
-                f"   Section: {metadata.get('section', 'Unknown')}\n"
-                f"   Price: {metadata.get('price', 'N/A')} {metadata.get('currency', '')}\n"
-                f"   Tags: {metadata.get('tags', 'N/A')}\n"
+                f"• {item_name}\n"
+                f"  Section: {section}\n"
+                f"  Price: {price_str}\n"
+                f"  Features: {tags_str}\n"
             )
         
         return "\n".join(context_parts)
@@ -280,6 +297,117 @@ class RAGPipeline:
         Returns the merged welcome message that should be shown only once per session.
         """
         return get_welcome_message()
+    
+    def _enhance_query_with_history(self, query: str, conversation_history: Optional[List[Dict]]) -> str:
+        """
+        Enhance query using conversation history for contextual understanding.
+        Example: "tell me more about that dish" → "tell me more about biryani" (if biryani was mentioned)
+        """
+        if not conversation_history:
+            return query
+        
+        query_lower = query.lower()
+        
+        # Check if query references previous conversation
+        contextual_keywords = ['that', 'this', 'it', 'the', 'previous', 'above', 'mentioned', 'you said']
+        is_contextual = any(keyword in query_lower for keyword in contextual_keywords)
+        
+        if not is_contextual:
+            return query
+        
+        # Extract dish names from previous user queries
+        dish_keywords = []
+        for msg in conversation_history[-4:]:  # Last 4 messages
+            if msg.get('role') == 'user':
+                content = msg.get('content', '').lower()
+                # Look for common dish-related words
+                dish_words = ['biryani', 'curry', 'tikka', 'naan', 'dosa', 'chicken', 'mutton', 'fish', 
+                             'prawn', 'paneer', 'vegetable', 'spicy', 'starter', 'main']
+                for word in dish_words:
+                    if word in content and word not in dish_keywords:
+                        dish_keywords.append(word)
+        
+        # If we found dish keywords, enhance the query
+        if dish_keywords:
+            enhanced = f"{query} {' '.join(dish_keywords)}"
+            print(f"   🔍 Enhanced contextual query: '{query}' → '{enhanced}'")
+            return enhanced
+        
+        return query
+    
+    def _sanitize_conversation_history(self, history: List[Dict]) -> List[Dict]:
+        """
+        Sanitize conversation history to prevent hallucination.
+        Only includes user queries, not full assistant responses.
+        This allows contextual understanding without copying wrong responses.
+        """
+        if not history:
+            return []
+        
+        sanitized = []
+        for msg in history:
+            if msg.get('role') == 'user':
+                # Include user queries - they provide context for understanding references
+                sanitized.append({
+                    "role": "user",
+                    "content": msg.get('content', '')
+                })
+            # Skip assistant messages - they can cause contamination
+            # The retrieved items in context are sufficient for generating responses
+        
+        return sanitized
+    
+    def _validate_response_intent(self, response: str, query: str, context: str) -> str:
+        """
+        Validate that response matches query intent and only mentions items from retrieved context.
+        Logs warnings and detects hallucinations.
+        """
+        query_lower = query.lower()
+        response_lower = response.lower()
+        
+        # Extract item names from context (these are the ONLY valid items)
+        import re
+        # Extract item names from context format: "• ItemName\n"
+        valid_items = re.findall(r'•\s+([^\n]+)', context)
+        valid_items_lower = [item.lower().strip() for item in valid_items]
+        
+        # Check for vegetarian query
+        is_vegetarian_query = any(word in query_lower for word in ['vegetarian', 'veg', 'vegan'])
+        
+        if is_vegetarian_query:
+            # Check if response mentions non-vegetarian items
+            non_veg_keywords = ['chicken', 'mutton', 'fish', 'prawn', 'seafood', 'non-veg', 'non vegetarian', 'meat', 'egg']
+            mentioned_non_veg = any(keyword in response_lower for keyword in non_veg_keywords)
+            
+            if mentioned_non_veg:
+                print(f"⚠️  VALIDATION FAILED: Response mentions non-vegetarian items for vegetarian query!")
+                print(f"   Query: {query}")
+                print(f"   Response mentions: {[kw for kw in non_veg_keywords if kw in response_lower]}")
+        
+        # Check for common hallucinated dishes that are often mentioned but not in retrieved items
+        hallucinated_dishes = {
+            'paneer butter masala': 'Paneer Butter Masala',
+            'paneer tikka': 'Paneer Tikka',
+            'chicken pepper dry': 'Chicken Pepper Dry',
+            'fish chilly': 'Fish Chilly',
+            'vegetable jalfrezi': 'Vegetable Jalfrezi'
+        }
+        
+        found_hallucinations = []
+        for dish_key, dish_name in hallucinated_dishes.items():
+            if dish_key in response_lower:
+                # Check if this dish is actually in the valid items
+                if dish_name.lower() not in valid_items_lower:
+                    found_hallucinations.append(dish_name)
+        
+        if found_hallucinations:
+            print(f"⚠️  VALIDATION FAILED: Response mentions dishes NOT in retrieved items!")
+            print(f"   Query: {query}")
+            print(f"   Valid items: {valid_items}")
+            print(f"   Hallucinated dishes: {found_hallucinations}")
+            print(f"   ⚠️  LLM is hallucinating - these dishes are not in the retrieved list!")
+        
+        return response
     
     def _build_system_prompt(self, context: str, conversation_history: Optional[List[Dict]] = None) -> str:
         """
@@ -317,7 +445,9 @@ You must NEVER say:
 • "I am an AI model"
 • "I was trained on a dataset"
 • "I don't have access"
-• "I apologize but..."
+• "I apologize" or "I'm sorry" (unless genuinely needed for a mistake)
+• "I apologize for any confusion"
+• "I apologize for my previous responses"
 • "As an AI model"
 • "As an AI"
 • "I'm an AI assistant"
@@ -330,6 +460,8 @@ You must NEVER say:
 • "As per instructions"
 • "I don't have personal data"
 • "I don't have access to current events"
+• "validation" or "validated"
+• "check against the list"
 
 You must NEVER mention:
 • JSON
@@ -393,11 +525,13 @@ WHEN RETRIEVED MENU ITEMS ARE PROVIDED
 
 If menu items are provided to you:
 
-• You MUST use them.
-• You MUST answer using only those items.
-• You MUST NOT ignore them.
-• You MUST NOT apologize.
-• You MUST NOT claim inability.
+• You MUST use them - mention them naturally in your response
+• You MUST answer using ONLY those items - never invent dishes
+• You MUST NOT ignore them - they are real menu items from Saigon Indian Restaurant
+• You MUST NOT apologize or claim inability
+• You MUST NOT say "I don't have access" - you have the menu items right here
+
+CRITICAL: The menu items provided ARE your knowledge. Use them directly. Do not say you don't have access to them.
 
 Only mention dishes that exist in the provided items.
 
@@ -410,17 +544,16 @@ If the user specifies dietary preference such as:
 You must prioritize items matching that preference.
 If mixed items are present, do not highlight items that contradict the user's request.
 
-Use exact item names.
-Show prices only if available.
-Format prices strictly as: X,XXX VND.
-Never convert currency.
-Never invent price.
-Never invent dishes.
+RESPONSE FORMAT:
+1. Start with "Namaste!" followed by an appropriate emoji
+2. Use exact item names from the provided menu items
+3. Format prices as: X,XXX VND (e.g., "164,000 VND" not "164000.0 VND")
+4. Describe items naturally - mention their key features (spicy, creamy, grilled, etc.)
+5. End with a warm follow-up question
+6. Never use technical numbering like (1), (2a), etc.
+7. Never display tags explicitly - incorporate them naturally in descriptions
 
-Do not display technical numbering like (1), (2a), etc.
-Do not display tags explicitly.
-
-Respond naturally and conversationally.
+Respond naturally and conversationally, like a friendly restaurant host would.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 WHEN NO MATCHING MENU ITEMS EXIST
@@ -525,13 +658,21 @@ CRITICAL: Only show this welcome message ONCE at the very beginning of a new con
                     })
         
         # Add current query with explicit instructions
-        user_prompt = f"""
-            Customer Question:
-            {query}
+        user_prompt = f"""Customer Question: {query}
 
-            Answer using ONLY the provided menu context.
-            List all matching items clearly.
-            """
+CRITICAL INSTRUCTIONS:
+1. Start with "Namaste!" followed by an appropriate emoji
+2. Use ONLY the menu items provided below - mention them naturally
+3. Format prices as: X,XXX VND (e.g., "164,000 VND")
+4. Describe items conversationally - mention key features
+5. End with a warm follow-up question
+6. NEVER say "I don't have access", "I'm an AI", or any AI disclaimers
+7. You ARE Chikku, a real hospitality assistant - speak as a human would
+
+Menu Items Available:
+{context}
+
+Respond naturally as Chikku."""
         messages.append({"role": "user", "content": user_prompt})
         
         try:
@@ -543,7 +684,8 @@ CRITICAL: Only show this welcome message ONCE at the very beginning of a new con
                 messages=messages,
                 options={
                     "num_predict": 500,
-                    "temperature": 0.7,
+                    "temperature": 0.4,
+                    "top_p": 0.9,
                     "num_ctx": 2048,
                 },
                 stream=True  # Enable streaming
@@ -587,26 +729,72 @@ CRITICAL: Only show this welcome message ONCE at the very beginning of a new con
         # Build messages with conversation history
         messages = [{"role": "system", "content": system_prompt}]
         
-        # Add conversation history (last few messages for context)
+        # Add sanitized conversation history (only user queries, not full assistant responses)
+        # This allows contextual understanding ("tell me more about that dish") without copying wrong responses
         if conversation_history:
-            for msg in conversation_history[-6:]:  # Last 6 messages for context
-                if msg.get('role') in ['user', 'assistant']:
+            # Only include last 3 turns (6 messages) to keep context focused
+            for msg in conversation_history[-6:]:
+                if msg.get('role') == 'user':
+                    # Include user queries - they provide context
                     messages.append({
-                        "role": msg['role'],
-                        "content": msg['content']
+                        "role": "user",
+                        "content": msg.get('content', '')
                     })
+                elif msg.get('role') == 'assistant':
+                    # Sanitize assistant responses - only include key info, not full response
+                    # This prevents LLM from copying entire responses
+                    assistant_content = msg.get('content', '')
+                    # Extract only dish names mentioned (if any) for context
+                    # But don't include the full response text
+                    # For now, we'll skip assistant messages to prevent contamination
+                    # The retrieved items in context are sufficient
+                    pass
         
-        # Add current query with explicit instructions
-        user_prompt = f"""Query: {query}
+        # Extract query intent for better instructions
+        query_lower = query.lower()
+        is_vegetarian = any(word in query_lower for word in ['vegetarian', 'veg', 'vegan'])
+        is_non_veg = any(word in query_lower for word in ['non-veg', 'non veg', 'chicken', 'mutton', 'fish', 'seafood', 'prawn', 'egg'])
+        is_spicy = any(word in query_lower for word in ['spicy', 'spice', 'hot', 'fiery'])
+        is_starter = any(word in query_lower for word in ['starter', 'appetizer'])
+        is_recommendation = any(word in query_lower for word in ['recommend', 'suggest', 'best', 'popular', 'good'])
+        
+        # Build query-specific instructions - SIMPLIFIED to avoid confusing LLM
+        query_specific = ""
+        
+        if is_vegetarian:
+            query_specific += "\nIMPORTANT: User asked for VEGETARIAN options. Only mention vegetarian items from the list below.\n"
+        elif is_non_veg:
+            query_specific += "\nIMPORTANT: User asked for NON-VEGETARIAN options. Only mention non-vegetarian items from the list below.\n"
+        
+        if is_spicy:
+            query_specific += "\nUser wants SPICY options. Prioritize spicy items.\n"
+        if is_starter:
+            query_specific += "\nUser wants STARTERS. Focus on starter/appetizer items.\n"
+        
+        # SIMPLIFIED prompt - removed complex validation instructions that confuse LLM
+        user_prompt = f"""Customer Question: {query}
+{query_specific}
 
-IMPORTANT INSTRUCTIONS:
-1. Mention ALL items from the context that match this query - do not skip any relevant items
-2. If an item doesn't match the query (e.g., savory dishes for "sweet" query), do NOT mention it
-3. Number each item clearly (1., 2., 3., etc.)
-4. Include item name, section, price (if available), and relevant tags for EACH item
-5. Be specific and use exact item names from the context
+You are Chikku, a friendly restaurant host at Saigon Indian Restaurant.
 
-Provide a helpful response that addresses the query completely."""
+Respond naturally and conversationally:
+1. Start with "Namaste!" and an appropriate emoji
+2. Use ONLY the menu items listed below
+3. Format prices as: X,XXX VND (e.g., "164,000 VND")
+4. Describe items naturally (spicy, creamy, grilled, etc.)
+5. End with a warm follow-up question
+
+DO NOT:
+- Apologize unnecessarily
+- Mention "I apologize" or "I'm sorry"
+- Mention dishes not in the list below
+- Use technical terms like "context", "retrieved items", "validation"
+- Explain how you're responding
+
+Menu Items:
+{context}
+
+Now respond naturally as Chikku would, using ONLY the items listed above."""
         messages.append({"role": "user", "content": user_prompt})
         
         try:
@@ -618,8 +806,8 @@ Provide a helpful response that addresses the query completely."""
                 model=self.llm_model,
                 messages=messages,
                 options={
-                   "num_predict": 250,
-                    "temperature": 0.2,
+                   "num_predict": 400,  # Increased for longer, more natural responses
+                    "temperature": 0.3,  # Lower for more consistent, less creative responses
                     "top_p": 0.9,
                     "num_ctx": 2048,
                 },
@@ -630,6 +818,9 @@ Provide a helpful response that addresses the query completely."""
             result = response['message']['content']
             if not result or len(result.strip()) == 0:
                 return "I apologize, but I couldn't generate a response. Please try rephrasing your query."
+            
+            # Validate response matches query intent (e.g., vegetarian queries don't mention non-veg items)
+            result = self._validate_response_intent(result, query, context)
             
             # Validate response quality (if enabled)
             validator = get_validator()
@@ -655,6 +846,87 @@ Provide a helpful response that addresses the query completely."""
                 "model": self.llm_model
             })
             return error_msg
+    
+    def filter_by_intent(self, query: str, items: List[Dict], intent_result=None) -> List[Dict]:
+        """Filter items based on query intent (dietary preferences, protein type, etc.)"""
+        if not items:
+            return items
+        
+        query_lower = query.lower()
+        filtered_items = []
+        
+        # Extract dietary preferences from query
+        is_vegetarian_query = any(word in query_lower for word in ['vegetarian', 'veg', 'vegan', 'jain'])
+        is_non_veg_query = any(word in query_lower for word in ['non-veg', 'non veg', 'nonvegetarian', 'meat', 'chicken', 'mutton', 'fish', 'seafood', 'prawn', 'egg'])
+        is_spicy_query = any(word in query_lower for word in ['spicy', 'spice', 'hot', 'fiery', 'pepper'])
+        is_starter_query = any(word in query_lower for word in ['starter', 'appetizer', 'appetiser'])
+        
+        # Extract protein type
+        protein_type = None
+        if 'chicken' in query_lower:
+            protein_type = 'chicken'
+        elif 'mutton' in query_lower or 'lamb' in query_lower:
+            protein_type = 'mutton'
+        elif 'fish' in query_lower:
+            protein_type = 'fish'
+        elif 'prawn' in query_lower or 'shrimp' in query_lower:
+            protein_type = 'prawn'
+        elif 'egg' in query_lower:
+            protein_type = 'egg'
+        elif 'seafood' in query_lower:
+            protein_type = 'seafood'
+        
+        for item in items:
+            metadata = item.get('metadata', {})
+            tags_str = metadata.get('tags', '')
+            tags = tags_str.lower() if isinstance(tags_str, str) else str(tags_str).lower()
+            item_name = metadata.get('item_name', '').lower()
+            
+            # Filter by dietary preference
+            if is_vegetarian_query:
+                # For vegetarian queries, exclude non-vegetarian items
+                if 'non-vegetarian' in tags or 'non vegetarian' in tags:
+                    continue
+                # Must be vegetarian
+                if 'vegetarian' not in tags and 'vegan' not in tags:
+                    # Check item name for non-veg indicators
+                    non_veg_indicators = ['chicken', 'mutton', 'fish', 'prawn', 'meat', 'egg']
+                    if any(indicator in item_name for indicator in non_veg_indicators):
+                        continue
+            
+            if is_non_veg_query:
+                # For non-veg queries, exclude vegetarian-only items
+                if 'vegetarian' in tags and 'non-vegetarian' not in tags:
+                    # Check if it's actually non-veg by name
+                    non_veg_indicators = ['chicken', 'mutton', 'fish', 'prawn', 'meat', 'egg']
+                    if not any(indicator in item_name for indicator in non_veg_indicators):
+                        continue
+            
+            # Filter by protein type
+            if protein_type:
+                if protein_type == 'chicken' and 'chicken' not in item_name:
+                    continue
+                elif protein_type == 'mutton' and 'mutton' not in item_name:
+                    continue
+                elif protein_type == 'fish' and 'fish' not in item_name:
+                    continue
+                elif protein_type == 'prawn' and 'prawn' not in item_name and 'shrimp' not in item_name:
+                    continue
+                elif protein_type == 'egg' and 'egg' not in item_name:
+                    continue
+                elif protein_type == 'seafood':
+                    if 'fish' not in item_name and 'prawn' not in item_name and 'shrimp' not in item_name:
+                        continue
+            
+            # Filter by spicy preference
+            if is_spicy_query:
+                # Prioritize spicy items, but don't exclude non-spicy completely
+                # (we'll just prioritize them in the list)
+                pass
+            
+            filtered_items.append(item)
+        
+        return filtered_items if filtered_items else items  # Return original if filtering removes everything
     
     def filter_by_relevance(self, query: str, items: List[Dict]) -> List[Dict]:
         """Filter items by keyword relevance to query"""
@@ -894,7 +1166,7 @@ Now answer the query naturally as Chikku."""
                     messages=messages,
                     options={
                         "num_predict": 300,
-                        "temperature": 0.3,  # Lower temperature for more deterministic responses
+                        "temperature": 0.4,  # Lower temperature for more deterministic responses
                         "top_p": 0.9,
                         "num_ctx": 2048,
                     },
@@ -1086,10 +1358,13 @@ Or tell me what you need, and I'll guide you! 😊"""
             # Default: treat as menu query
             print(f"📋 Unclear intent, defaulting to menu query...")
         
-        # Step 1: Retrieve (only menu items)
+        # Step 1: Enhance query with conversation history for contextual understanding
+        enhanced_query = self._enhance_query_with_history(user_query, conversation_history)
+        
+        # Step 2: Retrieve (only menu items)
         print(f"📥 Retrieving top {top_k} menu items...")
         print(f"   Collection has {self.collection.count()} total items")
-        retrieved = self.retrieve(user_query, top_k=top_k, doc_type="menu")
+        retrieved = self.retrieve(enhanced_query, top_k=top_k, doc_type="menu")
         print(f"✅ Retrieved {len(retrieved)} items")
         
         if not retrieved:
@@ -1110,33 +1385,48 @@ Or tell me what you need, and I'll guide you! 😊"""
                 'intent': intent_result.to_dict()
             }
         
-        # Step 2: Filter by relevance
-        print(f"🔍 Filtering items by relevance to query...")
+        # Step 3: Filter by intent (dietary preferences, protein type, etc.)
+        print(f"🔍 Filtering items by query intent...")
         retrieved_before = len(retrieved)
-        retrieved = self.filter_by_relevance(user_query, retrieved)
-        print(f"✅ {len(retrieved)} items after relevance filtering (was {retrieved_before})")
+        retrieved = self.filter_by_intent(user_query, retrieved, intent_result)
+        print(f"✅ {len(retrieved)} items after intent filtering (was {retrieved_before})")
         
-        # If relevance filtering removed everything, use original results
+        # Step 4: Filter by keyword relevance
+        print(f"🔍 Filtering items by keyword relevance...")
+        retrieved_before_relevance = len(retrieved)
+        retrieved = self.filter_by_relevance(user_query, retrieved)
+        print(f"✅ {len(retrieved)} items after relevance filtering (was {retrieved_before_relevance})")
+        
+        # If filtering removed everything, use original results
         if not retrieved and retrieved_before > 0:
-            print(f"⚠️  Relevance filtering removed all items, using original {retrieved_before} items")
+            print(f"⚠️  Filtering removed all items, using original {retrieved_before} items")
             retrieved = self.retrieve(user_query, top_k=top_k, doc_type="menu")
             retrieved = [item for item in retrieved if item.get('metadata', {}).get('doc_type') != 'about']
         
-        # Step 3: Rerank (optional)
+        # Step 5: Rerank (optional)
+        # IMPORTANT: Don't limit to rerank_k if user requested more items (top_k > rerank_k)
+        # Only limit if we have too many items and reranking is enabled
         if self.use_reranking:
             print(f"🔄 Reranking to top {rerank_k} items...")
             retrieved = self.rerank(user_query, retrieved, top_k=rerank_k)
         else:
-            retrieved = retrieved[:rerank_k]
-            print(f"📊 Using top {len(retrieved)} items (reranking disabled)")
+            # If user requested top_k items, use up to top_k (but don't exceed what we have)
+            # Only limit to rerank_k if we have more items than needed
+            max_items = min(len(retrieved), max(rerank_k, top_k))
+            retrieved = retrieved[:max_items]
+            print(f"📊 Using top {len(retrieved)} items (requested top_k={top_k}, rerank_k={rerank_k}, reranking disabled)")
         
-        # Step 4: Format context (use all retrieved items)
+        # Step 6: Format context (use all retrieved items)
         print(f"📝 Formatting context for {len(retrieved)} items...")
         context = self.format_context(retrieved)
         
-        # Step 5: Generate response with improved prompt
+        # Step 7: Generate response with improved prompt
+        # Use conversation history BUT sanitize it to prevent hallucination
+        # History is needed for contextual queries like "tell me more about that dish"
         print(f"🤖 Generating response...")
-        response = self.generate_response(user_query, context, conversation_history)
+        # Sanitize conversation history: only include user queries, not full assistant responses
+        sanitized_history = self._sanitize_conversation_history(conversation_history) if conversation_history else None
+        response = self.generate_response(user_query, context, sanitized_history)
         print(f"✅ Response generated ({len(response)} chars)")
         
         # Prepare result (include all retrieved items)

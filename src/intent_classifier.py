@@ -142,16 +142,20 @@ class IntentClassifier:
                 r'\bwhere\s+is\s+saigon\s+indian\b',
                 r'\bhow\s+to\s+reach\b',
                 r'\bdirections\b',
-                r'\bwhere\s+are\s+you\s+located\b'
+                r'\bwhere\s+are\s+you\s+located\b',
+                r'\bwhere\s+exactly\s+are\s+you\s+located\b'
             ],
             IntentType.RESTAURANT_HOURS: [
                 r'\b(opening|closing)\s+hours\b',
-                r'\bwhat\s+time\s+(do\s+you\s+open|are\s+you\s+open)\b',
+                r'\bwhat\s+time\s+(do\s+you\s+open|are\s+you\s+open|do\s+you\s+close)\b',
                 r'\bwhen\s+(are\s+you\s+open|do\s+you\s+close)\b',
                 r'\btimings\b',
                 r'\bhours\b',
                 r'\bopen\s+until\b',
-                r'\bclose\s+at\b'
+                r'\bclose\s+at\b',
+                r'\bwhat\s+time\s+do\s+you\s+close\b',
+                r'\bwhen\s+do\s+you\s+close\b',
+                r'\bdo\s+you\s+serve\s+(breakfast|lunch|dinner)\b'
             ],
             IntentType.RESTAURANT_CONTACT: [
                 r'\bphone\s+number\b',
@@ -206,7 +210,9 @@ class IntentClassifier:
                 r'\bevent\s+booking\b',
                 r'\bprivate\s+dining\b',
                 r'\bcorporate\s+event\b',
-                r'\bparty\s+booking\b'
+                r'\bparty\s+booking\b',
+                r'\bdo\s+you\s+do\s+party\s+bookings\b',
+                r'\bparty\s+bookings\b'
             ],
             IntentType.SERVICE_CATERING: [
                 r'\bcatering\b',
@@ -224,15 +230,39 @@ class IntentClassifier:
             IntentType.MENU_SEARCH: [
                 r'\b(show|find|search|list|what|which)\s+.*\b(dishes?|items?|food|menu)\b',
                 r'\b.*\s+(options?|available|have|offer)\b',
-                r'\bmenu\s+items?\b'
+                r'\bmenu\s+items?\b',
+                r'\badd\s+one\b',
+                r'\bgive\s+me\s+one\b',
+                r'\bi.*ll\s+take\b',
+                r'\bmake\s+it\s+(less|more)\s+spicy\b',
+                r'\bsomething\s+(spicy|creamy|tangy|rich|filling)\b',
+                r'\bnot\s+too\s+(oily|spicy)\b'
             ],
             IntentType.MENU_RECOMMENDATION: [
                 r'\brecommend\b',
                 r'\bsuggest\b',
                 r'\bwhat\s+should\s+I\s+(order|try|have)\b',
-                r'\bbest\s+(dish|item)\b',
+                r'\bbest\s+(dish|item|non.*veg|veg)\b',
                 r'\bpopular\s+(dish|item)\b',
-                r'\bchef.*special\b'
+                r'\bchef.*special\b',
+                r'\bchef.*recommendation\b',
+                r'\bwhat.*recommend\b',
+                r'\bwhat.*best\b',
+                r'\bwhat.*popular\b',
+                r'\bwhich.*popular\b',
+                r'\bwhich.*best\b',
+                r'\bspiciest\b',
+                r'\bwhat.*spiciest\b',
+                r'\bsomething\s+special\b',
+                r'\bsurprise\s+me\b',
+                r'\breally\s+hungry\b',
+                r'\bsomething\s+comforting\b',
+                r'\bsomething\s+filling\b',
+                r'\bsomething\s+rich\s+and\s+creamy\b',
+                r'\bsomething\s+kids\s+will\s+like\b',
+                r'\bgood\s+in\s+(mutton|chicken|fish)\b',
+                r'\bwhat.*good\s+in\b',
+                r'\bstrong\s+indian\s+masala\b'
             ],
             IntentType.MENU_PRICE: [
                 r'\b(price|cost|how\s+much)\s+.*\b',
