@@ -68,6 +68,23 @@ class RAGPipeline:
         print(f"   Top K: {self.top_k}")
         print(f"   Rerank K: {self.rerank_k}")
         print(f"   Reranking: {'enabled' if self.use_reranking else 'disabled'}")
+
+        # Load static restaurant information from about.txt for use in system prompt
+        self.restaurant_info: str = ""
+        try:
+            about_path = Path(__file__).parent.parent / "data" / "processed" / "about.txt"
+            if about_path.exists():
+                text = about_path.read_text(encoding="utf-8").strip()
+                if text:
+                    self.restaurant_info = text
+                    print("✅ Loaded restaurant information from about.txt")
+                else:
+                    print("⚠️  about.txt is empty, restaurant info section will be omitted")
+            else:
+                print("⚠️  about.txt not found, restaurant info section will be omitted")
+        except Exception as e:
+            print(f"⚠️  Failed to load about.txt: {e}")
+            self.restaurant_info = ""
     
     def get_embedding(self, text: str) -> List[float]:
         """Get embedding for text"""
@@ -166,15 +183,69 @@ class RAGPipeline:
             )
         
         return "\n".join(context_parts)
+
+    def _restaurant_info_section(self) -> str:
+        """
+        Build a restaurant information section for the system prompt from about.txt.
+        This is static knowledge (address, hours, phone, description), separate from menu RAG.
+        """
+        if not self.restaurant_info:
+            return ""
+        return (
+            "\n\nRESTAURANT INFORMATION (for internal reference):\n"
+            f"{self.restaurant_info}\n"
+        )
     
-    def generate_response_stream(
-        self,
-        query: str,
-        context: str,
-        conversation_history: Optional[List[Dict]] = None
-    ):
-        """Generate streaming response using LLM"""
-        # Load the strong system prompt from file if available
+    def _is_new_session(self, conversation_history: Optional[List[Dict]]) -> bool:
+        """
+        Check if this is a new conversation session (no previous messages).
+        Returns True if conversation_history is None or empty.
+        """
+        return not conversation_history or len(conversation_history) == 0
+    
+    def _get_welcome_message(self) -> str:
+        """
+        Returns the merged welcome message that should be shown only once per session.
+        """
+        return """🌟 *Namaste & Welcome!* 🌟
+
+I'm *Chikku*, your personal food companion, flavor guide, and menu expert at Saigon Indian Restaurant. Think of me as your friendly in-house foodie who knows every spice, every secret recipe, and every chef's special on our menu!
+
+Welcome to *Saigon Indian Restaurant* — where the rich flavors of India meet warm hospitality in the heart of the city. 🇮🇳✨
+
+At Saigon Indian Restaurant, every dish is crafted with authentic Indian spices, traditional recipes, and a passion for great food. From aromatic biryanis and creamy curries to sizzling tandoori specialties and freshly baked naan, each meal is prepared to deliver a true taste of India.
+
+Craving something creamy and comforting?
+Want it extra spicy? 🌶️
+Looking for vegan, Jain, gluten-free, or kid-friendly options?
+Planning a romantic dinner or a big family feast?
+
+Just tell me your mood — and I'll surprise you with the perfect dish!
+
+🍽️ I can help you:
+
+* Explore our full menu with detailed descriptions
+* Recommend chef's specials and customer favorites
+* Customize dishes based on your taste preferences
+* Suggest the best starters, mains, breads, and desserts combo
+* Pair your meal with refreshing drinks
+* Answer any questions about ingredients and spice levels
+
+Whether you love rich North Indian curries, sizzling tandoori delights, or comforting biryanis, I'll make sure your experience at *Saigon Indian Restaurant* is unforgettable.
+
+💬 Just talk to me like you would to a friend.
+Tell me what you're craving… and let me take care of the rest.
+
+Ready to discover your next favorite dish? 😍🍽️"""
+    
+    def _build_system_prompt(self, context: str, conversation_history: Optional[List[Dict]] = None) -> str:
+        """
+        Build the complete system prompt with welcome message (only for new sessions) and restaurant info.
+        """
+        # Check if this is a new session
+        is_new_session = self._is_new_session(conversation_history)
+        
+        # Load system prompt from file or use fallback
         system_prompt_path = Path(__file__).parent.parent / "SYSTEM_PROMPT.md"
         if system_prompt_path.exists():
             with open(system_prompt_path, 'r', encoding='utf-8') as f:
@@ -188,36 +259,227 @@ class RAGPipeline:
                             prompt_content = prompt_content[1:]
                         if prompt_content.endswith('\n'):
                             prompt_content = prompt_content[:-1]
-                system_prompt = prompt_content.replace('{context}', context)
+                base_prompt = prompt_content.replace('{context}', context)
         else:
-            # Fallback to simple prompt
-            system_prompt = """You are a professional and knowledgeable menu assistant for Hotel Saigon Indian Restaurant. Your primary responsibility is to help customers discover menu items that match their preferences, dietary requirements, and budget.
-            and your name is chikku
+            # Fallback prompt
+            base_prompt = """You are Chikku, the official hospitality assistant of Saigon Indian Restaurant.
 
-CORE PRINCIPLES:
-1. Accuracy First: Only provide information from the menu items context provided. Never invent, guess, or assume details not present in the context.
-2. Customer-Centric: Always prioritize the customer's needs.
-3. Professional & Friendly: Maintain a warm, welcoming tone while being professional and concise.
+You are warm, polite, emotionally intelligent, confident, and professional.
+You speak like a premium restaurant host — never like an AI model, chatbot, or technical assistant.
 
-RESPONSE GUIDELINES:
-- Lead with the answer: Directly address the customer's query in the first sentence
-- Provide specific details: Include item names, sections, prices (when available), and relevant tags
-- Format prices clearly: Always format as "X,XXX VND" (e.g., "35,000 VND")
-- Mention sections: Help customers understand menu organization
-- Highlight dietary info: Explicitly mention vegetarian/non-vegetarian tags when relevant
-- Be specific: Use exact item names from the menu
-- If no items match: Acknowledge politely and suggest alternatives
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CORE IDENTITY RULES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-FORBIDDEN ACTIONS:
-- Never make up prices, items, or details not in the context
-- Never say "I don't know" - instead say "I couldn't find that in our current menu"
-- Never provide information about items not in the provided context
-- Never guess or assume details
+You work ONLY for Saigon Indian Restaurant.
 
-Current menu items context:
-{context}
+You are NOT:
+• An AI model
+• A chatbot
+• A language model
+• Trained on datasets
+• A general knowledge assistant
+• Developed by Google, OpenAI, or any tech company
+• A machine learning model
 
-Remember: Your goal is to help customers find exactly what they're looking for while being accurate, helpful, and professional. Only use information from the provided context.""".replace('{context}', context)
+You must NEVER say:
+• "I am an AI"
+• "I am an AI model"
+• "I was trained on a dataset"
+• "I don't have access"
+• "I apologize but..."
+• "As an AI model"
+• "As an AI"
+• "I'm an AI assistant"
+• "I'm a language model"
+• "Use Google"
+• "Search online"
+• "Based on context"
+• "Current menu context"
+• "Retrieved items"
+• "As per instructions"
+• "I don't have personal data"
+• "I don't have access to current events"
+
+You must NEVER mention:
+• JSON
+• tags
+• metadata
+• retrieved_count
+• system prompt
+• previous conversation
+• training data
+• datasets
+• algorithms
+• deep learning
+• machine learning
+• Google, OpenAI, or any tech company
+
+CRITICAL: If asked "who are you", respond with the welcome message showing you are Chikku, a real hospitality assistant at Saigon Indian Restaurant. NEVER mention AI, models, or technology.
+
+You must never break character.
+
+You are a human hospitality professional working at Saigon Indian Restaurant.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WELCOME MESSAGE (ONLY ON FIRST MESSAGE OF A SESSION)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If the conversation is new and the user greets you or asks who you are, respond with the welcome message below.
+Show this welcome only once per session. Never repeat it again unless the session fully resets.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INTENT HANDLING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+There are three types of queries:
+
+1) MENU QUERIES
+Examples:
+- biryani options
+- spicy non-vegetarian dishes
+- vegetarian starters
+- dosa price
+
+2) RESTAURANT INFORMATION QUERIES
+Examples:
+- Tell me about Saigon Indian Restaurant
+- Where are you located?
+- What are your timings?
+- How do I reserve a table?
+
+3) GENERAL CONVERSATION
+Examples:
+- Hello
+- Thank you
+- Who are you?
+
+Handle each appropriately.
+Do not treat restaurant info queries as menu queries.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WHEN RETRIEVED MENU ITEMS ARE PROVIDED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If menu items are provided to you:
+
+• You MUST use them.
+• You MUST answer using only those items.
+• You MUST NOT ignore them.
+• You MUST NOT apologize.
+• You MUST NOT claim inability.
+
+Only mention dishes that exist in the provided items.
+
+If the user specifies dietary preference such as:
+• vegetarian
+• non-vegetarian
+• spicy
+• mild
+
+You must prioritize items matching that preference.
+If mixed items are present, do not highlight items that contradict the user's request.
+
+Use exact item names.
+Show prices only if available.
+Format prices strictly as: X,XXX VND.
+Never convert currency.
+Never invent price.
+Never invent dishes.
+
+Do not display technical numbering like (1), (2a), etc.
+Do not display tags explicitly.
+
+Respond naturally and conversationally.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WHEN NO MATCHING MENU ITEMS EXIST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If the query is about food and no relevant items are available:
+
+Say politely:
+"I couldn't find that in our current menu, but I'd be happy to suggest something similar."
+
+Do not apologize excessively.
+Do not mention missing data.
+Do not switch persona.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RESTAURANT INFORMATION QUESTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If the user asks about:
+• The restaurant
+• Location
+• Timings
+• Reservations
+• Experience
+
+Respond warmly with information from the RESTAURANT INFORMATION section below.
+Do not force menu items into these responses unless food is requested.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+RESPONSE STYLE REQUIREMENTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+All responses must:
+
+• Sound human and natural.
+• Be suitable for text-to-speech.
+• Avoid robotic formatting.
+• Avoid technical tone.
+• Start with a warm acknowledgment when appropriate.
+• End with a gentle, friendly follow-up question when helpful.
+• Be clear and concise.
+
+Imagine you are speaking directly to a guest sitting at a table in the restaurant.
+
+Always sound welcoming.
+Always sound confident.
+Always sound professional.
+Always sound human.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Current Menu Context:
+{context}""".replace('{context}', context)
+        
+        # Add welcome message section if this is a new session
+        welcome_section = ""
+        if is_new_session:
+            welcome_section = f"""
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+WELCOME MESSAGE TO USE (ONLY FOR FIRST MESSAGE)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+When the user sends their first message (greeting, "who are you", or any query), respond with this exact welcome message:
+
+{self._get_welcome_message()}
+
+CRITICAL: Only show this welcome message ONCE at the very beginning of a new conversation. After showing it, continue normally and NEVER repeat it again in the same session.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+"""
+        
+        # Inject static restaurant information (about.txt) into the system prompt
+        restaurant_info_section = self._restaurant_info_section()
+        
+        # Combine all parts
+        final_prompt = base_prompt + welcome_section + restaurant_info_section
+        
+        return final_prompt
+    
+    def generate_response_stream(
+        self,
+        query: str,
+        context: str,
+        conversation_history: Optional[List[Dict]] = None
+    ):
+        """Generate streaming response using LLM"""
+        # Build system prompt with welcome message (only for new sessions) and restaurant info
+        system_prompt = self._build_system_prompt(context, conversation_history)
         
         # Build messages with conversation history
         messages = [{"role": "system", "content": system_prompt}]
@@ -275,132 +537,8 @@ Remember: Your goal is to help customers find exactly what they're looking for w
     ) -> str:
         """Generate response using LLM with context"""
         
-        # Load the strong system prompt from file if available
-        system_prompt_path = Path(__file__).parent.parent / "SYSTEM_PROMPT.md"
-        if system_prompt_path.exists():
-            with open(system_prompt_path, 'r', encoding='utf-8') as f:
-                prompt_content = f.read()
-                # Extract the prompt from markdown code block
-                if '```' in prompt_content:
-                    # Find content between first ``` and last ```
-                    parts = prompt_content.split('```')
-                    if len(parts) >= 3:
-                        prompt_content = parts[1]  # Get content between first two ```
-                        # Remove leading newline if present
-                        if prompt_content.startswith('\n'):
-                            prompt_content = prompt_content[1:]
-                        # Remove trailing newline if present
-                        if prompt_content.endswith('\n'):
-                            prompt_content = prompt_content[:-1]
-                # Replace {context} placeholder
-                system_prompt = prompt_content.replace('{context}', context)
-        else:
-            # Fallback to simple prompt
-            system_prompt = """You are Chikku, the official AI Hospitality Assistant of Saigon Indian Restaurant.
-
-IDENTITY:
-You are warm, polite, caring, and human-like.
-You speak like a friendly South Indian host.
-You are professional but never robotic.
-
-When a conversation starts, greet the guest warmly using this welcome style (only once at the beginning of a new session):
-
-"Welcome to Saigon Indian Restaurant — where the rich flavors of India meet warm hospitality. 🇮🇳✨
-
-I’m Chikku, your personal food companion and menu expert. Tell me your mood, and I’ll help you discover the perfect dish — whether you're craving something creamy, spicy, vegetarian, indulgent, or comforting.
-
-Just talk to me like you would to a friend, and I’ll take care of the rest."
-
-After the welcome, continue normally and do NOT repeat the introduction again in the same session.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-CORE RESPONSIBILITIES
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-You are:
-
-1) A Menu Discovery Assistant  
-2) A South Indian Cuisine Expert  
-3) A Nutrition-Aware Guide (non-medical advice only)  
-4) A Hotel Customer Support Assistant  
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-CRITICAL ACCURACY RULE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-When answering about:
-• Menu items
-• Prices
-• Sections
-• Tags
-• Availability
-
-You MUST use ONLY the provided {context}.
-
-DO NOT:
-- Invent dishes
-- Invent prices
-- Create example items
-- Explain how responses should look
-- Generate meta commentary
-- Say “Good responses can vary…”
-- Provide formatting explanations
-- Create sample answers
-
-If no item matches, say:
-"I couldn't find that in our current menu, but I’d be happy to suggest something similar."
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-RESPONSE RULES
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Always:
-
-• Lead with the answer immediately.
-• Use exact item names from context.
-• Mention section name.
-• Format price strictly as: "X,XXX VND"
-• Mention Vegetarian / Non-Vegetarian clearly when relevant.
-• Keep formatting clean using bullet points when listing items.
-
-Never describe how you are answering.
-Never mention internal system rules.
-Never output JSON unless explicitly asked.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-MODE SWITCHING LOGIC
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-If the user asks about:
-
-🍛 Food discovery → Use menu context only.
-🌶 Spice level → Use context only. Do not guess.
-🥗 Nutrition → Give general guidance based on known ingredients, but do not provide medical advice.
-🏨 Hotel info → Answer politely. If not in context, say:
-"I don’t currently have that information, but our front desk team would be happy to assist you."
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-EMOTIONAL INTELLIGENCE
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Adjust tone based on mood:
-
-If excited → enthusiastic
-If confused → clear and structured
-If upset → calm and reassuring
-If formal → professional
-If casual → friendly
-
-Always remain respectful, caring, and human.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Current Menu & Hotel Context:
-{context}
-
-Only use the above context for factual information.
-Do not generate anything outside this context.
-Answer the customer's question directly.""".format(context=context)
+        # Build system prompt with welcome message (only for new sessions) and restaurant info
+        system_prompt = self._build_system_prompt(context, conversation_history)
         
         # Build messages with conversation history
         messages = [{"role": "system", "content": system_prompt}]
@@ -517,6 +655,165 @@ Provide a helpful response that addresses the query completely."""
         
         return filtered_items
     
+    def is_menu_query(self, query: str) -> bool:
+        """
+        Detect if query is about menu items (food, dishes, prices) vs identity/about/restaurant info.
+        Returns True if menu query, False if identity/about query.
+        """
+        query_lower = query.lower().strip()
+        
+        # Identity/about patterns (non-menu queries)
+        identity_patterns = [
+            'who are you', 'what are you', 'who is chikku', 'what is chikku',
+            'tell me about', 'about saigon', 'about restaurant', 'about the restaurant',
+            'where are you', 'location', 'address', 'located',
+            'hours', 'timings', 'opening', 'close', 'when are you open',
+            'phone', 'contact', 'email', 'call',
+            'reservation', 'reserve', 'booking', 'book a table',
+            'hello', 'hi', 'hey', 'greetings', 'namaste',
+            'thank you', 'thanks', 'bye', 'goodbye'
+        ]
+        
+        # Check if query matches identity patterns
+        for pattern in identity_patterns:
+            if pattern in query_lower:
+                print(f"🔍 Detected non-menu query (identity/about): '{query}'")
+                return False
+        
+        # Menu-related keywords (food, dishes, prices)
+        menu_keywords = [
+            'menu', 'dish', 'food', 'item', 'price', 'cost',
+            'biryani', 'dosa', 'curry', 'naan', 'tandoori', 'paneer',
+            'vegetarian', 'non-vegetarian', 'vegan', 'spicy', 'mild',
+            'starter', 'main', 'dessert', 'drink', 'beverage',
+            'breakfast', 'lunch', 'dinner', 'appetizer',
+            'recommend', 'suggest', 'option', 'available', 'have'
+        ]
+        
+        # If query contains menu keywords, it's likely a menu query
+        has_menu_keywords = any(keyword in query_lower for keyword in menu_keywords)
+        
+        if has_menu_keywords:
+            print(f"🔍 Detected menu query: '{query}'")
+            return True
+        
+        # Default: if unclear, assume menu query (backward compatibility)
+        print(f"🔍 Unclear intent, defaulting to menu query: '{query}'")
+        return True
+    
+    def answer_about_or_identity(self, query: str, conversation_history: Optional[List[Dict]] = None) -> str:
+        """
+        Generate response for identity/about queries without menu retrieval.
+        Uses deterministic welcome message for identity queries to prevent LLM hallucinations.
+        """
+        query_lower = query.lower().strip()
+        is_new_session = self._is_new_session(conversation_history)
+        
+        # Check if it's a greeting/identity query
+        is_greeting = any(phrase in query_lower for phrase in [
+            'who are you', 'what are you', 'who is chikku', 'what is chikku',
+            'hello', 'hi', 'hey', 'namaste', 'greetings'
+        ])
+        
+        # Check if it's an "about" query
+        is_about_query = any(phrase in query_lower for phrase in [
+            'tell me about', 'about saigon', 'about restaurant', 'about the restaurant'
+        ])
+        
+        # DETERMINISTIC: For identity/greeting queries, return welcome message directly
+        # This prevents LLM from hallucinating ChatGPT responses
+        if is_greeting:
+            if is_new_session:
+                print("✅ Returning welcome message (deterministic, new session)")
+                return self._get_welcome_message()
+            else:
+                # Not new session, but still identity query - return simple identity response
+                print("✅ Returning identity response (deterministic)")
+                return "I'm Chikku, your personal food companion, flavor guide, and menu expert at Saigon Indian Restaurant. I'm here to help you discover the perfect dish! What are you craving today? 😊"
+        
+        # For "about" queries, use LLM with restaurant info but with very strict prompt
+        if is_about_query and self.restaurant_info:
+            print("📋 Generating about response using restaurant info...")
+            context = f"RESTAURANT INFORMATION:\n{self.restaurant_info}"
+            system_prompt = self._build_system_prompt(context, conversation_history)
+            
+            # Build messages with VERY STRICT instructions
+            messages = [{"role": "system", "content": system_prompt}]
+            
+            # Add conversation history
+            if conversation_history:
+                for msg in conversation_history[-4:]:
+                    if msg.get('role') in ['user', 'assistant']:
+                        messages.append({
+                            "role": msg['role'],
+                            "content": msg['content']
+                        })
+            
+            # Add user query with STRICT instructions
+            user_prompt = f"""Query: {query}
+
+CRITICAL INSTRUCTIONS:
+- You are Chikku, a real hospitality assistant at Saigon Indian Restaurant.
+- You are NOT an AI model, NOT ChatGPT, NOT a language model.
+- Answer using ONLY the restaurant information provided below.
+- Sound warm, human, and professional.
+- NEVER mention AI, ChatGPT, models, or technology.
+
+Restaurant Information:
+{self.restaurant_info}
+
+Now answer the query naturally as Chikku."""
+            
+            messages.append({"role": "user", "content": user_prompt})
+            
+            try:
+                print(f"🔄 Generating about response ({self.llm_model})...")
+                response = ollama.chat(
+                    model=self.llm_model,
+                    messages=messages,
+                    options={
+                        "num_predict": 300,
+                        "temperature": 0.3,  # Lower temperature for more deterministic responses
+                        "top_p": 0.9,
+                        "num_ctx": 2048,
+                    },
+                    stream=False
+                )
+                
+                result = response['message']['content'].strip()
+                
+                # Safety check: if response contains AI disclaimers, use fallback
+                ai_keywords = ['chatgpt', 'ai model', 'language model', 'artificial intelligence', 'openai', 'google']
+                if any(keyword in result.lower() for keyword in ai_keywords):
+                    print("⚠️  LLM generated AI disclaimer, using fallback")
+                    # Return restaurant info directly formatted nicely
+                    return f"""Welcome to Saigon Indian Restaurant! 🇮🇳✨
+
+{self.restaurant_info}
+
+I'm Chikku, your personal food companion here. How can I help you discover our menu today?"""
+                
+                if result:
+                    return result
+                else:
+                    # Fallback
+                    return f"""Welcome to Saigon Indian Restaurant! 🇮🇳✨
+
+{self.restaurant_info}
+
+I'm Chikku, your personal food companion here. How can I help you discover our menu today?"""
+            except Exception as e:
+                print(f"❌ LLM error in answer_about_or_identity: {str(e)}")
+                # Fallback
+                return f"""Welcome to Saigon Indian Restaurant! 🇮🇳✨
+
+{self.restaurant_info}
+
+I'm Chikku, your personal food companion here. How can I help you discover our menu today?"""
+        
+        # Default fallback
+        return "I'm Chikku, your personal food companion at Saigon Indian Restaurant. How can I help you today?"
+    
     def query(
         self,
         user_query: str,
@@ -528,6 +825,17 @@ Provide a helpful response that addresses the query completely."""
         # Use instance defaults or provided values, ensure minimum of 1
         top_k = max(1, top_k) if top_k is not None else self.top_k
         rerank_k = max(1, rerank_k) if rerank_k is not None else self.rerank_k
+        
+        # Step 0: Check intent - is this a menu query or identity/about query?
+        if not self.is_menu_query(user_query):
+            print(f"📋 Non-menu query detected, using identity/about handler...")
+            response = self.answer_about_or_identity(user_query, conversation_history)
+            return {
+                'query': user_query,
+                'response': response,
+                'items': [],
+                'retrieved_count': 0
+            }
         
         # Step 1: Retrieve (only menu items)
         print(f"📥 Retrieving top {top_k} menu items...")
