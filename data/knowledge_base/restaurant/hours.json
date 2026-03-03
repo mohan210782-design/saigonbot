@@ -1,0 +1,46 @@
+{
+  "opening_hours": {
+    "monday": {
+      "open": "07:30",
+      "close": "22:30",
+      "formatted": "7:30 AM - 10:30 PM"
+    },
+    "tuesday": {
+      "open": "07:30",
+      "close": "22:30",
+      "formatted": "7:30 AM - 10:30 PM"
+    },
+    "wednesday": {
+      "open": "07:30",
+      "close": "22:30",
+      "formatted": "7:30 AM - 10:30 PM"
+    },
+    "thursday": {
+      "open": "07:30",
+      "close": "22:30",
+      "formatted": "7:30 AM - 10:30 PM"
+    },
+    "friday": {
+      "open": "07:30",
+      "close": "22:30",
+      "formatted": "7:30 AM - 10:30 PM"
+    },
+    "saturday": {
+      "open": "07:30",
+      "close": "22:30",
+      "formatted": "7:30 AM - 10:30 PM"
+    },
+    "sunday": {
+      "open": "07:30",
+      "close": "22:30",
+      "formatted": "7:30 AM - 10:30 PM"
+    }
+  },
+  "summary": "Monday – Sunday: 7:30 AM – 10:30 PM",
+  "services": {
+    "breakfast": "7:30 AM - 10:30 PM",
+    "lunch": "7:30 AM - 10:30 PM",
+    "dinner": "7:30 AM - 10:30 PM"
+  },
+  "note": "We serve Breakfast, Lunch & Dinner throughout the day"
+}

@@ -1,0 +1,12 @@
+{
+  "delivery_available": true,
+  "how_to_order": {
+    "phone": "Call us at +84 (028) 6291 3672 or +84 (028) 3824 5671",
+    "process": "Our team will help you place your order and arrange delivery"
+  },
+  "delivery_area": "Ho Chi Minh City area",
+  "delivery_time": "Varies based on location and order size",
+  "minimum_order": "Contact us for minimum order requirements",
+  "payment": "Payment options available - contact us for details",
+  "note": "For delivery orders, please call us directly"
+}

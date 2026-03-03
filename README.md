@@ -13,6 +13,7 @@ A RAG (Retrieval-Augmented Generation) based chatbot API for Hotel Saigon menu q
 - [Testing](#testing)
 - [Troubleshooting](#troubleshooting)
 - [Project Structure](#project-structure)
+- [Operations Runbook](#operations-runbook)
 
 ## 🔧 Prerequisites
 
@@ -131,6 +132,24 @@ USE_RERANKING=false
 # API Server Settings
 API_HOST=0.0.0.0
 API_PORT=8000
+
+# API timeout (seconds) for test scripts
+API_TIMEOUT=60
+
+# Response quality validation
+ENABLE_RESPONSE_VALIDATION=true
+
+# Retrieval cache
+RAG_CACHE_ENABLED=true
+RAG_CACHE_MAX_SIZE=100
+
+# Rate limiting (per-IP)
+RATE_LIMIT_ENABLED=false
+RATE_LIMIT_WINDOW_SECONDS=60
+RATE_LIMIT_MAX_REQUESTS=60
+
+# Allowed CORS origins (comma-separated). Use "*" for all (development only).
+ALLOWED_ORIGINS=*
 ```
 
 **Important Notes:**
@@ -138,6 +157,10 @@ API_PORT=8000
 - `RERANK_K`: Number of items after reranking (should be ≤ TOP_K)
 - `USE_RERANKING`: Set to `true` for better accuracy but slower responses
 - `LLM_MODEL`: Use quantized models (q4_0) for faster inference on edge devices
+- `ENABLE_RESPONSE_VALIDATION`: Enforces persona / removes AI-style phrases
+- `RAG_CACHE_ENABLED`: Enables retrieval caching for faster repeated queries
+- `RATE_LIMIT_*`: Basic per-IP rate limiting for external deployment
+- `ALLOWED_ORIGINS`: Set to your frontend domain in production
 
 ## 📊 Data Ingestion
 
@@ -377,7 +400,6 @@ curl -X POST http://localhost:8000/chat/stream \
   -d '{"query": "breakfast items"}' \
   --no-buffer
 ```
-
 ## 🔍 Troubleshooting
 
 ### Issue: "Ollama connection error"
@@ -416,6 +438,53 @@ curl -X POST http://localhost:8000/chat/stream \
 ```bash
 ollama pull mxbai-embed-large
 ```
+
+## 🧭 Operations Runbook
+
+### Health & basic checks
+
+- **Check API is running**
+  - `GET /health`
+  - Healthy response: `{"status": "healthy", "message": "API is running", "collection_count": <number>}`
+
+- **Check logs**
+  - Logs are structured JSON (if `USE_JSON_LOGS=true`) with fields like:
+    - `request_id`, `latency_ms`, `intent`, `retrieved_count`, `error_type`.
+
+### Safe config changes
+
+1. Stop the API process (CTRL+C where `uvicorn` / `run_api.py` is running).
+2. Edit `.env`:
+   - Tune performance:
+     - `TOP_K`, `RERANK_K`
+     - `RAG_CACHE_ENABLED`, `RAG_CACHE_MAX_SIZE`
+   - Control response safety:
+     - `ENABLE_RESPONSE_VALIDATION=true/false`
+   - Control rate limiting:
+     - `RATE_LIMIT_ENABLED=true/false`
+     - `RATE_LIMIT_WINDOW_SECONDS`
+     - `RATE_LIMIT_MAX_REQUESTS`
+   - Tighten CORS for production:
+     - Set `ALLOWED_ORIGINS=https://your-frontend-domain.com`
+3. Restart the API:
+   ```bash
+   source venv/bin/activate
+   python3 run_api.py
+   ```
+
+### Handling common issues
+
+- **Slow responses**
+  - Reduce `TOP_K` / `RERANK_K`.
+  - Ensure `RAG_CACHE_ENABLED=true`.
+
+- **429 Too Many Requests**
+  - Either lower client traffic or relax rate limit in `.env`:
+    - Increase `RATE_LIMIT_MAX_REQUESTS` or `RATE_LIMIT_WINDOW_SECONDS`.
+
+- **AI-style / ChatGPT phrases appear**
+  - Ensure `ENABLE_RESPONSE_VALIDATION=true`.
+  - Check logs for `error_type` and validation messages.
 
 ### Issue: "LLM model not found"
 

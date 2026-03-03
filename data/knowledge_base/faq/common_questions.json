@@ -1,0 +1,44 @@
+{
+  "faq_items": [
+    {
+      "question": "What type of cuisine do you serve?",
+      "answer": "We serve authentic North and South Indian cuisine, featuring traditional dishes from across India including biryanis, dosas, curries, tandoori specialties, and freshly baked breads."
+    },
+    {
+      "question": "Do you have vegetarian options?",
+      "answer": "Yes! We have extensive vegetarian options including vegetarian dosas, curries, biryanis, and more. Many of our dishes are naturally vegetarian, and we can customize dishes to meet vegetarian preferences."
+    },
+    {
+      "question": "Do you accommodate dietary restrictions?",
+      "answer": "Yes, we accommodate various dietary needs including vegetarian, vegan, gluten-free, and Jain dietary requirements. Please inform us of any allergies or dietary restrictions when ordering."
+    },
+    {
+      "question": "What are your spice levels?",
+      "answer": "We offer dishes ranging from mild to very spicy. You can request your preferred spice level when ordering, and our team will customize dishes to your taste."
+    },
+    {
+      "question": "Do you take reservations?",
+      "answer": "Yes, we accept reservations! You can book a table by calling us at +84 (028) 6291 3672 or +84 (028) 3824 5671, or through our website reservation form."
+    },
+    {
+      "question": "Is parking available?",
+      "answer": "We don't have dedicated parking, but there are several options nearby including street parking (subject to availability) and nearby parking lots within walking distance. Public transportation is also convenient."
+    },
+    {
+      "question": "Do you offer delivery?",
+      "answer": "Yes, we offer delivery services! Please call us at +84 (028) 6291 3672 or +84 (028) 3824 5671 to place your delivery order."
+    },
+    {
+      "question": "Do you host events?",
+      "answer": "Yes! We host corporate events, private dining, parties, weddings, and conferences. Contact us to discuss your event needs and we'll customize menus and arrangements."
+    },
+    {
+      "question": "What are your most popular dishes?",
+      "answer": "Our popular dishes include biryanis, dosas, tandoori specialties, North Indian curries, and South Indian breakfast items. Our chef's specials are also highly recommended!"
+    },
+    {
+      "question": "Are you wheelchair accessible?",
+      "answer": "Yes, our restaurant is wheelchair accessible. We're located on the ground floor with easy access and have accessible restrooms. Please call us if you have specific accessibility needs."
+    }
+  ]
+}

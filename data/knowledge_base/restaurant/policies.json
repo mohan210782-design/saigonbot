@@ -1,0 +1,22 @@
+{
+  "reservation_policy": {
+    "advance_booking": "Reservations can be made by phone or through our website",
+    "cancellation": "Please call us to cancel or modify reservations",
+    "group_bookings": "Large groups are welcome, please call in advance"
+  },
+  "dining_policy": {
+    "walk_ins": "Walk-ins welcome, subject to availability",
+    "dress_code": "Casual dining attire",
+    "children": "Children welcome, kid-friendly options available"
+  },
+  "payment": {
+    "methods": ["Cash", "Credit Cards", "Debit Cards"],
+    "currency": "VND (Vietnamese Dong)",
+    "notes": "Prices displayed in VND"
+  },
+  "special_requests": {
+    "dietary_requirements": "We accommodate vegetarian, vegan, gluten-free, and other dietary needs",
+    "allergies": "Please inform us of any allergies when ordering",
+    "customization": "Dishes can be customized based on preferences"
+  }
+}

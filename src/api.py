@@ -1,7 +1,7 @@
 """
 FastAPI server for Hotel Saigon Chatbot
 """
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
@@ -37,6 +37,7 @@ if str(src_path) not in sys.path:
 from rag import RAGPipeline
 from chat import conversation_manager
 from errors import handle_error, ValidationError, SystemError
+from rate_limit import RATE_LIMIT_ENABLED, get_rate_limiter
 
 
 # Request/Response models
@@ -98,9 +99,15 @@ app = FastAPI(
 )
 
 # CORS middleware
+allowed_origins_env = os.getenv("ALLOWED_ORIGINS", "*")
+if allowed_origins_env.strip() == "*":
+    allow_origins = ["*"]
+else:
+    allow_origins = [o.strip() for o in allowed_origins_env.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify allowed origins
+    allow_origins=allow_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -109,6 +116,29 @@ app.add_middleware(
 # Initialize RAG pipeline (lazy loading)
 rag_pipeline: Optional[RAGPipeline] = None
 executor = ThreadPoolExecutor(max_workers=2)
+
+
+@app.middleware("http")
+async def rate_limit_middleware(request: Request, call_next):
+    """
+    Simple IP-based rate limiting middleware.
+    Controlled by RATE_LIMIT_ENABLED and RATE_LIMIT_* env vars.
+    """
+    if not RATE_LIMIT_ENABLED:
+        return await call_next(request)
+
+    # Use client host as key; could be extended with session_id if needed
+    client_host = request.client.host if request.client else "unknown"
+    limiter = get_rate_limiter()
+
+    if not limiter.check(client_host):
+        logger.warning("Rate limit exceeded", extra={"client_host": client_host})
+        raise HTTPException(
+            status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+            detail="Too many requests. Please slow down and try again shortly.",
+        )
+
+    return await call_next(request)
 
 # Pre-warm model on startup (optional - uncomment to enable)
 # def prewarm_model():

@@ -1,0 +1,19 @@
+{
+  "phone": {
+    "primary": "+84 (028) 6291 3672",
+    "secondary": "+84 (028) 3824 5671",
+    "formatted": "+84 (028) 6291 3672 / +84 (028) 3824 5671"
+  },
+  "email": "saigonindiarestaurant@gmail.com",
+  "contact_methods": {
+    "phone": "Call us directly for reservations, orders, and inquiries",
+    "email": "Email us for general inquiries and feedback",
+    "in_person": "Visit us at our restaurant location"
+  },
+  "best_for": {
+    "reservations": "Phone",
+    "general_inquiries": "Phone or Email",
+    "feedback": "Email or Phone",
+    "urgent_matters": "Phone"
+  }
+}

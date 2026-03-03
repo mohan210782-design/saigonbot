@@ -1,0 +1,23 @@
+{
+  "restaurant_name": "Saigon Indian Restaurant",
+  "full_name": "Saigon Indian Restaurant (A Unit of Arohana Foods Pvt. Ltd)",
+  "address": {
+    "street": "26 Lê Anh Xuân Street",
+    "ward": "Ward Bến Thành",
+    "district": "District 1",
+    "city": "Ho Chi Minh City",
+    "country": "Vietnam",
+    "full_address": "26 Lê Anh Xuân Street, Ward Bến Thành, District 1, Ho Chi Minh City, Vietnam"
+  },
+  "location_details": {
+    "area": "Heart of District 1",
+    "nearby_landmarks": "Close to major attractions",
+    "accessibility": "Convenient for both locals and visitors",
+    "parking": "Street parking available (subject to availability), nearby parking lots within walking distance"
+  },
+  "directions": {
+    "public_transport": "Convenient public transportation access",
+    "driving": "Located in central District 1, easily accessible by car",
+    "walking": "Walking distance from major attractions in District 1"
+  }
+}

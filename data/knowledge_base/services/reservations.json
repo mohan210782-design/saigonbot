@@ -1,0 +1,26 @@
+{
+  "reservation_process": {
+    "how_to_book": {
+      "phone": "Call us at +84 (028) 6291 3672 or +84 (028) 3824 5671",
+      "online": "Submit booking request through our website reservation form",
+      "in_person": "Visit us at the restaurant"
+    },
+    "information_needed": [
+      "Date and time",
+      "Number of people",
+      "Special requests or dietary preferences",
+      "Contact information"
+    ],
+    "confirmation": "Reservations are confirmed via phone call or email"
+  },
+  "availability": {
+    "peak_times": "Evenings and weekends tend to be busier",
+    "recommendation": "Book in advance for weekends and special occasions",
+    "walk_ins": "Walk-ins welcome, subject to table availability"
+  },
+  "special_bookings": {
+    "large_groups": "Groups of 8+ people, please call in advance",
+    "events": "Private dining and events available",
+    "special_occasions": "Birthdays, anniversaries, and celebrations welcome"
+  }
+}

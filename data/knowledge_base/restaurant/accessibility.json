@@ -1,0 +1,17 @@
+{
+  "wheelchair_access": {
+    "available": true,
+    "details": "Restaurant is located on ground floor with easy access",
+    "restrooms": "Accessible restrooms available"
+  },
+  "special_needs": {
+    "accommodations": "We're committed to making our restaurant accessible to all guests",
+    "assistance": "Our staff is happy to assist with any special needs",
+    "contact": "Please call us at +84 (028) 6291 3672 to discuss specific requirements"
+  },
+  "parking": {
+    "available": false,
+    "alternatives": "Street parking (subject to availability), nearby parking lots within walking distance",
+    "public_transport": "Convenient public transportation access"
+  }
+}

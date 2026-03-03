@@ -7,6 +7,8 @@ from typing import List, Dict, Optional, Tuple
 import ollama
 import sys
 import os
+import re
+from collections import OrderedDict
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -21,6 +23,10 @@ from errors import (
     RetrievalError, LLMError, IntentError, DatabaseError,
     ValidationError, SystemError, handle_error
 )
+# Import response validator
+from response_validator import get_validator
+# Import knowledge base
+from knowledge_base import get_knowledge_base
 
 
 class RAGPipeline:
@@ -95,17 +101,63 @@ class RAGPipeline:
         except Exception as e:
             print(f"⚠️  Failed to load about.txt: {e}")
             self.restaurant_info = ""
+        
+        # Load knowledge base
+        self.knowledge_base = get_knowledge_base()
+        print("✅ Knowledge base initialized")
+
+        # Simple in-memory retrieval cache (for menu queries)
+        self.enable_cache = os.getenv("RAG_CACHE_ENABLED", "true").lower() == "true"
+        self.cache_max_size = max(10, int(os.getenv("RAG_CACHE_MAX_SIZE", "100")))
+        # key: (query, top_k, doc_type) -> list[Dict]
+        self._retrieval_cache: "OrderedDict[Tuple[str, int, Optional[str]], List[Dict]]" = OrderedDict()
+        
+        # Embedding cache (for faster repeated queries)
+        self.enable_embedding_cache = os.getenv("EMBEDDING_CACHE_ENABLED", "true").lower() == "true"
+        self.embedding_cache_max_size = max(50, int(os.getenv("EMBEDDING_CACHE_MAX_SIZE", "200")))
+        # key: query_text -> List[float]
+        self._embedding_cache: "OrderedDict[str, List[float]]" = OrderedDict()
     
     def get_embedding(self, text: str) -> List[float]:
-        """Get embedding for text"""
+        """Get embedding for text (with caching)"""
+        # Normalize text for cache key
+        cache_key = text.strip().lower()
+        
+        # Check embedding cache first
+        if self.enable_embedding_cache and cache_key in self._embedding_cache:
+            # Move to end (LRU)
+            embedding = self._embedding_cache.pop(cache_key)
+            self._embedding_cache[cache_key] = embedding
+            return embedding
+        
+        # Generate embedding
         try:
             response = ollama.embeddings(model=self.embedding_model, prompt=text)
-            return response['embedding']
+            embedding = response['embedding']
+            
+            # Cache embedding
+            if self.enable_embedding_cache:
+                if len(self._embedding_cache) >= self.embedding_cache_max_size:
+                    # Remove oldest (first) item
+                    self._embedding_cache.popitem(last=False)
+                self._embedding_cache[cache_key] = embedding
+            
+            return embedding
         except Exception as e:
             raise RetrievalError(f"Failed to generate embedding: {str(e)}", query=text)
     
     def retrieve(self, query: str, top_k: int = 10, doc_type: Optional[str] = None) -> List[Dict]:
         """Retrieve relevant items from ChromaDB"""
+        cache_key = (query, top_k, doc_type)
+
+        # Check cache first
+        if self.enable_cache and cache_key in self._retrieval_cache:
+            print(f"🧠 Using cached retrieval results for query: '{query}'")
+            # Move to end to mark as recently used
+            items = self._retrieval_cache.pop(cache_key)
+            self._retrieval_cache[cache_key] = items
+            return items[:top_k]
+
         # Get query embedding
         query_embedding = self.get_embedding(query)
         
@@ -148,6 +200,13 @@ class RAGPipeline:
             
             # Trim to requested top_k after filtering
             retrieved_items = retrieved_items[:top_k]
+        
+        # Cache the results
+        if self.enable_cache:
+            self._retrieval_cache[cache_key] = retrieved_items
+            # Evict least recently used if cache is too big
+            if len(self._retrieval_cache) > self.cache_max_size:
+                self._retrieval_cache.popitem(last=False)
         
         return retrieved_items
     
@@ -490,11 +549,25 @@ CRITICAL: Only show this welcome message ONCE at the very beginning of a new con
                 stream=True  # Enable streaming
             )
             
+            full_response = ""
             for chunk in stream:
                 if 'message' in chunk and 'content' in chunk['message']:
                     content = chunk['message']['content']
                     if content:
+                        full_response += content
                         yield content
+            
+            # Validate full response after streaming (if enabled)
+            # Note: For streaming, we can't modify the stream, but we log validation issues
+            if full_response:
+                validator = get_validator()
+                validation = validator.validate(full_response, query=query, context_provided=bool(context))
+                
+                if not validation['valid']:
+                    print(f"⚠️  Streamed response validation failed (score: {validation['score']:.2f})")
+                    print(f"   Issues: {validation['issues']}")
+                    # Note: Streamed responses are already sent, so we can't modify them
+                    # This is mainly for monitoring/logging purposes
                         
         except Exception as e:
             print(f"❌ LLM streaming error: {str(e)}")
@@ -557,6 +630,20 @@ Provide a helpful response that addresses the query completely."""
             result = response['message']['content']
             if not result or len(result.strip()) == 0:
                 return "I apologize, but I couldn't generate a response. Please try rephrasing your query."
+            
+            # Validate response quality (if enabled)
+            validator = get_validator()
+            validation = validator.validate(result, query=query, context_provided=bool(context))
+            
+            if not validation['valid']:
+                print(f"⚠️  Response validation failed (score: {validation['score']:.2f})")
+                print(f"   Issues: {validation['issues']}")
+                
+                # Use cleaned response if validation enabled
+                if validator.enabled:
+                    result = validation['cleaned_response']
+                    print(f"✅ Using cleaned response")
+            
             return result
         except Exception as e:
             print(f"❌ LLM error: {str(e)}")
@@ -704,17 +791,72 @@ Provide a helpful response that addresses the query completely."""
                 return "I'm Chikku, your personal food companion, flavor guide, and menu expert at Saigon Indian Restaurant. I'm here to help you discover the perfect dish! What are you craving today? 😊"
         
         # Check if template exists for restaurant info queries
+        # Use knowledge base data to populate templates
         if intent_result and intent_result.intent_type:
+            # Use knowledge base for restaurant info queries
+            if intent_result.intent_type == IntentType.RESTAURANT_LOCATION:
+                kb_location = self.knowledge_base.format_location()
+                if kb_location:
+                    print(f"✅ Using knowledge base for location")
+                    return kb_location
+            
+            elif intent_result.intent_type == IntentType.RESTAURANT_HOURS:
+                kb_hours = self.knowledge_base.format_hours()
+                if kb_hours:
+                    print(f"✅ Using knowledge base for hours")
+                    return kb_hours
+            
+            elif intent_result.intent_type == IntentType.RESTAURANT_CONTACT:
+                kb_contact = self.knowledge_base.format_contact()
+                if kb_contact:
+                    print(f"✅ Using knowledge base for contact")
+                    return kb_contact
+            
+            elif intent_result.intent_type == IntentType.RESTAURANT_PARKING:
+                accessibility = self.knowledge_base.get_accessibility()
+                if accessibility and accessibility.get('parking'):
+                    parking_info = accessibility['parking']
+                    return f"""🅿️ **Parking Information**
+
+{parking_info.get('alternatives', 'Street parking available')}
+
+For the best parking options, I'd recommend calling us at +84 (028) 6291 3672, and our team can guide you to the nearest parking! 😊"""
+            
+            elif intent_result.intent_type == IntentType.RESTAURANT_ACCESSIBILITY:
+                accessibility = self.knowledge_base.get_accessibility()
+                if accessibility:
+                    wheelchair = accessibility.get('wheelchair_access', {})
+                    return f"""♿ **Accessibility**
+
+We're committed to making our restaurant accessible to all guests. Our restaurant is located on the ground floor with easy access.
+
+{wheelchair.get('details', 'Restaurant is located on ground floor with easy access')}
+
+For specific accessibility needs or questions, please call us at +84 (028) 6291 3672, and we'll be happy to assist you and ensure your visit is comfortable! 😊"""
+            
+            # Check template as fallback
             template = get_template(intent_result.intent_type)
             if template:
                 print(f"✅ Using template for {intent_result.intent_type.value}")
                 return template
         
-        # For "about" queries without template, use LLM with restaurant info but with very strict prompt
-        if is_about_query and self.restaurant_info:
-            print("📋 Generating about response using restaurant info...")
-            context = f"RESTAURANT INFORMATION:\n{self.restaurant_info}"
-            system_prompt = self._build_system_prompt(context, conversation_history)
+        # For "about" queries without template, use knowledge base or LLM
+        if is_about_query:
+            # Try knowledge base first
+            kb_info = self.knowledge_base.get_restaurant_info_text()
+            if kb_info:
+                print("📋 Using knowledge base for about query")
+                return f"""Welcome to Saigon Indian Restaurant! 🇮🇳✨
+
+{kb_info}
+
+I'm Chikku, your personal food companion here. How can I help you discover our menu today?"""
+            
+            # Fallback to LLM with restaurant info
+            if self.restaurant_info:
+                print("📋 Generating about response using restaurant info...")
+                context = f"RESTAURANT INFORMATION:\n{self.restaurant_info}"
+                system_prompt = self._build_system_prompt(context, conversation_history)
             
             # Build messages with VERY STRICT instructions
             messages = [{"role": "system", "content": system_prompt}]
@@ -796,17 +938,84 @@ I'm Chikku, your personal food companion here. How can I help you discover our m
     def answer_service_query(self, query: str, conversation_history: Optional[List[Dict]] = None, intent_result=None) -> str:
         """
         Handle service queries (reservations, events, etc.)
-        Uses deterministic templates to prevent LLM hallucinations.
-        TODO: Implement multi-turn reservation flow in Phase 2
+        Uses knowledge base data + templates to prevent LLM hallucinations.
+        NOTE: Reservation flow is single-turn (no complex dialog) by design.
         """
-        # Use template if available
-        if intent_result and intent_result.intent_type:
-            template = get_template(intent_result.intent_type)
-            if template:
-                print(f"✅ Using template for {intent_result.intent_type.value}")
-                return template
+        if not intent_result or not intent_result.intent_type:
+            # Fallback
+            return """I can help you with reservations, events, catering, and more!
+
+For service inquiries, please call us at:
+📞 +84 (028) 6291 3672 or +84 (028) 3824 5671
+
+Or tell me what you need, and I'll guide you! 😊"""
         
-        # Fallback
+        intent_type = intent_result.intent_type
+        
+        # Use knowledge base for service queries
+        if intent_type == IntentType.SERVICE_RESERVATION:
+            contact = self.knowledge_base.get_contact()
+            phone = contact.get('phone', {}).get('formatted', '+84 (028) 6291 3672 / +84 (028) 3824 5671') if contact else '+84 (028) 6291 3672 / +84 (028) 3824 5671'
+            return (
+                f"I'd be happy to help you with a reservation. ✨\n\n"
+                f"For the fastest and most accurate booking, please call us directly at 📞 {phone}.\n\n"
+                "If you share your preferred date, time, and number of guests here, I can also help you double‑check availability style (but final confirmation is always through our team). 😊"
+            )
+        
+        elif intent_type == IntentType.SERVICE_DELIVERY:
+            delivery_info = self.knowledge_base.get_delivery_info()
+            if delivery_info:
+                contact = self.knowledge_base.get_contact()
+                phone = contact.get('phone', {}).get('formatted', '+84 (028) 6291 3672 / +84 (028) 3824 5671') if contact else '+84 (028) 6291 3672 / +84 (028) 3824 5671'
+                
+                return f"""We offer delivery services! 🚚
+
+For delivery orders, please call us at:
+📞 {phone}
+
+Our team will be happy to help you place your order and arrange delivery to your location.
+
+What would you like to order? I can help you explore our menu! 🍽️"""
+        
+        elif intent_type == IntentType.SERVICE_EVENT_BOOKING:
+            events_info = self.knowledge_base.get_events_info()
+            if events_info:
+                contact = self.knowledge_base.get_contact()
+                phone = contact.get('phone', {}).get('formatted', '+84 (028) 6291 3672 / +84 (028) 3824 5671') if contact else '+84 (028) 6291 3672 / +84 (028) 3824 5671'
+                
+                event_types = events_info.get('event_types', {})
+                types_list = [k.replace('_', ' ').title() for k in event_types.keys() if event_types[k].get('available')]
+                
+                return f"""We'd love to host your event! 🎉
+
+**We offer:**
+{chr(10).join(f'• {t}' for t in types_list)}
+
+For event bookings, please call us at:
+📞 {phone}
+
+Our team can customize menus and arrangements to make your event memorable! Tell me what kind of event you're planning, and I can help! 😊"""
+        
+        elif intent_type == IntentType.SERVICE_CATERING:
+            catering_info = self.knowledge_base.get_catering_info()
+            if catering_info:
+                contact = self.knowledge_base.get_contact()
+                phone = contact.get('phone', {}).get('formatted', '+84 (028) 6291 3672 / +84 (028) 3824 5671') if contact else '+84 (028) 6291 3672 / +84 (028) 3824 5671'
+                
+                return f"""We offer catering services! 🍽️
+
+For catering inquiries and custom menus, please call us at:
+📞 {phone}
+
+We can tailor our menu to your event needs. Tell me about your event, and I can help guide you! 😊"""
+        
+        # Fallback to template
+        template = get_template(intent_type)
+        if template:
+            print(f"✅ Using template for {intent_type.value}")
+            return template
+        
+        # Final fallback
         return """I can help you with reservations, events, catering, and more!
 
 For service inquiries, please call us at:

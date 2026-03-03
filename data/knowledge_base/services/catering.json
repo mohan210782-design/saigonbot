@@ -1,0 +1,27 @@
+{
+  "catering_available": true,
+  "services": {
+    "off_site_catering": "Food delivery for events at your location",
+    "custom_menus": "Menus customized for your event",
+    "event_types": [
+      "Corporate events",
+      "Private parties",
+      "Conferences",
+      "Celebrations"
+    ]
+  },
+  "contact": {
+    "phone": "+84 (028) 6291 3672 / +84 (028) 3824 5671",
+    "email": "saigonindiarestaurant@gmail.com",
+    "note": "Contact us to discuss catering options and requirements"
+  },
+  "inquiry_info": {
+    "what_to_provide": [
+      "Event date and time",
+      "Number of guests",
+      "Location",
+      "Dietary preferences",
+      "Budget"
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "event_types": {
+    "corporate_events": {
+      "available": true,
+      "description": "Corporate gatherings, meetings, and business events"
+    },
+    "private_dining": {
+      "available": true,
+      "description": "Private dining experiences for special occasions"
+    },
+    "parties": {
+      "available": true,
+      "description": "Birthday parties, celebrations, and social gatherings"
+    },
+    "weddings": {
+      "available": true,
+      "description": "Wedding receptions and ceremonies"
+    },
+    "conferences_seminars": {
+      "available": true,
+      "description": "Conferences, seminars, and professional events"
+    }
+  },
+  "services": {
+    "customized_menus": "Menus tailored to your event needs",
+    "event_planning": "Full event planning assistance from planning to execution",
+    "personalized_attention": "Dedicated service for your event"
+  },
+  "contact": {
+    "phone": "+84 (028) 6291 3672 / +84 (028) 3824 5671",
+    "email": "saigonindiarestaurant@gmail.com",
+    "note": "Contact us to discuss your event requirements"
+  }
+}
