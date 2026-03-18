@@ -43,16 +43,12 @@ from rate_limit import RATE_LIMIT_ENABLED, get_rate_limiter
 # Request/Response models
 class QueryRequest(BaseModel):
     query: str
-    conversation_id: Optional[str] = None  # For conversational context
-    top_k: Optional[int] = None  # Uses env var if not provided
-    rerank_k: Optional[int] = None  # Uses env var if not provided
+    conversation_id: Optional[str] = None
 
 
 class ChatStreamRequest(BaseModel):
     query: str
     conversation_id: Optional[str] = None
-    top_k: Optional[int] = None
-    rerank_k: Optional[int] = None
 
 
 class StopRequest(BaseModel):
@@ -161,7 +157,6 @@ def get_rag_pipeline() -> RAGPipeline:
         
         rag_pipeline = RAGPipeline(
             chroma_db_path=str(chroma_db_path),
-            use_reranking=False
         )
     return rag_pipeline
 
@@ -208,8 +203,6 @@ async def query_menu(request: QueryRequest):
     Query the menu using RAG pipeline
     
     - **query**: User's question about the menu
-    - **top_k**: Number of items to retrieve (uses TOP_K env var if not provided, default: 10)
-    - **rerank_k**: Number of items after reranking (uses RERANK_K env var if not provided, default: 5)
     """
     request_id = str(uuid.uuid4())
     with RequestLogger(logger, request_id) as req_logger:
@@ -217,10 +210,8 @@ async def query_menu(request: QueryRequest):
             endpoint="/query",
             query=request.query[:100],  # Truncate for logging
             conversation_id=request.conversation_id,
-            top_k=request.top_k,
-            rerank_k=request.rerank_k
         )
-    
+
     try:
         # Validate query
         if not request.query or not request.query.strip():
@@ -231,10 +222,6 @@ async def query_menu(request: QueryRequest):
         
         # Get RAG pipeline
         pipeline = get_rag_pipeline()
-        
-        # Validate and set top_k/rerank_k (ensure they're at least 1)
-        top_k = request.top_k if request.top_k is not None and request.top_k > 0 else None
-        rerank_k = request.rerank_k if request.rerank_k is not None and request.rerank_k > 0 else None
         
         # Get or create conversation using session_id
         session_id = request.conversation_id or str(uuid.uuid4())
@@ -251,8 +238,8 @@ async def query_menu(request: QueryRequest):
                 executor,
                 pipeline.query,
                 request.query,
-                top_k,
-                rerank_k,
+                None,
+                None,
                 conversation_history
             )
         except Exception as e:
@@ -344,11 +331,9 @@ async def chat_stream(request: ChatStreamRequest):
     """
     try:
         logger.info(
-            "POST /chat/stream query=%r conversation_id=%s top_k=%s rerank_k=%s",
+            "POST /chat/stream query=%r conversation_id=%s",
             request.query,
             request.conversation_id,
-            request.top_k,
-            request.rerank_k,
         )
         # Validate query
         if not request.query or not request.query.strip():
@@ -366,10 +351,6 @@ async def chat_stream(request: ChatStreamRequest):
         
         # Get RAG pipeline
         pipeline = get_rag_pipeline()
-        
-        # Validate and set top_k/rerank_k
-        top_k = request.top_k if request.top_k is not None and request.top_k > 0 else None
-        rerank_k = request.rerank_k if request.rerank_k is not None and request.rerank_k > 0 else None
         
         async def generate_stream():
             """Async generator for streaming response"""
@@ -391,8 +372,8 @@ async def chat_stream(request: ChatStreamRequest):
                         executor,
                         pipeline.retrieve,
                         request.query,
-                        top_k or pipeline.top_k,
-                        {"doc_type": "menu"},
+                        pipeline.top_k,
+                        "menu",
                     )
                     
                     if retrieved:
@@ -403,10 +384,10 @@ async def chat_stream(request: ChatStreamRequest):
                                 pipeline.rerank,
                                 request.query,
                                 retrieved,
-                                rerank_k or pipeline.rerank_k
+                                pipeline.rerank_k
                             )
                         else:
-                            retrieved = retrieved[:rerank_k or pipeline.rerank_k]
+                            retrieved = retrieved[:pipeline.rerank_k]
                         
                         # Format context
                         context = pipeline.format_context(retrieved)
@@ -489,16 +470,12 @@ async def chat_text(request: ChatStreamRequest):
     
     - **query**: User's question about the menu
     - **conversation_id**: Optional conversation ID for context
-    - **top_k**: Number of items to retrieve (uses TOP_K env var if not provided)
-    - **rerank_k**: Number of items after reranking (uses RERANK_K env var if not provided)
     """
     try:
         logger.info(
-            "POST /chat/text query=%r conversation_id=%s top_k=%s rerank_k=%s",
+            "POST /chat/text query=%r conversation_id=%s",
             request.query,
             request.conversation_id,
-            request.top_k,
-            request.rerank_k,
         )
         # Validate query
         if not request.query or not request.query.strip():
@@ -509,10 +486,6 @@ async def chat_text(request: ChatStreamRequest):
         
         # Get RAG pipeline
         pipeline = get_rag_pipeline()
-        
-        # Validate and set top_k/rerank_k (ensure they're at least 1)
-        top_k = request.top_k if request.top_k is not None and request.top_k > 0 else None
-        rerank_k = request.rerank_k if request.rerank_k is not None and request.rerank_k > 0 else None
         
         # Get or create conversation
         conv_id = request.conversation_id
@@ -529,8 +502,8 @@ async def chat_text(request: ChatStreamRequest):
                 executor,
                 pipeline.query,
                 request.query,
-                top_k,
-                rerank_k,
+                None,
+                None,
                 conversation_history
             )
         except Exception:

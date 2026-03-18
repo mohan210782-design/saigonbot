@@ -120,11 +120,15 @@ class IntentClassifier:
             ],
             IntentType.IDENTITY_WHAT_DO_YOU_DO: [
                 r'\bwhat\s+(do|can)\s+you\s+do\b',
+                r'\bwhat\s+you\s+can\s+do\b',
+                r'\bwhat\s+can\s+you\s+do\s+for\b',
                 r'\bwhat\s+is\s+your\s+role\b',
                 r'\bwhat\s+are\s+your\s+capabilities\b',
                 r'\bhow\s+can\s+you\s+help\b',
                 r'\bwhat\s+services\s+do\s+you\s+provide\b',
-                r'\bwhat\s+help\s+can\s+you\s+provide\b'
+                r'\bwhat\s+help\s+can\s+you\s+provide\b',
+                r'\bwhat\s+do\s+you\s+offer\b',
+                r'\bwhat\s+can\s+you\s+help\s+(me\s+)?with\b'
             ],
             IntentType.IDENTITY_CAPABILITIES: [
                 r'\bwhat\s+can\s+you\s+help\s+with\b',
@@ -235,8 +239,17 @@ class IntentClassifier:
                 r'\bgive\s+me\s+one\b',
                 r'\bi.*ll\s+take\b',
                 r'\bmake\s+it\s+(less|more)\s+spicy\b',
-                r'\bsomething\s+(spicy|creamy|tangy|rich|filling)\b',
-                r'\bnot\s+too\s+(oily|spicy)\b'
+                r'\bsomething\s+(spicy|creamy|tangy|rich|filling|light|mild)\b',
+                r'\bnot\s+too\s+(oily|spicy|heavy)\b',
+                r'\bcan\s+i\s+get\b',
+                r'\bdo\s+you\s+have\b',
+                r'\bdo\s+you\s+serve\b',
+                r'\bcan\s+i\s+order\b',
+                r'\bwhat.*for\s+dinner\b',
+                r'\bwhat.*for\s+lunch\b',
+                r'\bwhat.*for\s+breakfast\b',
+                r'\bstarters?\s+first\b',
+                r'\bsomething\s+for\s+(kids?|children)\b'
             ],
             IntentType.MENU_RECOMMENDATION: [
                 r'\brecommend\b',
@@ -262,7 +275,23 @@ class IntentClassifier:
                 r'\bsomething\s+kids\s+will\s+like\b',
                 r'\bgood\s+in\s+(mutton|chicken|fish)\b',
                 r'\bwhat.*good\s+in\b',
-                r'\bstrong\s+indian\s+masala\b'
+                r'\bstrong\s+indian\s+masala\b',
+                r'\bfeel\s+like\s+(eating|having|ordering|trying)\b',
+                r'\bcraving\b',
+                r'\bin\s+the\s+mood\s+for\b',
+                r'\bsomething\s+to\s+share\b',
+                r'\bbest\s+dish\s+to\s+share\b',
+                r'\bwhat\s+goes\s+well\s+with\b',
+                r'\bpair(s|ed)?\s+with\b',
+                r'\bgoes\s+with\b',
+                r'\bfor\s+(two|three|four|five|six|\d+)\s+people\b',
+                r'\bwe\s+(are|re)\s+(a\s+group|family|\d+\s+people)\b',
+                r'\bgroup\s+of\s+\d+\b',
+                r'\bfor\s+the\s+(family|group|table)\b',
+                r'\bcan\s+you\s+suggest\b',
+                r'\bany\s+good\b',
+                r'\bwhat.*tangy\b',
+                r'\btangy\s+and\s+spicy\b'
             ],
             IntentType.MENU_PRICE: [
                 r'\b(price|cost|how\s+much)\s+.*\b',
@@ -423,7 +452,11 @@ class IntentClassifier:
             'biryani', 'dosa', 'curry', 'naan', 'tandoori', 'paneer',
             'vegetarian', 'non-vegetarian', 'vegan', 'spicy', 'mild',
             'starter', 'main', 'dessert', 'drink', 'beverage',
-            'breakfast', 'lunch', 'dinner', 'appetizer'
+            'breakfast', 'lunch', 'dinner', 'appetizer',
+            'idly', 'idli', 'podi', 'vada', 'uttapam', 'uthappam',
+            'pongal', 'upma', 'bath', 'bonda', 'parotta', 'poori',
+            'rasam', 'sambar', 'chutney', 'kulcha', 'roti', 'rice',
+            'tikka', 'kebab', 'korma', 'masala', 'dal', 'raita'
         ]
         
         if any(keyword in query for keyword in food_keywords):

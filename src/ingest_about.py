@@ -4,6 +4,8 @@ Ingest ABOUT knowledge: index data/processed/about.txt into the existing ChromaD
 This script is safe to run repeatedly:
 - It only adds/updates documents with ids like "about:0", "about:1", ...
 - It does NOT delete or re-index menu items.
+
+Provider (Ollama/OpenAI) is selected via LLM_PROVIDER in .env.
 """
 
 from __future__ import annotations
@@ -29,24 +31,19 @@ def main() -> None:
         default=None,
         help="Path to about.txt (defaults to <project_root>/data/processed/about.txt)",
     )
-    parser.add_argument(
-        "--model",
-        default="mxbai-embed-large",
-        help="Ollama embedding model (default: mxbai-embed-large)",
-    )
     args = parser.parse_args()
 
     project_root = Path(__file__).parent.parent
-    chroma_dir = Path(args.chroma_dir) if args.chroma_dir else (project_root / "chroma_db")
-    about_path = Path(args.about_path) if args.about_path else (project_root / "data" / "processed" / "about.txt")
+    chroma_dir  = Path(args.chroma_dir)  if args.chroma_dir  else (project_root / "chroma_db")
+    about_path  = Path(args.about_path) if args.about_path else (project_root / "data" / "processed" / "about.txt")
 
     if not about_path.exists():
         raise SystemExit(f"about.txt not found: {about_path}")
 
-    client = chromadb.PersistentClient(path=str(chroma_dir))
+    client     = chromadb.PersistentClient(path=str(chroma_dir))
     collection = client.get_collection(name="hotel_saigon_menu")
 
-    index_about_knowledge(collection, str(about_path), model=args.model)
+    index_about_knowledge(collection, str(about_path))
 
     print("\n✅ About ingestion complete!")
     print(f"   Collection: hotel_saigon_menu")
@@ -55,4 +52,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

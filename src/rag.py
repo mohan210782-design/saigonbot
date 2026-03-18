@@ -4,7 +4,6 @@ RAG Pipeline: Query processing with retrieval and generation
 import chromadb
 from pathlib import Path
 from typing import List, Dict, Optional, Tuple
-import ollama
 import sys
 import os
 import re
@@ -13,6 +12,14 @@ from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
+
+# Force CPU usage for Ollama if OLLAMA_NUM_GPU is set in .env
+# This prevents CUDA out of memory errors on servers
+if os.getenv("OLLAMA_NUM_GPU") is not None:
+    os.environ['OLLAMA_NUM_GPU'] = os.getenv("OLLAMA_NUM_GPU")
+elif os.getenv("FORCE_CPU", "false").lower() == "true":
+    # Alternative: Use FORCE_CPU=true in .env to disable GPU
+    os.environ['OLLAMA_NUM_GPU'] = '0'
 
 # Import intent classifier
 from intent_classifier import get_intent_classifier, IntentCategory, IntentType
@@ -27,6 +34,8 @@ from errors import (
 from response_validator import get_validator
 # Import knowledge base
 from knowledge_base import get_knowledge_base
+# Import LLM provider abstraction
+from llm_provider import get_provider
 
 
 class RAGPipeline:
@@ -41,11 +50,13 @@ class RAGPipeline:
         rerank_k: Optional[int] = None
     ):
         """Initialize RAG Pipeline"""
-        # Load from environment or use defaults
-        self.embedding_model = embedding_model or os.getenv("EMBEDDING_MODEL", "mxbai-embed-large")
-        # Use quantized model for faster inference (q4_0 = 4-bit quantization)
-        self.llm_model = llm_model or os.getenv("LLM_MODEL", "llama3:8b-instruct-q4_0")
+        # Initialize LLM provider (Ollama or OpenAI based on LLM_PROVIDER env var)
+        self.provider = get_provider()
+        # Model names are owned by the provider; keep as attributes for logging/errors
+        self.embedding_model = self.provider.embedding_model
+        self.llm_model = self.provider.llm_model
         self.use_reranking = use_reranking if use_reranking is not None else os.getenv("USE_RERANKING", "false").lower() == "true"
+        self.query_normalization = os.getenv("QUERY_NORMALIZATION", "true").lower() == "true"
         
         # Ensure top_k and rerank_k are valid integers (minimum 1)
         # Reduced defaults for faster processing
@@ -71,12 +82,30 @@ class RAGPipeline:
                 from FlagEmbedding import FlagReranker
                 self.reranker = FlagReranker('BAAI/bge-reranker-v2-m3', use_fp16=True)
                 print("✅ Reranking enabled")
+            except ImportError as e:
+                error_msg = str(e)
+                if "numpy" in error_msg.lower() or "_multiarray" in error_msg.lower():
+                    print(f"⚠️  Reranking not available: NumPy version incompatibility")
+                    print(f"   FlagEmbedding requires NumPy < 2.0, but NumPy 2.x is installed")
+                    print(f"   Fix with: pip install \"numpy<2.0\"")
+                else:
+                    print(f"⚠️  Reranking not available: FlagEmbedding not installed")
+                    print(f"   Install with: pip install FlagEmbedding")
+                print(f"   Error: {e}")
+                self.use_reranking = False
+                self.reranker = None
             except Exception as e:
-                print(f"⚠️  Reranking not available: {e}")
+                error_msg = str(e)
+                if "numpy" in error_msg.lower():
+                    print(f"⚠️  Reranking initialization failed: NumPy version incompatibility")
+                    print(f"   Fix with: pip install \"numpy<2.0\"")
+                else:
+                    print(f"⚠️  Reranking initialization failed: {e}")
                 self.use_reranking = False
                 self.reranker = None
         else:
             self.reranker = None
+            print("ℹ️  Reranking disabled (set USE_RERANKING=true in .env to enable)")
         
         print(f"✅ RAG Pipeline initialized")
         print(f"   Embedding model: {self.embedding_model}")
@@ -84,6 +113,22 @@ class RAGPipeline:
         print(f"   Top K: {self.top_k}")
         print(f"   Rerank K: {self.rerank_k}")
         print(f"   Reranking: {'enabled' if self.use_reranking else 'disabled'}")
+
+        # Load system prompt from file (configurable via SYSTEM_PROMPT_FILE in .env)
+        self.base_system_prompt: str = ""
+        try:
+            default_prompt_path = Path(__file__).parent.parent / "data" / "system_prompt.txt"
+            prompt_file = os.getenv("SYSTEM_PROMPT_FILE", str(default_prompt_path))
+            prompt_path = Path(prompt_file)
+            if not prompt_path.is_absolute():
+                prompt_path = Path(__file__).parent.parent / prompt_file
+            if prompt_path.exists():
+                self.base_system_prompt = prompt_path.read_text(encoding="utf-8").strip()
+                print(f"✅ Loaded system prompt from {prompt_path.name}")
+            else:
+                print(f"⚠️  System prompt file not found: {prompt_path}")
+        except Exception as e:
+            print(f"⚠️  Failed to load system prompt file: {e}")
 
         # Load static restaurant information from about.txt for use in system prompt
         self.restaurant_info: str = ""
@@ -132,8 +177,7 @@ class RAGPipeline:
         
         # Generate embedding
         try:
-            response = ollama.embeddings(model=self.embedding_model, prompt=text)
-            embedding = response['embedding']
+            embedding = self.provider.embed(text)
             
             # Cache embedding
             if self.enable_embedding_cache:
@@ -272,7 +316,7 @@ class RAGPipeline:
             )
         
         return "\n".join(context_parts)
-
+    
     def _restaurant_info_section(self) -> str:
         """
         Build a restaurant information section for the system prompt from about.txt.
@@ -321,8 +365,11 @@ class RAGPipeline:
             if msg.get('role') == 'user':
                 content = msg.get('content', '').lower()
                 # Look for common dish-related words
-                dish_words = ['biryani', 'curry', 'tikka', 'naan', 'dosa', 'chicken', 'mutton', 'fish', 
-                             'prawn', 'paneer', 'vegetable', 'spicy', 'starter', 'main']
+                dish_words = ['biryani', 'curry', 'tikka', 'naan', 'dosa', 'chicken', 'mutton', 'fish',
+                             'prawn', 'paneer', 'vegetable', 'spicy', 'starter', 'main',
+                             'idly', 'idli', 'podi', 'vada', 'uttapam', 'uthappam', 'pongal',
+                             'upma', 'bath', 'bonda', 'parotta', 'poori', 'rasam', 'sambar',
+                             'korma', 'masala', 'dal', 'kebab', 'kulcha', 'roti']
                 for word in dish_words:
                     if word in content and word not in dish_keywords:
                         dish_keywords.append(word)
@@ -371,8 +418,9 @@ class RAGPipeline:
         valid_items = re.findall(r'•\s+([^\n]+)', context)
         valid_items_lower = [item.lower().strip() for item in valid_items]
         
-        # Check for vegetarian query
-        is_vegetarian_query = any(word in query_lower for word in ['vegetarian', 'veg', 'vegan'])
+        # Check for vegetarian query (must not be a non-veg query)
+        is_non_veg_query_check = any(word in query_lower for word in ['non-veg', 'non veg'])
+        is_vegetarian_query = not is_non_veg_query_check and any(word in query_lower for word in ['vegetarian', 'veg', 'vegan'])
         
         if is_vegetarian_query:
             # Check if response mentions non-vegetarian items
@@ -419,194 +467,11 @@ class RAGPipeline:
         # Check if this is a new session
         is_new_session = self._is_new_session(conversation_history)
         
-        # Strong inline prompt (single source of truth for Chikku's behavior)
-        base_prompt = """You are Chikku, the official hospitality assistant of Saigon Indian Restaurant.
-
-You are warm, polite, emotionally intelligent, confident, and professional.
-You speak like a premium restaurant host — never like an AI model, chatbot, or technical assistant.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-CORE IDENTITY RULES
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-You work ONLY for Saigon Indian Restaurant.
-
-You are NOT:
-• An AI model
-• A chatbot
-• A language model
-• Trained on datasets
-• A general knowledge assistant
-• Developed by Google, OpenAI, or any tech company
-• A machine learning model
-
-You must NEVER say:
-• "I am an AI"
-• "I am an AI model"
-• "I was trained on a dataset"
-• "I don't have access"
-• "I apologize" or "I'm sorry" (unless genuinely needed for a mistake)
-• "I apologize for any confusion"
-• "I apologize for my previous responses"
-• "As an AI model"
-• "As an AI"
-• "I'm an AI assistant"
-• "I'm a language model"
-• "Use Google"
-• "Search online"
-• "Based on context"
-• "Current menu context"
-• "Retrieved items"
-• "As per instructions"
-• "I don't have personal data"
-• "I don't have access to current events"
-• "validation" or "validated"
-• "check against the list"
-
-You must NEVER mention:
-• JSON
-• tags
-• metadata
-• retrieved_count
-• system prompt
-• previous conversation
-• training data
-• datasets
-• algorithms
-• deep learning
-• machine learning
-• Google, OpenAI, or any tech company
-
-CRITICAL: If asked "who are you", respond with the welcome message showing you are Chikku, a real hospitality assistant at Saigon Indian Restaurant. NEVER mention AI, models, or technology.
-
-You must never break character.
-
-You are a human hospitality professional working at Saigon Indian Restaurant.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-WELCOME MESSAGE (ONLY ON FIRST MESSAGE OF A SESSION)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-If the conversation is new and the user greets you or asks who you are, respond with the welcome message below.
-Show this welcome only once per session. Never repeat it again unless the session fully resets.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-INTENT HANDLING
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-There are three types of queries:
-
-1) MENU QUERIES
-Examples:
-- biryani options
-- spicy non-vegetarian dishes
-- vegetarian starters
-- dosa price
-
-2) RESTAURANT INFORMATION QUERIES
-Examples:
-- Tell me about Saigon Indian Restaurant
-- Where are you located?
-- What are your timings?
-- How do I reserve a table?
-
-3) GENERAL CONVERSATION
-Examples:
-- Hello
-- Thank you
-- Who are you?
-
-Handle each appropriately.
-Do not treat restaurant info queries as menu queries.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-WHEN RETRIEVED MENU ITEMS ARE PROVIDED
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-If menu items are provided to you:
-
-• You MUST use them - mention them naturally in your response
-• You MUST answer using ONLY those items - never invent dishes
-• You MUST NOT ignore them - they are real menu items from Saigon Indian Restaurant
-• You MUST NOT apologize or claim inability
-• You MUST NOT say "I don't have access" - you have the menu items right here
-
-CRITICAL: The menu items provided ARE your knowledge. Use them directly. Do not say you don't have access to them.
-
-Only mention dishes that exist in the provided items.
-
-If the user specifies dietary preference such as:
-• vegetarian
-• non-vegetarian
-• spicy
-• mild
-
-You must prioritize items matching that preference.
-If mixed items are present, do not highlight items that contradict the user's request.
-
-RESPONSE FORMAT:
-1. Start with "Namaste!" followed by an appropriate emoji
-2. Use exact item names from the provided menu items
-3. Format prices as: X,XXX VND (e.g., "164,000 VND" not "164000.0 VND")
-4. Describe items naturally - mention their key features (spicy, creamy, grilled, etc.)
-5. End with a warm follow-up question
-6. Never use technical numbering like (1), (2a), etc.
-7. Never display tags explicitly - incorporate them naturally in descriptions
-
-Respond naturally and conversationally, like a friendly restaurant host would.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-WHEN NO MATCHING MENU ITEMS EXIST
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-If the query is about food and no relevant items are available:
-
-Say politely:
-"I couldn't find that in our current menu, but I'd be happy to suggest something similar."
-
-Do not apologize excessively.
-Do not mention missing data.
-Do not switch persona.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-RESTAURANT INFORMATION QUESTIONS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-If the user asks about:
-• The restaurant
-• Location
-• Timings
-• Reservations
-• Experience
-
-Respond warmly with information from the RESTAURANT INFORMATION section below.
-Do not force menu items into these responses unless food is requested.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-RESPONSE STYLE REQUIREMENTS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-All responses must:
-
-• Sound human and natural.
-• Be suitable for text-to-speech.
-• Avoid robotic formatting.
-• Avoid technical tone.
-• Start with a warm acknowledgment when appropriate.
-• End with a gentle, friendly follow-up question when helpful.
-• Be clear and concise.
-
-Imagine you are speaking directly to a guest sitting at a table in the restaurant.
-
-Always sound welcoming.
-Always sound confident.
-Always sound professional.
-Always sound human.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-Current Menu Context:
-{context}""".replace('{context}', context)
+        # Load base prompt from file, fall back to minimal inline prompt
+        if self.base_system_prompt:
+            base_prompt = self.base_system_prompt.replace('{context}', context)
+        else:
+            base_prompt = f"You are Chikku, the hospitality assistant of Saigon Indian Restaurant.\n\nCurrent Menu Context:\n{context}"
         
         # Add welcome message section if this is a new session
         welcome_section = ""
@@ -678,26 +543,17 @@ Respond naturally as Chikku."""
         try:
             print(f"🔄 Streaming LLM response ({self.llm_model})...")
             
-            # Stream response
-            stream = ollama.chat(
-                model=self.llm_model,
-                messages=messages,
-                options={
-                    "num_predict": 500,
-                    "temperature": 0.4,
-                    "top_p": 0.9,
-                    "num_ctx": 2048,
-                },
-                stream=True  # Enable streaming
-            )
-            
+            llm_options = {
+                "max_tokens": 500,
+                "temperature": 0.4,
+                "top_p": 0.9,
+                "num_ctx": 2048,
+            }
+
             full_response = ""
-            for chunk in stream:
-                if 'message' in chunk and 'content' in chunk['message']:
-                    content = chunk['message']['content']
-                    if content:
-                        full_response += content
-                        yield content
+            for content in self.provider.stream_chat(messages, llm_options):
+                full_response += content
+                yield content
             
             # Validate full response after streaming (if enabled)
             # Note: For streaming, we can't modify the stream, but we log validation issues
@@ -752,8 +608,8 @@ Respond naturally as Chikku."""
         
         # Extract query intent for better instructions
         query_lower = query.lower()
-        is_vegetarian = any(word in query_lower for word in ['vegetarian', 'veg', 'vegan'])
         is_non_veg = any(word in query_lower for word in ['non-veg', 'non veg', 'chicken', 'mutton', 'fish', 'seafood', 'prawn', 'egg'])
+        is_vegetarian = not is_non_veg and any(word in query_lower for word in ['vegetarian', 'veg', 'vegan'])
         is_spicy = any(word in query_lower for word in ['spicy', 'spice', 'hot', 'fiery'])
         is_starter = any(word in query_lower for word in ['starter', 'appetizer'])
         is_recommendation = any(word in query_lower for word in ['recommend', 'suggest', 'best', 'popular', 'good'])
@@ -771,30 +627,36 @@ Respond naturally as Chikku."""
         if is_starter:
             query_specific += "\nUser wants STARTERS. Focus on starter/appetizer items.\n"
         
-        # SIMPLIFIED prompt - removed complex validation instructions that confuse LLM
+        # STRENGTHENED prompt - explicit bans on apologies
         user_prompt = f"""Customer Question: {query}
 {query_specific}
 
-You are Chikku, a friendly restaurant host at Saigon Indian Restaurant.
+You are Chikku, a confident restaurant host at Saigon Indian Restaurant.
 
-Respond naturally and conversationally:
+Respond directly and confidently:
 1. Start with "Namaste!" and an appropriate emoji
-2. Use ONLY the menu items listed below
-3. Format prices as: X,XXX VND (e.g., "164,000 VND")
+2. Use ONLY the menu items listed below - mention them naturally
+3. Format prices as: X,XXX VND (e.g., "154,000 VND")
 4. Describe items naturally (spicy, creamy, grilled, etc.)
 5. End with a warm follow-up question
 
-DO NOT:
-- Apologize unnecessarily
-- Mention "I apologize" or "I'm sorry"
-- Mention dishes not in the list below
-- Use technical terms like "context", "retrieved items", "validation"
-- Explain how you're responding
+FORBIDDEN PHRASES - NEVER USE THESE:
+- "I apologize" or "I'm sorry"
+- "I'm sorry for any confusion"
+- "your request is not clear"
+- "I would be more than happy to assist"
+- "based on my capabilities"
+- "within this context"
+- "based on the information provided"
+- Any dishes NOT in the list below
+- Technical terms like "context", "retrieved items", "validation"
+
+You are a real restaurant host. Be confident and direct. Answer the question immediately. No apologies, no explanations.
 
 Menu Items:
 {context}
 
-Now respond naturally as Chikku would, using ONLY the items listed above."""
+Respond naturally as Chikku would, using ONLY the items listed above."""
         messages.append({"role": "user", "content": user_prompt})
         
         try:
@@ -802,20 +664,15 @@ Now respond naturally as Chikku would, using ONLY the items listed above."""
             print(f"   System prompt length: {len(system_prompt)} chars")
             print(f"   Conversation history: {len(conversation_history) if conversation_history else 0} messages")
             
-            response = ollama.chat(
-                model=self.llm_model,
-                messages=messages,
-                options={
-                   "num_predict": 400,  # Increased for longer, more natural responses
-                    "temperature": 0.3,  # Lower for more consistent, less creative responses
-                    "top_p": 0.9,
-                    "num_ctx": 2048,
-                },
-                stream=False
-            )
-            
+            llm_options = {
+                "max_tokens": 400,
+                "temperature": 0.2,
+                "top_p": 0.85,
+                "num_ctx": 2048,
+            }
+
+            result = self.provider.chat(messages, llm_options)
             print(f"✅ LLM response received")
-            result = response['message']['content']
             if not result or len(result.strip()) == 0:
                 return "I apologize, but I couldn't generate a response. Please try rephrasing your query."
             
@@ -856,10 +713,25 @@ Now respond naturally as Chikku would, using ONLY the items listed above."""
         filtered_items = []
         
         # Extract dietary preferences from query
-        is_vegetarian_query = any(word in query_lower for word in ['vegetarian', 'veg', 'vegan', 'jain'])
         is_non_veg_query = any(word in query_lower for word in ['non-veg', 'non veg', 'nonvegetarian', 'meat', 'chicken', 'mutton', 'fish', 'seafood', 'prawn', 'egg'])
+        is_vegetarian_query = not is_non_veg_query and any(word in query_lower for word in ['vegetarian', 'veg', 'vegan', 'jain'])
         is_spicy_query = any(word in query_lower for word in ['spicy', 'spice', 'hot', 'fiery', 'pepper'])
-        is_starter_query = any(word in query_lower for word in ['starter', 'appetizer', 'appetiser'])
+        is_starter_query = any(word in query_lower for word in ['starter', 'appetizer', 'appetiser', 'snack'])
+        is_breakfast_query = any(word in query_lower for word in ['breakfast', 'morning', 'idly', 'idli', 'dosa', 'vada', 'pongal', 'upma', 'uttapam', 'uthappam'])
+        is_dessert_query = any(word in query_lower for word in ['dessert', 'sweet', 'payasam', 'kheer', 'ice cream', 'halwa'])
+        is_drink_query = any(word in query_lower for word in ['drink', 'beverage', 'juice', 'beer', 'wine', 'cocktail', 'mocktail', 'lassi', 'tea', 'coffee', 'water'])
+        is_rice_query = 'rice' in query_lower and not any(w in query_lower for w in ['starter', 'breakfast', 'dessert'])
+        is_bread_query = any(word in query_lower for word in ['naan', 'roti', 'bread', 'kulcha', 'paratha', 'poori'])
+        is_thali_query = any(word in query_lower for word in ['thali', 'set lunch', 'combo', 'meal'])
+
+        # Section maps (matches actual ChromaDB section values)
+        STARTER_SECTIONS = {'veg starters', 'non veg starters', 'non - vegeterian srarters – from tandoor', 'salads/papad/appetizer'}
+        BREAKFAST_SECTIONS = {'breakfast'}
+        DESSERT_SECTIONS = {'desserts & sweets'}
+        DRINK_SECTIONS = {'beer', 'wine', 'cocktails', 'mocktails', 'liquor', 'hot & cold beverages', 'native hot beverages', 'native cold beverages'}
+        RICE_SECTIONS = {'rice - veg', 'rice non-veg'}
+        BREAD_SECTIONS = {'from the clay pot – tandoor - breads', 'from the clay pot – tandoor - breadsg'}
+        THALI_SECTIONS = {'thalis/set lunch'}
         
         # Extract protein type
         protein_type = None
@@ -881,24 +753,29 @@ Now respond naturally as Chikku would, using ONLY the items listed above."""
             tags_str = metadata.get('tags', '')
             tags = tags_str.lower() if isinstance(tags_str, str) else str(tags_str).lower()
             item_name = metadata.get('item_name', '').lower()
+            section = metadata.get('section', '').lower()
             
-            # Filter by dietary preference
+            # IMPROVED: Stricter filtering by dietary preference
             if is_vegetarian_query:
-                # For vegetarian queries, exclude non-vegetarian items
+                # STRICT: For vegetarian queries, exclude ANY non-vegetarian items
                 if 'non-vegetarian' in tags or 'non vegetarian' in tags:
                     continue
-                # Must be vegetarian
+                # Check item name for non-veg indicators (more comprehensive)
+                non_veg_indicators = ['chicken', 'mutton', 'fish', 'prawn', 'shrimp', 'meat', 'egg', 'seafood']
+                if any(indicator in item_name for indicator in non_veg_indicators):
+                    continue
+                # Must have vegetarian tag OR be clearly vegetarian by name
                 if 'vegetarian' not in tags and 'vegan' not in tags:
-                    # Check item name for non-veg indicators
-                    non_veg_indicators = ['chicken', 'mutton', 'fish', 'prawn', 'meat', 'egg']
-                    if any(indicator in item_name for indicator in non_veg_indicators):
+                    # Allow if it's clearly vegetarian (paneer, vegetable, etc.)
+                    veg_indicators = ['paneer', 'vegetable', 'dal', 'dhal', 'naan', 'roti', 'raita', 'salad']
+                    if not any(indicator in item_name for indicator in veg_indicators):
                         continue
             
             if is_non_veg_query:
-                # For non-veg queries, exclude vegetarian-only items
+                # STRICT: For non-veg queries, exclude vegetarian-only items
                 if 'vegetarian' in tags and 'non-vegetarian' not in tags:
                     # Check if it's actually non-veg by name
-                    non_veg_indicators = ['chicken', 'mutton', 'fish', 'prawn', 'meat', 'egg']
+                    non_veg_indicators = ['chicken', 'mutton', 'fish', 'prawn', 'shrimp', 'meat', 'egg', 'seafood']
                     if not any(indicator in item_name for indicator in non_veg_indicators):
                         continue
             
@@ -918,15 +795,31 @@ Now respond naturally as Chikku would, using ONLY the items listed above."""
                     if 'fish' not in item_name and 'prawn' not in item_name and 'shrimp' not in item_name:
                         continue
             
-            # Filter by spicy preference
-            if is_spicy_query:
-                # Prioritize spicy items, but don't exclude non-spicy completely
-                # (we'll just prioritize them in the list)
-                pass
+            # Section-based course filtering
+            if is_starter_query and STARTER_SECTIONS:
+                if section not in STARTER_SECTIONS:
+                    continue
+            elif is_breakfast_query and not any(w in query_lower for w in ['chicken', 'mutton', 'fish', 'prawn']):
+                if section not in BREAKFAST_SECTIONS:
+                    continue
+            elif is_dessert_query:
+                if section not in DESSERT_SECTIONS:
+                    continue
+            elif is_drink_query:
+                if section not in DRINK_SECTIONS:
+                    continue
+            elif is_thali_query:
+                if section not in THALI_SECTIONS:
+                    continue
             
             filtered_items.append(item)
         
-        return filtered_items if filtered_items else items  # Return original if filtering removes everything
+        # IMPROVED: If filtering removed everything, return original but log warning
+        if not filtered_items and items:
+            print(f"⚠️  Intent filtering removed all items, using original {len(items)} items")
+            return items
+        
+        return filtered_items
     
     def filter_by_relevance(self, query: str, items: List[Dict]) -> List[Dict]:
         """Filter items by keyword relevance to query"""
@@ -1009,6 +902,45 @@ Now respond naturally as Chikku would, using ONLY the items listed above."""
                 category=IntentCategory.MENU
             )
     
+    def normalize_query(self, query: str) -> str:
+        """
+        Normalize speech-to-text errors using LLM.
+        Fixes homophones, mishearing, wrong words in context of an Indian restaurant.
+        Enabled via QUERY_NORMALIZATION=true in .env.
+        """
+        if not self.query_normalization:
+            return query
+
+        # Skip normalization for very short queries or greetings — not worth the latency
+        query_stripped = query.strip()
+        if len(query_stripped) <= 6:
+            return query
+
+        try:
+            messages = [
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a speech-to-text correction assistant for an Indian restaurant chatbot. "
+                        "Fix any speech-to-text errors, mishearing, homophones, or wrong words in the query. "
+                        "Context: Indian food (biryani, idly, dosa, podi, paneer, korma, tikka, naan, etc.), "
+                        "restaurant queries (menu, price, starters, vegetarian, non-veg, spicy). "
+                        "Return ONLY the corrected query — no explanation, no extra text."
+                    )
+                },
+                {"role": "user", "content": query_stripped}
+            ]
+            corrected = self.provider.chat(messages, {"max_tokens": 80, "temperature": 0.0}).strip()
+            # Safety: if LLM returns something wildly different or empty, use original
+            if corrected and len(corrected) < len(query_stripped) * 3:
+                if corrected != query_stripped:
+                    print(f"🔧 Query normalized: '{query_stripped}' → '{corrected}'")
+                return corrected
+        except Exception as e:
+            print(f"⚠️  Query normalization failed: {e}")
+
+        return query
+
     def is_menu_query(self, query: str) -> bool:
         """
         Detect if query is about menu items (food, dishes, prices) vs identity/about/restaurant info.
@@ -1161,19 +1093,15 @@ Now answer the query naturally as Chikku."""
             
             try:
                 print(f"🔄 Generating about response ({self.llm_model})...")
-                response = ollama.chat(
-                    model=self.llm_model,
-                    messages=messages,
-                    options={
-                        "num_predict": 300,
-                        "temperature": 0.4,  # Lower temperature for more deterministic responses
-                        "top_p": 0.9,
-                        "num_ctx": 2048,
-                    },
-                    stream=False
-                )
                 
-                result = response['message']['content'].strip()
+                llm_options = {
+                    "max_tokens": 300,
+                    "temperature": 0.4,
+                    "top_p": 0.9,
+                    "num_ctx": 2048,
+                }
+
+                result = self.provider.chat(messages, llm_options).strip()
                 
                 # Safety check: if response contains AI disclaimers, use fallback
                 ai_keywords = ['chatgpt', 'ai model', 'language model', 'artificial intelligence', 'openai', 'google']
@@ -1313,8 +1241,11 @@ Or tell me what you need, and I'll guide you! 😊"""
         # Use instance defaults or provided values, ensure minimum of 1
         top_k = max(1, top_k) if top_k is not None else self.top_k
         rerank_k = max(1, rerank_k) if rerank_k is not None else self.rerank_k
-        
-        # Step 0: Classify intent and route accordingly
+
+        # Step 0a: Normalize speech-to-text errors before intent classification
+        user_query = self.normalize_query(user_query)
+
+        # Step 0b: Classify intent and route accordingly
         intent_result = self._classify_intent(user_query)
         print(f"📋 Intent classified: {intent_result.intent_type.value} ({intent_result.category.value})")
         
@@ -1345,8 +1276,24 @@ Or tell me what you need, and I'll guide you! 😊"""
                 'intent': intent_result.to_dict()
             }
         elif intent_result.requires_clarification:
-            # Need clarification
-            response = self.ask_clarification(user_query, intent_result)
+            # Low confidence — send directly to LLM instead of generic template
+            print(f"📋 Low confidence ({intent_result.confidence:.2f}), falling back to LLM...")
+            try:
+                system_prompt = self._build_system_prompt("", conversation_history)
+                messages = [{"role": "system", "content": system_prompt}]
+                if conversation_history:
+                    for msg in conversation_history[-4:]:
+                        if msg.get('role') in ['user', 'assistant']:
+                            messages.append({"role": msg['role'], "content": msg['content']})
+                messages.append({"role": "user", "content": user_query})
+                response = self.provider.chat(messages, {
+                    "max_tokens": 300,
+                    "temperature": 0.5,
+                    "top_p": 0.9,
+                }).strip()
+            except Exception as e:
+                print(f"⚠️  LLM fallback failed: {e}")
+                response = self.ask_clarification(user_query, intent_result)
             return {
                 'query': user_query,
                 'response': response,
@@ -1403,18 +1350,26 @@ Or tell me what you need, and I'll guide you! 😊"""
             retrieved = self.retrieve(user_query, top_k=top_k, doc_type="menu")
             retrieved = [item for item in retrieved if item.get('metadata', {}).get('doc_type') != 'about']
         
-        # Step 5: Rerank (optional)
-        # IMPORTANT: Don't limit to rerank_k if user requested more items (top_k > rerank_k)
-        # Only limit if we have too many items and reranking is enabled
+        # Step 5: Rerank (optional) - IMPROVED with smart limits
+        # Smart limit: Even if user requests top_k=40, limit final context to 10-15 items for better LLM focus
+        # This prevents apologies and improves quality
+        MAX_CONTEXT_ITEMS = 15  # Optimal context size for LLM
+        
         if self.use_reranking:
-            print(f"🔄 Reranking to top {rerank_k} items...")
-            retrieved = self.rerank(user_query, retrieved, top_k=rerank_k)
+            # Use reranking to prioritize best items
+            # Rerank to more items than needed, then limit to MAX_CONTEXT_ITEMS
+            rerank_to = min(len(retrieved), max(rerank_k, MAX_CONTEXT_ITEMS))
+            print(f"🔄 Reranking to top {rerank_to} items...")
+            retrieved = self.rerank(user_query, retrieved, top_k=rerank_to)
+            # Limit to optimal context size
+            retrieved = retrieved[:MAX_CONTEXT_ITEMS]
+            print(f"✅ Using top {len(retrieved)} items after reranking (optimal context size)")
         else:
-            # If user requested top_k items, use up to top_k (but don't exceed what we have)
-            # Only limit to rerank_k if we have more items than needed
-            max_items = min(len(retrieved), max(rerank_k, top_k))
+            # Without reranking, still limit to optimal context size for better quality
+            # This prevents too much context causing apologies
+            max_items = min(len(retrieved), MAX_CONTEXT_ITEMS)
             retrieved = retrieved[:max_items]
-            print(f"📊 Using top {len(retrieved)} items (requested top_k={top_k}, rerank_k={rerank_k}, reranking disabled)")
+            print(f"📊 Using top {len(retrieved)} items (limited to optimal context size for better quality)")
         
         # Step 6: Format context (use all retrieved items)
         print(f"📝 Formatting context for {len(retrieved)} items...")
