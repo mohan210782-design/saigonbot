@@ -10,6 +10,7 @@ import re
 class IntentType(Enum):
     """Intent categories"""
     MENU_SEARCH = "menu_search"
+    MENU_ORDER = "menu_order"
     MENU_RECOMMENDATION = "menu_recommendation"
     MENU_PRICE = "menu_price"
     MENU_INGREDIENTS = "menu_ingredients"
@@ -231,6 +232,16 @@ class IntentClassifier:
         
         # Menu patterns
         self.menu_patterns = {
+            IntentType.MENU_ORDER: [
+                r'\bhow\s+to\s+order\b',
+                r'\bi\s+want\s+to\s+order\b',
+                r'\bi\s+would\s+like\s+to\s+order\b',
+                r"\bi'?d\s+like\s+to\s+order\b",
+                r'\bwant\s+to\s+order\b',
+                r'\blet\s+me\s+order\b',
+                r'\bplace\s+an?\s+order\b',
+                r'\border\s+now\b',
+            ],
             IntentType.MENU_SEARCH: [
                 r'\b(show|find|search|list|what|which)\s+.*\b(dishes?|items?|food|menu)\b',
                 r'\b.*\s+(options?|available|have|offer)\b',
@@ -244,7 +255,6 @@ class IntentClassifier:
                 r'\bcan\s+i\s+get\b',
                 r'\bdo\s+you\s+have\b',
                 r'\bdo\s+you\s+serve\b',
-                r'\bcan\s+i\s+order\b',
                 r'\bwhat.*for\s+dinner\b',
                 r'\bwhat.*for\s+lunch\b',
                 r'\bwhat.*for\s+breakfast\b',

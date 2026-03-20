@@ -228,20 +228,17 @@ class RAGPipeline:
                 retrieved_items.append(item)
         
         # Filter by doc_type if requested
+        # Menu items are identified by item_name presence (ingestion.py never sets doc_type on them).
+        # About docs have doc_type="about" set explicitly by ingest_about.py.
+        # Never use has_doc_type branch — it drops all menu items when any about doc appears in results.
         if doc_type and retrieved_items:
-            # Check if items have doc_type metadata (new format)
-            has_doc_type = any(item.get('metadata', {}).get('doc_type') for item in retrieved_items)
-            
-            if has_doc_type:
-                # New format: filter by doc_type metadata
-                retrieved_items = [item for item in retrieved_items if item.get('metadata', {}).get('doc_type') == doc_type]
-            else:
-                # Old format: filter by presence of item_name (menu items have it, about docs don't)
-                if doc_type == "menu":
-                    retrieved_items = [item for item in retrieved_items if item.get('metadata', {}).get('item_name')]
-                elif doc_type == "about":
-                    retrieved_items = [item for item in retrieved_items if not item.get('metadata', {}).get('item_name')]
-            
+            if doc_type == "menu":
+                retrieved_items = [item for item in retrieved_items
+                                   if item.get('metadata', {}).get('item_name')]
+            elif doc_type == "about":
+                retrieved_items = [item for item in retrieved_items
+                                   if item.get('metadata', {}).get('doc_type') == 'about']
+
             # Trim to requested top_k after filtering
             retrieved_items = retrieved_items[:top_k]
         
@@ -617,15 +614,30 @@ Respond naturally as Chikku."""
         # Build query-specific instructions - SIMPLIFIED to avoid confusing LLM
         query_specific = ""
         
+        is_order_query = any(phrase in query_lower for phrase in [
+            'how to order', 'want to order', 'i want to order', 'would like to order',
+            'place an order', 'order now', "i'd like to order"
+        ])
+
         if is_vegetarian:
             query_specific += "\nIMPORTANT: User asked for VEGETARIAN options. Only mention vegetarian items from the list below.\n"
         elif is_non_veg:
             query_specific += "\nIMPORTANT: User asked for NON-VEGETARIAN options. Only mention non-vegetarian items from the list below.\n"
-        
+
         if is_spicy:
             query_specific += "\nUser wants SPICY options. Prioritize spicy items.\n"
         if is_starter:
             query_specific += "\nUser wants STARTERS. Focus on starter/appetizer items.\n"
+        if is_order_query:
+            query_specific += (
+                "\nIMPORTANT: User wants to ORDER this dish. Do the following in your response:\n"
+                "1. Confirm the dish name and price.\n"
+                "2. End with this EXACT block (do not skip it):\n"
+                "   '🧑‍🍳 **Ready to order?** Please speak to our waiter — they will be happy to take your order right away!\n"
+                "   Or you can also reach us at:\n"
+                "   📞 +84 (028) 6291 3672\n"
+                "   📍 26 Lê Anh Xuân Street, District 1 | Open 7:30 AM – 10:30 PM daily'\n"
+            )
         
         # STRENGTHENED prompt - explicit bans on apologies
         user_prompt = f"""Customer Question: {query}
@@ -922,17 +934,31 @@ Respond naturally as Chikku would, using ONLY the items listed above."""
                     "role": "system",
                     "content": (
                         "You are a speech-to-text correction assistant for an Indian restaurant chatbot. "
-                        "Fix any speech-to-text errors, mishearing, homophones, or wrong words in the query. "
-                        "Context: Indian food (biryani, idly, dosa, podi, paneer, korma, tikka, naan, etc.), "
-                        "restaurant queries (menu, price, starters, vegetarian, non-veg, spicy). "
+                        "Your ONLY job is to fix obvious pronunciation or mishearing errors "
+                        "(e.g., 'biriany' → 'biryani', 'dossa' → 'dosa', 'nann' → 'naan'). "
+                        "STRICT RULES: "
+                        "1. NEVER replace one valid word with a different word "
+                        "(do NOT change 'beer' to 'biryani', 'egg' to 'chicken', etc.). "
+                        "2. NEVER convert a non-food or conversational query into a food query. "
+                        "3. If the query has no obvious pronunciation error, return it EXACTLY as given. "
+                        "4. Only correct a word if the corrected version sounds nearly identical to the original. "
+                        "Context: Indian food (biryani, idly, dosa, podi, paneer, korma, tikka, naan, "
+                        "beer, wine, cocktails, whisky). "
                         "Return ONLY the corrected query — no explanation, no extra text."
                     )
                 },
                 {"role": "user", "content": query_stripped}
             ]
             corrected = self.provider.chat(messages, {"max_tokens": 80, "temperature": 0.0}).strip()
-            # Safety: if LLM returns something wildly different or empty, use original
+            # Safety checks
             if corrected and len(corrected) < len(query_stripped) * 3:
+                # Semantic drift guard: reject if more than 1 new significant word introduced
+                orig_words = set(re.findall(r'\b\w+\b', query_stripped.lower()))
+                corr_words = set(re.findall(r'\b\w+\b', corrected.lower()))
+                new_significant = [w for w in (corr_words - orig_words) if len(w) > 3]
+                if len(new_significant) > 1:
+                    print(f"⚠️  Normalization rejected (semantic drift): '{query_stripped}' → '{corrected}'")
+                    return query
                 if corrected != query_stripped:
                     print(f"🔧 Query normalized: '{query_stripped}' → '{corrected}'")
                 return corrected
@@ -940,6 +966,29 @@ Respond naturally as Chikku would, using ONLY the items listed above."""
             print(f"⚠️  Query normalization failed: {e}")
 
         return query
+
+    def _extract_dish_from_order_query(self, query: str) -> str:
+        """
+        Strip ordering preamble from a query to get the dish name for retrieval.
+        e.g. 'I want to order Chicken Tikka Masala' → 'Chicken Tikka Masala'
+        """
+        order_prefixes = [
+            r'^how\s+to\s+order\s+',
+            r'^i\s+want\s+to\s+order\s+',
+            r'^i\s+would\s+like\s+to\s+order\s+',
+            r"^i'?d\s+like\s+to\s+order\s+",
+            r'^can\s+i\s+order\s+',
+            r'^want\s+to\s+order\s+',
+            r'^let\s+me\s+order\s+',
+            r'^place\s+an?\s+order\s+for\s+',
+            r'^order\s+',
+        ]
+        query_stripped = query.strip().rstrip('?.!')
+        for prefix in order_prefixes:
+            cleaned = re.sub(prefix, '', query_stripped, flags=re.IGNORECASE).strip()
+            if cleaned and cleaned.lower() != query_stripped.lower():
+                return cleaned.rstrip('?.!')
+        return query_stripped
 
     def is_menu_query(self, query: str) -> bool:
         """
@@ -1242,12 +1291,17 @@ Or tell me what you need, and I'll guide you! 😊"""
         top_k = max(1, top_k) if top_k is not None else self.top_k
         rerank_k = max(1, rerank_k) if rerank_k is not None else self.rerank_k
 
-        # Step 0a: Normalize speech-to-text errors before intent classification
-        user_query = self.normalize_query(user_query)
-
-        # Step 0b: Classify intent and route accordingly
+        # Step 0a: Classify intent first on the raw query
         intent_result = self._classify_intent(user_query)
         print(f"📋 Intent classified: {intent_result.intent_type.value} ({intent_result.category.value})")
+
+        # Step 0b: Normalize only for menu queries — skip for conversational/identity to prevent corruption
+        if intent_result.category == IntentCategory.MENU:
+            normalized = self.normalize_query(user_query)
+            if normalized != user_query:
+                user_query = normalized
+                intent_result = self._classify_intent(user_query)
+                print(f"📋 Re-classified after normalization: {intent_result.intent_type.value} ({intent_result.category.value})")
         
         # Route based on intent category
         if intent_result.category == IntentCategory.MENU:
@@ -1307,7 +1361,14 @@ Or tell me what you need, and I'll guide you! 😊"""
         
         # Step 1: Enhance query with conversation history for contextual understanding
         enhanced_query = self._enhance_query_with_history(user_query, conversation_history)
-        
+
+        # For ORDER intent, extract the dish name so the vector search targets the dish accurately
+        if intent_result.intent_type == IntentType.MENU_ORDER:
+            dish_name = self._extract_dish_from_order_query(user_query)
+            if dish_name and dish_name.lower() != user_query.lower().strip():
+                print(f"🍽️  Order query: using extracted dish name for retrieval: '{dish_name}'")
+                enhanced_query = dish_name
+
         # Step 2: Retrieve (only menu items)
         print(f"📥 Retrieving top {top_k} menu items...")
         print(f"   Collection has {self.collection.count()} total items")
@@ -1323,10 +1384,20 @@ Or tell me what you need, and I'll guide you! 😊"""
             if test_retrieved:
                 print(f"   Sample item metadata keys: {list(test_retrieved[0].get('metadata', {}).keys())}")
             
-            intent_result = self._classify_intent(user_query)
+            if intent_result.intent_type == IntentType.MENU_ORDER:
+                dish_name = self._extract_dish_from_order_query(user_query)
+                response = (
+                    f"I'm sorry, I couldn't find **{dish_name}** in our current menu. 😊\n\n"
+                    f"🧑‍🍳 **Please speak to our waiter** — they can check availability and take your order directly!\n\n"
+                    f"Or reach us at:\n"
+                    f"📞 +84 (028) 6291 3672\n"
+                    f"📍 26 Lê Anh Xuân Street, District 1 | Open 7:30 AM – 10:30 PM daily"
+                )
+            else:
+                response = get_error_response('no_menu_results')
             return {
                 'query': user_query,
-                'response': get_error_response('no_menu_results'),
+                'response': response,
                 'items': [],
                 'retrieved_count': 0,
                 'intent': intent_result.to_dict()

@@ -1,0 +1,545 @@
+conversation ID: 462e1dd7-dd35-48a8-a04a-7db900ce5da8
+LLM_PROVIDER=openai
+OPENAI_LLM_MODEL=gpt-4o-mini
+TOP_K=15
+RERANK_K=5
+USE_RERANKING=false
+
+------------------------------------------------------------------------------------------------------------------
+
+STATUS: FAIL
+"query": "Do you remember my name",
+- waiting time: 5 seconds
+🔧 Query normalized: 'Do you remember my name' → 'Do you have a menu?'
+{
+  "query": "Do you have a menu?",
+  "response": "I couldn't find that in our current menu, but I'd be happy to suggest something similar. Could you tell me what type of dish you're looking for? 😊",
+  "items": [],
+  "retrieved_count": 0,
+  "intent": {
+    "intent_type": "menu_search",
+    "confidence": 0.85,
+    "category": "menu",
+    "entities": {},
+    "requires_clarification": false
+  }
+}
+
+------------------------------------------------------------------------------------------------------------------
+
+STATUS: FAIL query normalized.
+"query": "Do you have chicken?"
+- waiting time: 10 seconds
+🔧 Query normalized: 'Do you have chicken?' → 'Do you have chicken tikka?'
+{
+  "query": "Do you have chicken tikka?",
+  "response": "Namaste! 😊 Yes, we do have Chicken Tikka! You can enjoy our Chicken Tikka Masala, which is a delightful dish featuring tender chicken in a creamy, spiced tomato sauce, priced at 144,000 VND. \n\nAdditionally, we offer a variety of other delicious chicken dishes, such as Chicken Reshmi Tikka, Chicken Hariyali Tikka, and Chicken Malai Tikka, all priced at 134,000 VND. Each of these is grilled to perfection and packed with flavor.\n\nWould you like to know more about any specific dish?",
+  "items": [
+    {
+      "name": "Chicken Tikka Masala",
+      "section": "CHICKEN",
+      "price": "144000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "contains_dairy",
+        "high_protein"
+      ]
+    },
+    {
+      "name": "Chicken Reshmi Tikka",
+      "section": "NON - VEGETERIAN SRARTERS – FROM TANDOOR",
+      "price": "134000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "grilled",
+        "contains_dairy",
+        "high_protein"
+      ]
+    },
+    {
+      "name": "Chicken Hariyali Tikka",
+      "section": "NON - VEGETERIAN SRARTERS – FROM TANDOOR",
+      "price": "134000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "grilled",
+        "high_protein"
+      ]
+    },
+    {
+      "name": "Chicken Malai Tikka",
+      "section": "NON - VEGETERIAN SRARTERS – FROM TANDOOR",
+      "price": "134000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "grilled",
+        "contains_dairy",
+        "high_protein"
+      ]
+    },
+    {
+      "name": "Chicken Vindaloo",
+      "section": "CHICKEN",
+      "price": "144000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "high_protein"
+      ]
+    },
+    {
+      "name": "Chicken Jhal Frezy",
+      "section": "CHICKEN",
+      "price": "144000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "high_protein"
+      ]
+    },
+    {
+      "name": "Chicken Korma",
+      "section": "CHICKEN",
+      "price": "144000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "contains_dairy",
+        "contains_nuts",
+        "high_protein"
+      ]
+    },
+    {
+      "name": "Chicken Masala",
+      "section": "CHICKEN",
+      "price": "134000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "high_protein"
+      ]
+    },
+    {
+      "name": "Dahi Chicken",
+      "section": "CHICKEN",
+      "price": "134000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "contains_dairy",
+        "high_protein"
+      ]
+    },
+    {
+      "name": "Chicken Kadahi",
+      "section": "CHICKEN",
+      "price": "134000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "high_protein"
+      ]
+    },
+    {
+      "name": "Palak Chicken",
+      "section": "CHICKEN",
+      "price": "134000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "high_protein",
+        "iron_rich"
+      ]
+    },
+    {
+      "name": "Chicken Curry",
+      "section": "CHICKEN",
+      "price": "134000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "high_protein"
+      ]
+    }
+  ],
+  "retrieved_count": 12,
+  "intent": {
+    "intent_type": "menu_search",
+    "confidence": 0.85,
+    "category": "menu",
+    "entities": {},
+    "requires_clarification": false
+  }
+}
+
+------------------------------------------------------------------------------------------------------------------
+
+STATUS: SUCCESS
+"query": "tell me more about Chicken Tikka Masala"
+- waiting time: 9 seconds
+🔧 Query normalized: 'tell me more about Chicken Tikka Masala' → 'Tell me more about Chicken Tikka Masala.'
+{
+  "query": "Tell me more about Chicken Tikka Masala.",
+  "response": "Namaste! 🌟 \n\nOur Chicken Tikka Masala is a delightful dish priced at 144,000 VND. It's a creamy and flavorful curry made with tender pieces of chicken, cooked to perfection in a rich, spiced sauce. \n\nIf you're looking for something from our tandoor, I recommend the Chicken Malai Tikka, Chicken Reshmi Tikka, or Chicken Hariyali Tikka, each priced at 134,000 VND. These grilled delights are marinated in aromatic spices, offering a smoky flavor that's simply irresistible.\n\nWould you like to know more about any of these dishes?",
+  "items": [
+    {
+      "name": "Chicken Tikka Masala",
+      "section": "CHICKEN",
+      "price": "144000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "contains_dairy",
+        "high_protein"
+      ]
+    },
+    {
+      "name": "Chicken Malai Tikka",
+      "section": "NON - VEGETERIAN SRARTERS – FROM TANDOOR",
+      "price": "134000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "grilled",
+        "contains_dairy",
+        "high_protein"
+      ]
+    },
+    {
+      "name": "Chicken Reshmi Tikka",
+      "section": "NON - VEGETERIAN SRARTERS – FROM TANDOOR",
+      "price": "134000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "grilled",
+        "contains_dairy",
+        "high_protein"
+      ]
+    },
+    {
+      "name": "Chicken Hariyali Tikka",
+      "section": "NON - VEGETERIAN SRARTERS – FROM TANDOOR",
+      "price": "134000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "grilled",
+        "high_protein"
+      ]
+    },
+    {
+      "name": "Chicken Masala",
+      "section": "CHICKEN",
+      "price": "134000.0",
+      "currency": "VND",
+      "tags": [
+        "non-vegetarian",
+        "food",
+        "high_protein"
+      ]
+    }
+  ],
+  "retrieved_count": 5,
+  "intent": {
+    "intent_type": "menu_search",
+    "confidence": 0.7,
+    "category": "menu",
+    "entities": {},
+    "requires_clarification": false
+  }
+}
+
+------------------------------------------------------------------------------------------------------------------
+
+STATUS: FAIL
+"query": "how to order Chicken Tikka Masala"
+- waiting time: 3 seconds
+🔧 Query normalized: 'how to order Chicken Tikka Masala' → 'How to order Chicken Tikka Masala?'
+{
+  "query": "How to order Chicken Tikka Masala?",
+  "response": "I couldn't find that in our current menu, but I'd be happy to suggest something similar. Could you tell me what type of dish you're looking for? 😊",
+  "items": [],
+  "retrieved_count": 0,
+  "intent": {
+    "intent_type": "menu_search",
+    "confidence": 0.7,
+    "category": "menu",
+    "entities": {},
+    "requires_clarification": false
+  }
+}
+
+
+------------------------------------------------------------------------------------------------------------------
+
+STATUS: FAIL
+"query": "I want to order Ghee Roast Masala Dosa"
+- waiting time: 6 seconds
+🔧 Query normalized: 'I want to order Ghee Roast Masala Dosa' → 'I want to order Ghee Roast Masala Dosa.'
+{
+  "query": "I want to order Ghee Roast Masala Dosa.",
+  "response": "I couldn't find that in our current menu, but I'd be happy to suggest something similar. Could you tell me what type of dish you're looking for? 😊",
+  "items": [],
+  "retrieved_count": 0,
+  "intent": {
+    "intent_type": "menu_search",
+    "confidence": 0.7,
+    "category": "menu",
+    "entities": {},
+    "requires_clarification": false
+  }
+}
+
+------------------------------------------------------------------------------------------------------------------
+
+STATUS: FAIL
+"query": "do you have beer"
+- waiting time: 4 seconds
+🔧 Query normalized: 'do you have beer' → 'Do you have biryani?'
+{
+  "query": "Do you have biryani?",
+  "response": "I couldn't find that in our current menu, but I'd be happy to suggest something similar. Could you tell me what type of dish you're looking for? 😊",
+  "items": [],
+  "retrieved_count": 0,
+  "intent": {
+    "intent_type": "menu_search",
+    "confidence": 0.85,
+    "category": "menu",
+    "entities": {},
+    "requires_clarification": false
+  }
+}
+
+------------------------------------------------------------------------------------------------------------------
+
+STATUS: FAIL
+"query": "do you have egg"
+- waiting time: 6 seconds
+🔧 Query normalized: 'do you have egg' → 'Do you have eggs?'
+{
+  "query": "Do you have eggs?",
+  "response": "I couldn't find that in our current menu, but I'd be happy to suggest something similar. Could you tell me what type of dish you're looking for? 😊",
+  "items": [],
+  "retrieved_count": 0,
+  "intent": {
+    "intent_type": "menu_search",
+    "confidence": 0.85,
+    "category": "menu",
+    "entities": {},
+    "requires_clarification": false
+  }
+}
+
+
+------------------------------------------------------------------------------------------------------------------
+
+STATUS: SUCCESS
+"query": "do you have NATIVE HOT BEVERAGES"
+- waiting time: 10 seconds
+🔧 Query normalized: 'do you have NATIVE HOT BEVERAGES' → 'do you have NATIVE HOT BEVERAGES?'
+{
+  "query": "do you have NATIVE HOT BEVERAGES?",
+  "response": "Namaste! 😊 \n\nFor our NATIVE HOT BEVERAGES, I recommend the following options that are delightful and traditional:\n\n- **Karupatti Suku Kaapi** – A rich and herbal beverage, perfect for those who enjoy a creamy texture, priced at 45,000 VND.\n- **Karupatti Kaapi** – This is another wonderful choice, combining dairy and caffeine for a comforting drink, available for 40,000 VND.\n- **Suku Paal** – A creamy herbal drink that is soothing and delicious, priced at 50,000 VND.\n- **South Indian Filter Kaapi** – A traditional coffee experience that is both rich and aromatic, available for 35,000 VND.\n- **Panakarkandu Milagu Manjal Paal** – A unique herbal drink that combines dairy with spices, priced at 60,000 VND.\n- **Lemon Tea** – A refreshing option with a hint of caffeine, perfect for a warm beverage, priced at 35,000 VND.\n\nWould you like to try one of these delightful drinks?",
+  "items": [
+    {
+      "name": "Nannari Sharbath",
+      "section": "NATIVE COLD BEVERAGES",
+      "price": null,
+      "currency": null,
+      "tags": [
+        "beverage",
+        "herbal",
+        "traditional"
+      ]
+    },
+    {
+      "name": "Panagam",
+      "section": "NATIVE COLD BEVERAGES",
+      "price": null,
+      "currency": null,
+      "tags": [
+        "beverage",
+        "traditional",
+        "herbal"
+      ]
+    },
+    {
+      "name": "Tea",
+      "section": "NATIVE HOT BEVERAGES",
+      "price": "30000.0",
+      "currency": "VND",
+      "tags": [
+        "beverage",
+        "contains_caffeine",
+        "traditional"
+      ]
+    },
+    {
+      "name": "Mineral Water",
+      "section": "HOT & COLD BEVERAGES",
+      "price": null,
+      "currency": null,
+      "tags": [
+        "beverage",
+        "vegan"
+      ]
+    },
+    {
+      "name": "Karupatti Suku Kaapi",
+      "section": "NATIVE HOT BEVERAGES",
+      "price": "45000.0",
+      "currency": "VND",
+      "tags": [
+        "beverage",
+        "contains_dairy",
+        "herbal",
+        "traditional"
+      ]
+    },
+    {
+      "name": "Karupatti Kaapi",
+      "section": "NATIVE HOT BEVERAGES",
+      "price": "40000.0",
+      "currency": "VND",
+      "tags": [
+        "beverage",
+        "contains_dairy",
+        "contains_caffeine",
+        "traditional"
+      ]
+    },
+    {
+      "name": "Neer Mor",
+      "section": "NATIVE COLD BEVERAGES",
+      "price": null,
+      "currency": null,
+      "tags": [
+        "beverage",
+        "contains_dairy",
+        "probiotic",
+        "traditional"
+      ]
+    },
+    {
+      "name": "Panakarkandu Milagu Manjal Paal",
+      "section": "NATIVE HOT BEVERAGES",
+      "price": "60000.0",
+      "currency": "VND",
+      "tags": [
+        "beverage",
+        "contains_dairy",
+        "herbal",
+        "traditional"
+      ]
+    },
+    {
+      "name": "Suku Paal",
+      "section": "NATIVE HOT BEVERAGES",
+      "price": "50000.0",
+      "currency": "VND",
+      "tags": [
+        "beverage",
+        "contains_dairy",
+        "herbal",
+        "traditional"
+      ]
+    },
+    {
+      "name": "South Indian Filter Kaapi",
+      "section": "NATIVE HOT BEVERAGES",
+      "price": "35000.0",
+      "currency": "VND",
+      "tags": [
+        "beverage",
+        "contains_dairy",
+        "contains_caffeine",
+        "traditional"
+      ]
+    },
+    {
+      "name": "Sweet Lassi",
+      "section": "NATIVE COLD BEVERAGES",
+      "price": null,
+      "currency": null,
+      "tags": [
+        "beverage",
+        "contains_dairy",
+        "probiotic",
+        "traditional"
+      ]
+    },
+    {
+      "name": "Hot Milk",
+      "section": "HOT & COLD BEVERAGES",
+      "price": null,
+      "currency": null,
+      "tags": [
+        "beverage",
+        "contains_dairy"
+      ]
+    },
+    {
+      "name": "Soda Sharbath",
+      "section": "NATIVE COLD BEVERAGES",
+      "price": null,
+      "currency": null,
+      "tags": [
+        "beverage",
+        "carbonated"
+      ]
+    },
+    {
+      "name": "Salt Lassi",
+      "section": "NATIVE COLD BEVERAGES",
+      "price": null,
+      "currency": null,
+      "tags": [
+        "beverage",
+        "contains_dairy",
+        "probiotic",
+        "traditional"
+      ]
+    },
+    {
+      "name": "Lemon Tea",
+      "section": "NATIVE HOT BEVERAGES",
+      "price": "35000.0",
+      "currency": "VND",
+      "tags": [
+        "beverage",
+        "contains_caffeine",
+        "vegan",
+        "traditional"
+      ]
+    }
+  ],
+  "retrieved_count": 15,
+  "intent": {
+    "intent_type": "menu_search",
+    "confidence": 0.85,
+    "category": "menu",
+    "entities": {},
+    "requires_clarification": false
+  }
+}

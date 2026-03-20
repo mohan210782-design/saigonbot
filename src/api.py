@@ -20,6 +20,11 @@ import logging
 # Load environment variables
 load_dotenv()
 
+# Add src to path FIRST so all local imports resolve correctly
+src_path = Path(__file__).parent
+if str(src_path) not in sys.path:
+    sys.path.insert(0, str(src_path))
+
 # Logging - use structured logging if configured
 from logging_config import setup_logging, RequestLogger
 
@@ -28,11 +33,6 @@ use_json_logs = os.getenv("USE_JSON_LOGS", "false").lower() == "true"
 setup_logging(log_level=log_level, use_json=use_json_logs)
 
 logger = logging.getLogger("saigonbot.api")
-
-# Add src to path
-src_path = Path(__file__).parent
-if str(src_path) not in sys.path:
-    sys.path.insert(0, str(src_path))
 
 from rag import RAGPipeline
 from chat import conversation_manager
