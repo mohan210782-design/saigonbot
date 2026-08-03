@@ -520,10 +520,12 @@ CRITICAL: Only show this welcome message ONCE at the very beginning of a new con
                     })
         
         # Add current query with explicit instructions
+        is_first_message = not conversation_history
+        greeting_line = '1. Start with "Namaste! 🙏" — only on the FIRST message of a session.' if is_first_message else '1. Do NOT start with Namaste or any greeting — get straight to the answer.'
         user_prompt = f"""Customer Question: {query}
 
 CRITICAL INSTRUCTIONS:
-1. Start with "Namaste!" followed by an appropriate emoji
+{greeting_line}
 2. Use ONLY the menu items provided below - mention them naturally
 3. Format prices as: X,XXX VND (e.g., "164,000 VND")
 4. Describe items conversationally - mention key features
@@ -640,13 +642,15 @@ Respond naturally as Chikku."""
             )
         
         # STRENGTHENED prompt - explicit bans on apologies
+        is_first_message = not conversation_history
+        greeting_line = '1. Start with "Namaste! 🙏" — only on the FIRST message of a session.' if is_first_message else '1. Do NOT start with Namaste or any greeting — get straight to the answer.'
         user_prompt = f"""Customer Question: {query}
 {query_specific}
 
 You are Chikku, a confident restaurant host at Saigon Indian Restaurant.
 
 Respond directly and confidently:
-1. Start with "Namaste!" and an appropriate emoji
+{greeting_line}
 2. Use ONLY the menu items listed below - mention them naturally
 3. Format prices as: X,XXX VND (e.g., "154,000 VND")
 4. Describe items naturally (spicy, creamy, grilled, etc.)
