@@ -1,0 +1,21 @@
+About Chikku Robotics
+
+Chikku Robotics is an AI and robotics company dedicated to building intelligent robots for a smarter future. The company focuses on making advanced technology approachable and beneficial for society through human-centered, friendly, and trustworthy robotic systems.
+
+The name "Chikku" is inspired by the Chikku fruit, which is loved for its natural sweetness. Just like the fruit, Chikku Robotics creates robots that easily integrate into daily life with warmth and reliability.
+
+Core Technologies & Products
+
+Chikku Robotics designs and manufactures a wide variety of robotic systems including service robots, collaborative robots (cobots), drones, and autonomous vehicles. The company also builds the underlying electronic systems, sensors, and embedded devices that power these robots.
+
+On the software side, Chikku Robotics specializes in Artificial Intelligence, Machine Learning, Computer Vision, and Generative AI. The company develops robust robotic operating systems, edge AI solutions, and cloud-based platforms to bring hardware to life.
+
+Industry Solutions & Services
+
+Chikku Robotics provides comprehensive automation solutions for smart manufacturing, healthcare, warehousing, and smart cities. Additionally, the company offers expert consulting, engineering support, and training programs in robotics and AI.
+
+R&D and Global Collaboration
+
+Innovation is at the core of Chikku Robotics. The company establishes advanced R&D labs and holds various patents in automation. Chikku Robotics proudly partners with universities, governments, and global tech companies to push the boundaries of robotic technology.
+
+Email: info@chikkurobotics.com

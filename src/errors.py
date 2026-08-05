@@ -4,8 +4,25 @@ Provides user-friendly error messages and proper error handling
 """
 from typing import Optional, Dict, Any
 import logging
+import sys
+from pathlib import Path
+
+# Ensure src is on path for sibling imports
+sys.path.insert(0, str(Path(__file__).parent))
+
+from bot_config import get_bot_config
 
 logger = logging.getLogger(__name__)
+
+
+def _fallback_contact() -> str:
+    """Get identity-aware fallback contact info."""
+    cfg = get_bot_config()
+    if cfg.fallback_phone:
+        return f", or call us at {cfg.fallback_phone} for immediate assistance. 😊"
+    if cfg.fallback_email:
+        return f", or email us at {cfg.fallback_email}. 😊"
+    return ". 😊"
 
 
 class ChatbotError(Exception):
@@ -13,7 +30,7 @@ class ChatbotError(Exception):
     
     def __init__(self, message: str, user_message: Optional[str] = None, details: Optional[Dict[str, Any]] = None):
         self.message = message
-        self.user_message = user_message or "I'm having a bit of trouble right now. Please try again in a moment, or call us at +84 (028) 6291 3672 for immediate assistance. 😊"
+        self.user_message = user_message or f"I'm having a bit of trouble right now. Please try again in a moment{_fallback_contact()}"
         self.details = details or {}
         super().__init__(self.message)
 
@@ -31,7 +48,7 @@ class LLMError(ChatbotError):
     """Error during LLM generation"""
     
     def __init__(self, message: str, model: Optional[str] = None, details: Optional[Dict[str, Any]] = None):
-        user_message = "I'm having trouble generating a response right now. Please try rephrasing your question, or call us at +84 (028) 6291 3672 for immediate assistance. 😊"
+        user_message = f"I'm having trouble generating a response right now. Please try rephrasing your question{_fallback_contact()}"
         super().__init__(message, user_message, details)
         self.model = model
 
@@ -67,7 +84,7 @@ class SystemError(ChatbotError):
     """General system error"""
     
     def __init__(self, message: str, component: Optional[str] = None, details: Optional[Dict[str, Any]] = None):
-        user_message = "I'm experiencing a technical issue right now. Please try again in a moment, or call us at +84 (028) 6291 3672 for immediate assistance. 😊"
+        user_message = f"I'm experiencing a technical issue right now. Please try again in a moment{_fallback_contact()}"
         super().__init__(message, user_message, details)
         self.component = component
 
@@ -110,4 +127,4 @@ def handle_error(error: Exception, context: Optional[Dict[str, Any]] = None) -> 
         return "I'm missing some information. Could you provide more details? 😊"
     
     # Generic fallback
-    return "I'm having a bit of trouble right now. Please try again in a moment, or call us at +84 (028) 6291 3672 for immediate assistance. 😊"
+    return f"I'm having a bit of trouble right now. Please try again in a moment{_fallback_contact()}"

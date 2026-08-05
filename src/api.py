@@ -38,6 +38,7 @@ from rag import RAGPipeline
 from chat import conversation_manager
 from errors import handle_error, ValidationError, SystemError
 from rate_limit import RATE_LIMIT_ENABLED, get_rate_limiter
+from bot_config import get_bot_config
 
 
 # Request/Response models
@@ -47,6 +48,17 @@ class QueryRequest(BaseModel):
 
 
 class ChatStreamRequest(BaseModel):
+    query: str
+    conversation_id: Optional[str] = None
+
+
+class ChatVoiceRequest(BaseModel):
+    """Request body for the streaming /chat/voice endpoint.
+
+    Identical to ChatStreamRequest — kept as a distinct type so the voice
+    pipeline (which emits filler signals for the frontend TTS) is clearly
+    separated from the legacy token-streaming endpoint in the OpenAPI docs.
+    """
     query: str
     conversation_id: Optional[str] = None
 
@@ -88,10 +100,11 @@ class HealthResponse(BaseModel):
 
 
 # Initialize FastAPI app
+_bot_cfg = get_bot_config()
 app = FastAPI(
-    title="Hotel Saigon Chatbot API",
-    description="RAG-based chatbot for Hotel Saigon menu queries",
-    version="1.0.0"
+    title=_bot_cfg.api_title,
+    description=_bot_cfg.api_description,
+    version=_bot_cfg.api_version
 )
 
 # CORS middleware
@@ -164,12 +177,14 @@ def get_rag_pipeline() -> RAGPipeline:
 @app.get("/", tags=["Root"])
 async def root():
     """Root endpoint"""
+    cfg = get_bot_config()
     return {
-        "message": "Hotel Saigon Chatbot API",
-        "version": "1.0.0",
+        "message": cfg.api_title,
+        "version": cfg.api_version,
         "endpoints": {
             "query": "/query",
             "chat_stream": "/chat/stream",
+            "chat_voice": "/chat/voice",
             "chat_text": "/chat/text",
             "conversation_new": "/conversation/new",
             "health": "/health",
@@ -435,7 +450,7 @@ async def chat_stream(request: ChatStreamRequest):
                 yield f"data: {json.dumps({'type': 'text', 'content': full_response})}\n\n"
                 
                 # Send completion with full response
-                yield f"data: {json.dumps({'type': 'done', 'conversation_id': conv_id, 'full_response': full_response})}\n\n"
+                yield f"data: {json.dumps({'type': 'done', 'conversation_id': session_id, 'full_response': full_response})}\n\n"
                 
                 # Save assistant response to history
                 conversation_manager.add_message(conv_id, "assistant", full_response)
@@ -563,6 +578,146 @@ async def chat_text(request: ChatStreamRequest):
         raise
     except Exception as e:
         logger.exception("Unhandled error in /chat/text")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Internal server error: {str(e)}"
+        )
+
+
+@app.post("/chat/voice", tags=["Chat"])
+async def chat_voice(request: ChatVoiceRequest):
+    """
+    Voice-optimized streaming endpoint for the Chikku desktop client.
+
+    Returns a Server-Sent Events (SSE) stream of pipeline events. Unlike
+    /chat/text (one JSON blob at the end), this endpoint emits a **filler
+    signal** the instant the FAQ cache MISSES, so the frontend can start
+    speaking a filler sentence while the slow hybrid-retrieval + LLM
+    steps run (4-6s), then stop the filler and speak the real response.
+
+    Because this uses POST (with a JSON body), the browser EventSource API
+    cannot be used (it only supports GET). The frontend must consume the
+    stream via fetch() + ReadableStream — see the usage guide.
+
+    Event schema (each line: ``data: {json}\\n\\n``):
+      - ``{"type": "filler"}``
+            FAQ cache missed. Speak a filler now (frontend owns the text).
+      - ``{"type": "response", "query", "response", "items", "retrieved_count", "intent", "source"}``
+            Final answer ready. Stop the filler (if any) and speak this.
+            ``source`` ∈ deterministic | faq_cache | llm | fallback.
+      - ``{"type": "done", "conversation_id", "intent"}``
+            Stream complete. Safe to close the connection.
+      - ``{"type": "error", "message"}``
+            Pipeline failure; the stream ends after this.
+    """
+    try:
+        logger.info(
+            "POST /chat/voice query=%r conversation_id=%s",
+            request.query,
+            request.conversation_id,
+        )
+        # Validate query
+        if not request.query or not request.query.strip():
+            raise HTTPException(
+                status_code=400,
+                detail="Query cannot be empty"
+            )
+
+        # Get RAG pipeline
+        pipeline = get_rag_pipeline()
+
+        # Get or create conversation
+        session_id = request.conversation_id or str(uuid.uuid4())
+        conv_id = conversation_manager.get_or_create_conversation(session_id)
+
+        # Get conversation history (read BEFORE adding the new user message,
+        # so the pipeline sees prior turns as context — same as /chat/text).
+        conversation_history = conversation_manager.get_history(conv_id)
+
+        # Bridge a synchronous generator (query_stream, runs in a worker
+        # thread so it doesn't block the event loop) to this async generator.
+        # The worker pushes events onto an asyncio queue; we pull them here.
+        loop = asyncio.get_event_loop()
+        queue: asyncio.Queue = asyncio.Queue()
+        SENTINEL = object()  # marks end-of-stream from the worker
+
+        def _run_pipeline():
+            """Run query_stream() in a thread, forwarding events to the queue."""
+            try:
+                for event in pipeline.query_stream(
+                    request.query, None, None, conversation_history
+                ):
+                    asyncio.run_coroutine_threadsafe(queue.put(event), loop).result()
+            except Exception as e:
+                logger.exception(
+                    "query_stream failed conv_id=%s query=%r", conv_id, request.query
+                )
+                asyncio.run_coroutine_threadsafe(
+                    queue.put({"type": "error", "message": str(e)}), loop
+                ).result()
+            finally:
+                asyncio.run_coroutine_threadsafe(queue.put(SENTINEL), loop).result()
+
+        # Launch the worker thread
+        loop.run_in_executor(executor, _run_pipeline)
+
+        async def generate_stream():
+            """Async generator: pull events from the queue, emit as SSE."""
+            saved = False  # only persist history once
+            try:
+                while True:
+                    item = await queue.get()
+                    if item is SENTINEL:
+                        break
+
+                    # Persist the conversation the first time we see the
+                    # final response (so it's saved even if the client later
+                    # disconnects). We add the user turn here too, mirroring
+                    # /chat/text's ordering.
+                    if item.get("type") == "response" and not saved:
+                        saved = True
+                        intent_info = item.get("intent") or {}
+                        intent_type = intent_info.get("intent_type") if intent_info else None
+                        conversation_manager.add_message(
+                            conv_id, "user", request.query,
+                            intent=intent_type,
+                            metadata={"query": request.query}
+                        )
+                        conversation_manager.add_message(
+                            conv_id, "assistant", item.get("response", ""),
+                            intent=intent_type,
+                            metadata={
+                                "retrieved_count": item.get("retrieved_count", 0),
+                                "source": item.get("source"),
+                                "items_count": len(item.get("items", []))
+                            }
+                        )
+
+                    # The 'done' event carries the conversation_id so the
+                    # frontend can continue the same session.
+                    if item.get("type") == "done":
+                        item = dict(item)
+                        item["conversation_id"] = session_id
+
+                    yield f"data: {json.dumps(item, ensure_ascii=False)}\n\n"
+            except asyncio.CancelledError:
+                # Client disconnected — let the worker finish on its own.
+                raise
+
+        return StreamingResponse(
+            generate_stream(),
+            media_type="text/event-stream",
+            headers={
+                "Cache-Control": "no-cache",
+                "Connection": "keep-alive",
+                "X-Accel-Buffering": "no"  # disable proxy buffering (nginx)
+            }
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception("Unhandled error in /chat/voice")
         raise HTTPException(
             status_code=500,
             detail=f"Internal server error: {str(e)}"

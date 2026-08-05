@@ -1,309 +1,180 @@
 """
-Response Templates for deterministic responses
-Prevents LLM hallucinations for common queries
+Response Templates for Chikku Robotics
+Deterministic responses to prevent LLM hallucinations.
 """
-from typing import Dict, Optional
+from typing import Optional
 from intent_classifier import IntentType
 
 
-# Welcome message (shown once per session)
-WELCOME_MESSAGE = """🌟 *Namaste & Welcome!* 🌟
+# ============================================================
+# ROBOTICS TEMPLATES (Chikku Robotics)
+# ============================================================
 
-I'm *Chikku*, your personal food companion, flavor guide, and menu expert at Saigon Indian Restaurant. Think of me as your friendly in-house foodie who knows every spice, every secret recipe, and every chef's special on our menu!
+ROBOTICS_WELCOME_MESSAGE = """*Hello! I'm Chikku!* 🤖
 
-Welcome to *Saigon Indian Restaurant* — where the rich flavors of India meet warm hospitality in the heart of the city. 🇮🇳✨
+I'm an intelligent service robot representing *Chikku Robotics*.
 
-At Saigon Indian Restaurant, every dish is crafted with authentic Indian spices, traditional recipes, and a passion for great food. From aromatic biryanis and creamy curries to sizzling tandoori specialties and freshly baked naan, each meal is prepared to deliver a true taste of India.
+💡 I can tell you all about:
 
-Craving something creamy and comforting?
-Want it extra spicy? 🌶️
-Looking for vegan, Jain, gluten-free, or kid-friendly options?
-Planning a romantic dinner or a big family feast?
+* Our hardware — service robots, cobots, drones, and autonomous vehicles.
+* Our AI & software — Machine Learning, Computer Vision, Generative AI.
+* Industry solutions — smart manufacturing, healthcare, warehousing, smart cities.
 
-Just tell me your mood — and I'll surprise you with the perfect dish!
+What would you like to explore?"""
 
-🍽️ I can help you:
+ROBOTICS_IDENTITY_RESPONSES = {
+    IntentType.IDENTITY_WHO_ARE_YOU: ROBOTICS_WELCOME_MESSAGE,
 
-* Explore our full menu with detailed descriptions
-* Recommend chef's specials and customer favorites
-* Customize dishes based on your taste preferences
-* Suggest the best starters, mains, breads, and desserts combo
-* Pair your meal with refreshing drinks
-* Answer any questions about ingredients and spice levels
+    IntentType.IDENTITY_WHAT_DO_YOU_DO: """I'm Chikku, an intelligent service robot from Chikku Robotics! 🤖
 
-Whether you love rich North Indian curries, sizzling tandoori delights, or comforting biryanis, I'll make sure your experience at *Saigon Indian Restaurant* is unforgettable.
+I'm here to share everything about our work in AI and robotics:
 
-💬 Just talk to me like you would to a friend.
-Tell me what you're craving… and let me take care of the rest.
+* Our hardware products — service robots, cobots, drones, autonomous vehicles.
+* Our AI platforms — Machine Learning, Computer Vision, Generative AI.
+* Industry solutions for manufacturing, healthcare, warehousing, and smart cities.
 
-Ready to discover your next favorite dish? 😍🍽️"""
+What would you like to explore?""",
 
+    IntentType.IDENTITY_CAPABILITIES: """I can tell you all about Chikku Robotics! 🤖
 
-# Identity responses
-IDENTITY_RESPONSES = {
-    IntentType.IDENTITY_WHO_ARE_YOU: WELCOME_MESSAGE,
-    
-    IntentType.IDENTITY_WHAT_DO_YOU_DO: """I'm Chikku, your personal food companion, flavor guide, and menu expert at Saigon Indian Restaurant! 😊
+*Hardware & Products*
+* Service robots, collaborative robots, drones, autonomous vehicles.
+* Electronic systems, sensors, and embedded devices.
 
-I help you:
-• Discover dishes that match your taste and dietary preferences
-• Find vegetarian, vegan, gluten-free, and other special dietary options
-• Get recommendations for the perfect meal
-• Learn about our menu items, ingredients, and prices
-• Answer questions about our restaurant (location, hours, contact info)
-• Help with reservations and special requests
+*AI & Software*
+* Artificial Intelligence, Machine Learning, Computer Vision.
+* Generative AI, edge AI solutions, cloud platforms.
 
-Think of me as your friendly in-house foodie who knows every dish on our menu! What would you like to explore today? 🍽️""",
-    
-    IntentType.IDENTITY_CAPABILITIES: """I can help you with:
+ *Industry Solutions*
+* Smart manufacturing, healthcare, warehousing, smart cities.
+* Consulting, engineering support, and training programs.
 
-🍽️ **Menu Discovery**
-• Find dishes by name, ingredients, or dietary preferences
-• Get recommendations based on your mood
-• Learn about prices and ingredients
-• Discover chef's specials and popular items
+ *Innovation*
+* R&D labs, patents, university and government partnerships.
 
-📍 **Restaurant Information**
-• Location and directions
-• Opening hours
-• Contact information
-• Parking and accessibility
-
-📞 **Services**
-• Table reservations
-• Event bookings
-• Catering inquiries
-• Delivery information
-
-Just tell me what you're looking for, and I'll help you find it! 😊"""
+What are you most curious about?""",
 }
 
-
-# Restaurant info responses
-RESTAURANT_INFO_RESPONSES = {
-    IntentType.RESTAURANT_LOCATION: """📍 **Saigon Indian Restaurant**
-
-26 Lê Anh Xuân Street,
-Ward Bến Thành, District 1
-Ho Chi Minh City, Vietnam 🇻🇳
-
-We're located in the heart of District 1, making it convenient for both locals and visitors. Need directions or more information? Just ask! 😊""",
-    
-    IntentType.RESTAURANT_HOURS: """🕒 **Opening Hours**
-
-Monday – Sunday: 7:30 AM – 10:30 PM
-
-We serve Breakfast, Lunch & Dinner throughout the day!
-
-Whether you're looking for an early morning dosa or a late-night curry, we're here for you! 😊""",
-    
-    IntentType.RESTAURANT_CONTACT: """📞 **Contact Information**
-
-Phone: +84 (028) 6291 3672
-       +84 (028) 3824 5671
-
-✉️ Email: saigonindiarestaurant@gmail.com
-
-Feel free to call us for reservations, inquiries, or any questions! We're happy to help! 😊""",
-    
-    IntentType.RESTAURANT_ABOUT: """Welcome to Saigon Indian Restaurant! 🇮🇳✨
-
-We're a premium Indian dining destination in the heart of Ho Chi Minh City, bringing together authentic South and North Indian cuisine with warm hospitality.
-
-**What makes us special:**
-• Authentic flavors from across India
-• High-quality ingredients and traditional cooking techniques
-• Warm, attentive service
-• Perfect for family dinners, celebrations, and business gatherings
-
-Whether you're craving fragrant biryanis, crispy dosas, creamy curries, or freshly baked breads, we deliver the true flavors of Indian gastronomy.
-
-Ready to explore our menu? Just tell me what you're in the mood for! 😊""",
-    
-    IntentType.RESTAURANT_PARKING: """🅿️ **Parking Information**
-
-We're located in District 1, Ho Chi Minh City. While we don't have dedicated parking, there are several parking options nearby:
-
-• Street parking (subject to availability)
-• Nearby parking lots within walking distance
-• Public transportation is convenient (we're in a central location)
-
-For the best parking options, I'd recommend calling us at +84 (028) 6291 3672, and our team can guide you to the nearest parking! 😊""",
-    
-    IntentType.RESTAURANT_ACCESSIBILITY: """♿ **Accessibility**
-
-We're committed to making our restaurant accessible to all guests. Our restaurant is located on the ground floor with easy access.
-
-For specific accessibility needs or questions, please call us at +84 (028) 6291 3672, and we'll be happy to assist you and ensure your visit is comfortable! 😊"""
-}
-
-
-# Service responses
-SERVICE_RESPONSES = {
-    IntentType.SERVICE_RESERVATION: """I'd be happy to help you make a reservation! 📞
-
-**To book a table, you can:**
-
-Call us directly at:
-📞 +84 (028) 6291 3672
-📞 +84 (028) 3824 5671
-
-**Or tell me:**
-• What date you'd like to book
-• What time
-• How many people
-• Any special requests or dietary preferences
-
-And I'll guide you through the reservation process! 😊""",
-    
-    IntentType.SERVICE_RESERVATION_MODIFY: """I can help you modify your reservation! 📞
-
-Please call us at:
-📞 +84 (028) 6291 3672
-📞 +84 (028) 3824 5671
-
-Our team will be happy to help you change your booking details. 
-
-Or tell me what you'd like to change, and I can guide you! 😊""",
-    
-    IntentType.SERVICE_RESERVATION_CANCEL: """I can help you cancel your reservation. 📞
-
-Please call us at:
-📞 +84 (028) 6291 3672
-📞 +84 (028) 3824 5671
-
-Our team will assist you with the cancellation.
-
-We hope to serve you another time! 😊""",
-    
-    IntentType.SERVICE_EVENT_BOOKING: """We'd love to host your event! 🎉
-
-**We offer:**
-• Corporate events
-• Private dining
-• Parties and celebrations
-• Conferences & seminars
-
-For event bookings, please call us at:
-📞 +84 (028) 6291 3672
-📞 +84 (028) 3824 5671
-
-Our team can customize menus and arrangements to make your event memorable! Tell me what kind of event you're planning, and I can help! 😊""",
-    
-    IntentType.SERVICE_CATERING: """We offer catering services! 🍽️
-
-For catering inquiries and custom menus, please call us at:
-📞 +84 (028) 6291 3672
-📞 +84 (028) 3824 5671
-
-We can tailor our menu to your event needs. Tell me about your event, and I can help guide you! 😊""",
-    
-    IntentType.SERVICE_DELIVERY: """We offer delivery services! 🚚
-
-For delivery orders, please call us at:
-📞 +84 (028) 6291 3672
-📞 +84 (028) 3824 5671
-
-Our team will be happy to help you place your order and arrange delivery to your location.
-
-What would you like to order? I can help you explore our menu! 🍽️"""
-}
-
-
-# Conversational responses
-CONVERSATIONAL_RESPONSES = {
+ROBOTICS_CONVERSATIONAL_RESPONSES = {
     IntentType.CONVERSATIONAL_GREETING: [
-        "Hello! Welcome to Saigon Indian Restaurant! How can I help you today? 😊",
-        "Hi there! I'm Chikku, ready to help you discover our menu. What are you craving? 🍽️",
-        "Namaste! Welcome! I'm here to help you find the perfect dish. What can I do for you? 😊",
-        "Hey! Great to see you! What would you like to explore from our menu today? 🍽️"
+        "Hello! I'm Chikku from Chikku Robotics! What would you like to know about our intelligent robots? 🤖",
+        "Hi there! I'm Chikku, your guide to all things AI and robotics. What can I share with you today?",
+        "Hey! Great to meet you! I'm Chikku from Chikku Robotics. Curious about our technology? Just ask! 🤖",
     ],
-    
     IntentType.CONVERSATIONAL_GRATITUDE: [
-        "You're very welcome! Happy to help! 😊",
-        "My pleasure! Is there anything else I can help you with? 😊",
-        "You're welcome! Enjoy your meal! 🍽️",
-        "Happy to help! Feel free to ask if you need anything else! 😊"
+        "You're welcome! Happy to share our passion for robotics! 🤖",
+        "My pleasure! Anything else you'd like to know about Chikku Robotics?",
+        "Happy to help! Feel free to ask anything about our AI and robotics work! 😊",
     ],
-    
+    IntentType.CONVERSATIONAL_FAREWELL: [
+        "Goodbye! It was great chatting with you about robotics and AI. Feel free to come back anytime you have questions! 🤖👋",
+        "See you later! I'm always here if you want to explore more about Chikku Robotics. Take care! 👋😊",
+        "Bye bye! Thanks for stopping by — the world of intelligent robots is always exciting. Until next time! 🤖✨",
+        "Take care! If you ever want to learn more about our robots, AI, or solutions, I'm just a message away. Goodbye! 👋",
+        "Farewell! Remember, the future is intelligent and we're building it together at Chikku Robotics. See you soon! 🚀👋",
+    ],
     IntentType.CONVERSATIONAL_SMALL_TALK: [
-        "I'm doing great, thank you for asking! Ready to help you discover our delicious menu. What are you in the mood for? 😊",
-        "I'm wonderful! How about you? What brings you to Saigon Indian Restaurant today? 😊",
-        "I'm doing fantastic! Excited to help you find your perfect dish. What would you like to explore? 🍽️"
+        # "How are you" type
+        "I'm doing great! Ready to chat about robots, AI, and smart technology. What are you curious about? 🤖",
+        "I'm fantastic! Always excited to talk about Chikku Robotics. What would you like to explore?",
+        # Polite declines ("no thank", "no thanks", "nope", "nah")
+        "No problem at all! I'm here whenever you have questions about robotics and AI. Just ask! 🤖",
+        "Alright! If you ever want to explore our intelligent robots or AI technology, I'm just a message away. 😊",
+        "Sure thing! Feel free to reach out anytime you're curious about Chikku Robotics. 👋",
+        # Casual acknowledgments ("ok", "sure", "yeah", "cool", "great")
+        "Great! What would you like to know about Chikku Robotics? Our robots, AI, or industry solutions? 🤖",
+        "Awesome! I'm here to share everything about intelligent robots. What interests you?",
+        "Cool! Ready to dive into the world of robotics and AI? Just let me know what you'd like to explore! 😊",
+        # General small talk
+        "I'm all ears! Ask me anything about Chikku Robotics — our products, technology, or vision. 🤖",
+        "Always happy to chat! What aspect of robotics and AI fascinates you the most?",
     ],
-    
-    IntentType.CONVERSATIONAL_COMPLAINT: """I'm sorry to hear about your concern. 😔
-
-To help resolve this quickly, please call us at:
-📞 +84 (028) 6291 3672
-📞 +84 (028) 3824 5671
-
-Our team will be happy to address your concern and make things right.
-
-Can you tell me more about what happened? I can help guide you! 😊""",
-    
-    IntentType.CONVERSATIONAL_FEEDBACK: """We'd love to hear your feedback! 😊
-
-You can share your feedback by:
-• Calling us at +84 (028) 6291 3672
-• Emailing us at saigonindiarestaurant@gmail.com
-• Sharing it with me right here!
-
-Your feedback helps us serve you better. What would you like to share? 😊"""
+    IntentType.CONVERSATIONAL_COMPLAINT: "I appreciate you sharing your concern. While I'm here to chat about Chikku Robotics, I'd recommend reaching out to our team directly for any issues. Is there anything about our technology I can help with? 🤖",
+    IntentType.CONVERSATIONAL_FEEDBACK: "We'd love to hear your thoughts! Your feedback helps us build better robots. Feel free to share, or reach out to us at info@chikkurobotics.com. What's on your mind? 🤖",
 }
 
+# ============================================================
+# ROBOTICS COMPANY INFO TEMPLATES (Location, Contact, Hours, About)
+# Used as fallback when knowledge base data is unavailable
+# ============================================================
 
-# Error and clarification responses
-ERROR_RESPONSES = {
-    'no_menu_results': "I couldn't find that in our current menu, but I'd be happy to suggest something similar. Could you tell me what type of dish you're looking for? 😊",
-    
-    'clarification_needed': """I'd love to help you! Could you tell me a bit more about what you're looking for?
+ROBOTICS_INFO_RESPONSES = {
+    IntentType.RESTAURANT_LOCATION: """📍 **Chikku Robotics — Our Locations**
 
-I can help you with:
-• Exploring our menu and dishes
-• Restaurant information (location, hours, contact)
-• Making reservations
-• Answering questions about ingredients and dietary preferences
+🏢 **Headquarters**: India
 
-What would you like to know? 😊""",
-    
-    'system_error': "I'm having a bit of trouble right now. Please try again in a moment, or call us at +84 (028) 6291 3672 for immediate assistance. 😊"
+🌍 **Global Offices & R&D Labs**:
+* Ho Chi Minh City, Vietnam.
+* Tamil Nadu, India.
+
+We serve customers globally through our direct sales team and partner network.
+
+Would you like to know more about our specific office locations or how to get in touch? 🌐""",
+
+    IntentType.RESTAURANT_CONTACT: """📞 **Contact Chikku Robotics**
+
+✉️ Email: info@chikkurobotics.com
+
+🌐 The best way to get started is with our Automation Readiness Assessment — a free consultation where we evaluate your operations and identify automation opportunities.
+
+Feel free to reach out to us! We're happy to help with any questions about our AI and robotics solutions. 🤖""",
+
+    IntentType.RESTAURANT_HOURS: """🕒 **Chikku Robotics — Business Hours**
+
+Our offices and R&D labs operate during standard business hours (Monday-Friday, 9:00 AM - 6:00 PM local time).
+
+For specific inquiries or to schedule a consultation, please reach out to us at info@chikkurobotics.com. We're happy to help! 😊""",
+
+    IntentType.RESTAURANT_ABOUT: """Welcome to **Chikku Robotics**! 🤖✨
+
+We design and manufacture intelligent robots for a smarter future. Our mission is to make advanced robotics and AI technology approachable, beneficial, and accessible to businesses and society worldwide.
+
+**What we do:**
+* 🤖 **Hardware**: Service robots, collaborative robots (cobots), autonomous vehicles, drones, embedded electronics & sensors.
+* 🧠 **AI & Software**: Chikku Brain AI platform — deep learning, computer vision, NLP, generative AI, edge computing.
+* 🏭 **Industry Solutions**: Smart manufacturing, healthcare, warehousing & logistics, smart cities, agriculture, hospitality, retail.
+* 🔬 **Innovation**: R&D labs in Vietnam & India, 50+ patents, university & government partnerships.
+
+I'm Chikku, your intelligent guide. What would you like to explore about our technology? 🌟""",
+}
+
+ROBOTICS_ERROR_RESPONSES = {
+    'no_menu_results': "I couldn't find specific details on that, but I'd love to tell you about Chikku Robotics! What aspect of our AI and robotics work interests you? 🤖",
+    'clarification_needed': """I'd love to help! I can tell you about:
+
+* Our hardware products and robotic systems
+* AI, Machine Learning, and Computer Vision platforms
+* Industry solutions for manufacturing and healthcare
+* Our R&D and global partnerships
+
+What would you like to know? 🤖""",
+    'system_error': "I'm having a bit of trouble right now. Please try again in a moment, or reach out to us at info@chikkurobotics.com. 😊",
 }
 
 
 def get_template(intent_type: IntentType) -> Optional[str]:
     """
-    Get template response for given intent type.
+    Get template response for given intent type (robotics-only).
     Returns None if no template exists (should use LLM).
     """
-    # Check identity responses
-    if intent_type in IDENTITY_RESPONSES:
-        return IDENTITY_RESPONSES[intent_type]
-    
-    # Check restaurant info responses
-    if intent_type in RESTAURANT_INFO_RESPONSES:
-        return RESTAURANT_INFO_RESPONSES[intent_type]
-    
-    # Check service responses
-    if intent_type in SERVICE_RESPONSES:
-        return SERVICE_RESPONSES[intent_type]
-    
-    # Check conversational responses (random selection for variety)
-    if intent_type in CONVERSATIONAL_RESPONSES:
-        responses = CONVERSATIONAL_RESPONSES[intent_type]
+    if intent_type in ROBOTICS_IDENTITY_RESPONSES:
+        return ROBOTICS_IDENTITY_RESPONSES[intent_type]
+    if intent_type in ROBOTICS_INFO_RESPONSES:
+        return ROBOTICS_INFO_RESPONSES[intent_type]
+    if intent_type in ROBOTICS_CONVERSATIONAL_RESPONSES:
+        responses = ROBOTICS_CONVERSATIONAL_RESPONSES[intent_type]
         if isinstance(responses, list):
             import random
             return random.choice(responses)
         return responses
-    
     return None
 
 
 def get_welcome_message() -> str:
-    """Get welcome message template"""
-    return WELCOME_MESSAGE
+    """Get welcome message template."""
+    return ROBOTICS_WELCOME_MESSAGE
 
 
 def get_error_response(error_type: str) -> str:
-    """Get error response template"""
-    return ERROR_RESPONSES.get(error_type, ERROR_RESPONSES['system_error'])
+    """Get error response template."""
+    return ROBOTICS_ERROR_RESPONSES.get(error_type, ROBOTICS_ERROR_RESPONSES['system_error'])

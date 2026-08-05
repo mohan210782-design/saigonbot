@@ -1,0 +1,214 @@
+{
+  "_comment": "Glossary of canonical entity names and their aliases. Used by (1) ingestion to inject alias terms into chunk text for better STT/embedding matching, (2) BM25 tokenizer to normalize query terms to canonical names, and (3) the query-rewrite LLM prompt so it knows the correct vocabulary. Add new products/robots here when the knowledge base grows.",
+  "products": {
+    "S-Robot": {
+      "canonical": "S-Robot",
+      "category": "Solar Panel Cleaning Robot",
+      "aliases": [
+        "s robot",
+        "srobot",
+        "s-robot",
+        "s-r",
+        "es robot",
+        "est robot",
+        "solar robot",
+        "solar cleaning robot",
+        "solar panel cleaning robot",
+        "solar panel robot",
+        "panel cleaning robot"
+      ],
+      "description": "Automated solar panel cleaning robot maximizing energy absorption and power output."
+    },
+    "WatchGuard6S": {
+      "canonical": "WatchGuard6S",
+      "category": "AI Security & Surveillance Robot",
+      "aliases": [
+        "watchguard6s",
+        "watch guard 6s",
+        "watchguard",
+        "watch guard",
+        "watch guards",
+        "watchguard six s",
+        "security robot",
+        "surveillance robot",
+        "patrol robot",
+        "guard robot",
+        "solar farm security robot"
+      ],
+      "description": "AI-integrated 24/7 security, surveillance, and maintenance optimization robot for solar farms."
+    },
+    "Chikku Voice AI Kiosk": {
+      "canonical": "Chikku Voice AI Kiosk",
+      "category": "Service Robot / Kiosk",
+      "aliases": [
+        "voice ai kiosk",
+        "voice kiosk",
+        "ai kiosk",
+        "kiosk",
+        "kiosk robot",
+        "voice robot",
+        "voice assistant robot",
+        "humanoid kiosk",
+        "smart kiosk",
+        "chikku kiosk"
+      ],
+      "description": "Smart humanoid kiosk robot with natural real-time voice interaction for commercial environments."
+    },
+    "MediBot M1": {
+      "canonical": "MediBot M1",
+      "category": "Hospital Logistics Robot",
+      "aliases": [
+        "medibot",
+        "medibot m1",
+        "med bot",
+        "medical bot",
+        "hospital robot",
+        "medication delivery robot"
+      ],
+      "description": "Automates medication delivery, lab sample transport, and logistics in hospital campuses."
+    },
+    "ServeBot S2": {
+      "canonical": "ServeBot S2",
+      "category": "Patient Assistance Robot",
+      "aliases": [
+        "servebot",
+        "servebot s2",
+        "serve bot",
+        "patient robot",
+        "ward robot"
+      ],
+      "description": "Patient room assistance robot for non-clinical support in hospitals."
+    },
+    "CarryBot A1": {
+      "canonical": "CarryBot A1",
+      "category": "Autonomous Mobile Robot (AMR)",
+      "aliases": [
+        "carrybot",
+        "carrybot a1",
+        "carry bot",
+        "amr",
+        "material handling robot",
+        "transport robot"
+      ],
+      "description": "AMR for autonomous material transport in manufacturing and warehousing."
+    },
+    "SkyBot I1": {
+      "canonical": "SkyBot I1",
+      "category": "Inspection Drone",
+      "aliases": [
+        "skybot",
+        "skybot i1",
+        "sky bot",
+        "inspection drone",
+        "inventory drone"
+      ],
+      "description": "Autonomous inspection drone for inventory counts and infrastructure inspection."
+    },
+    "SkyBot D1": {
+      "canonical": "SkyBot D1",
+      "category": "Delivery Drone",
+      "aliases": [
+        "skybot d1",
+        "delivery drone",
+        "parcel drone"
+      ],
+      "description": "Last-mile delivery drone for small parcels."
+    },
+    "AutoHaul H1": {
+      "canonical": "AutoHaul H1",
+      "category": "Autonomous Vehicle",
+      "aliases": [
+        "autohaul",
+        "autohaul h1",
+        "auto haul",
+        "autonomous vehicle",
+        "delivery vehicle"
+      ],
+      "description": "Autonomous vehicle for campus and inter-facility deliveries."
+    },
+    "GuideBot G1": {
+      "canonical": "GuideBot G1",
+      "category": "Public Information Robot",
+      "aliases": [
+        "guidebot",
+        "guidebot g1",
+        "guide bot",
+        "wayfinding robot",
+        "info robot"
+      ],
+      "description": "Wayfinding and public information robot for airports, stations, and city centers."
+    },
+    "CoBot C2": {
+      "canonical": "CoBot C2",
+      "category": "Collaborative Robot",
+      "aliases": [
+        "cobot c2",
+        "cobots",
+        "cobot",
+        "collaborative robot",
+        "collaborative robots",
+        "co-bot",
+        "co-bots"
+      ],
+      "description": "Collaborative robot arm for electronics, automotive, and consumer goods assembly."
+    },
+    "CoBot C5": {
+      "canonical": "CoBot C5",
+      "category": "Collaborative Robot",
+      "aliases": [
+        "cobot c5",
+        "palletizing cobot",
+        "packaging cobot"
+      ],
+      "description": "Heavy-payload collaborative robot for case packing and palletizing."
+    },
+    "Chikku Brain": {
+      "canonical": "Chikku Brain",
+      "category": "AI Platform",
+      "aliases": [
+        "chikku brain",
+        "brain platform",
+        "ai platform",
+        "chikku ai platform"
+      ],
+      "description": "Chikku's core AI platform for custom robot application development."
+    },
+    "Chikku Cloud": {
+      "canonical": "Chikku Cloud",
+      "category": "Fleet Management Platform",
+      "aliases": [
+        "chikku cloud",
+        "cloud platform",
+        "fleet management",
+        "fleet platform"
+      ],
+      "description": "Cloud fleet management platform for monitoring and controlling robot fleets."
+    },
+    "Chikku Core ECU": {
+      "canonical": "Chikku Core ECU",
+      "category": "Edge Computing Unit",
+      "aliases": [
+        "chikku core",
+        "core ecu",
+        "edge computing unit",
+        "robot ecu"
+      ],
+      "description": "Edge computing unit powering on-device AI inference on Chikku robots."
+    }
+  },
+  "company_terms": {
+    "Chikku Robotics": [
+      "chikku",
+      "chikku robotics",
+      "chikku robot",
+      "chikku ai"
+    ],
+    "Robot-as-a-Service": [
+      "raas",
+      "robot as a service",
+      "robot-as-a-service",
+      "robot subscription",
+      "subscription robot"
+    ]
+  }
+}

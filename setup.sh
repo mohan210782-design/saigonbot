@@ -1,4 +1,4 @@
-#!/bin/bash
+md#!/bin/bash
 # Hotel Saigon Chatbot API - Automated Setup Script
 
 set -e  # Exit on error

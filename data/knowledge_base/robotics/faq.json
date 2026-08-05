@@ -1,0 +1,134 @@
+{
+    "title": "Frequently Asked Questions",
+    "description": "Common questions about Chikku Robotics, our products, services, and technology.",
+    "faq_items": [
+        {
+            "question": "Who is your leadership team?",
+            "answer": "Great question! 🤖 We're led by Surender Rangaraju, our visionary Founder & Chairman, and Mohan, our Director who drives strategic growth. Together they're building a smarter future with robots!"
+        },
+        {
+            "question": "What is your leadership structure?",
+            "answer": "We've got a dynamic duo at the helm! 😊 Surender Rangaraju sets the bold vision as Founder & Chairman, while Mohan steers strategy and operations as Director."
+        },
+        {
+            "question": "Who leads Chikku Robotics?",
+            "answer": "Surender Rangaraju, our Founder & Chairman, and Mohan, our Director! 🦾 Surender brings the grand vision, Mohan drives the execution — a perfect combo!"
+        },
+        {
+            "question": "Tell me about your leadership and management team",
+            "answer": "We're led by Surender Rangaraju, Founder & Chairman, and Mohan, Director! 🌟 Surender dreams big about intelligent robots, and Mohan makes those dreams happen operationally."
+        },
+        {
+            "question": "Who are your partners?",
+            "answer": "We team up with the best! 🎉 NVIDIA powers our AI brains with Jetson GPUs, AWS runs our cloud fleet platform, and Qualcomm gives us blazing 5G connectivity. Pretty awesome, right?"
+        },
+        {
+            "question": "Who is your partner?",
+            "answer": "We're buddies with tech giants NVIDIA, AWS, and Qualcomm! 🤝 They bring us edge AI, cloud power, and 5G magic to make our robots truly world-class."
+        },
+        {
+            "question": "Do you have partnerships with other companies?",
+            "answer": "Absolutely! 🎊 We're proud NVIDIA Preferred Partners and AWS Robotics Competency Partners. Plus Qualcomm keeps us connected with cutting-edge 5G tech. Best-in-class collaborations all around!"
+        },
+        {
+            "question": "Tell me about your partners and collaborations",
+            "answer": "We've got powerhouse partners! 💪 NVIDIA gives us Jetson Orin for AI, AWS hosts our cloud platform, and Qualcomm delivers blazing 5G. Together we're unstoppable!"
+        },
+        {
+            "question": "Who founded Chikku Robotics?",
+            "answer": "Surender Rangaraju! 🌟 He founded Chikku with a dream to make intelligent robots friendly, approachable, and part of everyday life."
+        },
+        {
+            "question": "Who is the founder of Chikku Robotics?",
+            "answer": "That's Surender Rangaraju! 🦾 He's our Founder & Chairman, on a mission to build intelligent robots for a smarter, brighter future."
+        },
+        {
+            "question": "Who is your owner?",
+            "answer": "Surender Rangaraju is our Founder & Chairman! 😊 He started Chikku to bring intelligent, human-friendly robots into everyone's daily life."
+        },
+        {
+            "question": "Who are the directors of Chikku Robotics?",
+            "answer": "Surender Rangaraju, Founder & Chairman, and Mohan, Director! 🎯 They're the dynamic duo steering Chikku toward an amazing AI-powered future."
+        },
+        {
+            "question": "Who is Surender Rangaraju?",
+            "answer": "He's our incredible Founder & Chairman! 🌟 Surender's passion is building intelligent robots that feel warm, approachable, and truly helpful to society."
+        },
+        {
+            "question": "Who is Mohan at Chikku Robotics?",
+            "answer": "Mohan is our Director and strategic growth wizard! 🚀 He ensures Chikku runs smoothly and keeps pushing us toward excellence in AI and robotics."
+        },
+        {
+            "question": "What does Chikku Robotics do?",
+            "answer": "We build intelligent robots for a smarter future! 🤖 From service bots and collaborative arms to autonomous vehicles and drones — all powered by our own AI brain."
+        },
+        {
+            "question": "What does the name Chikku mean?",
+            "answer": "It's named after the sweet sapodilla fruit loved across Asia! 🍈 Just like the fruit, our robots are friendly, human-centered, and naturally delightful."
+        },
+        {
+            "question": "What types of robots do you make?",
+            "answer": "We make service robots, collaborative arms, autonomous mobile vehicles, and drone systems! 🤖 Plus we build our own sensors and electronics in-house too."
+        },
+        {
+            "question": "What AI technologies do you use?",
+            "answer": "Our Chikku Brain runs deep learning, computer vision, NLP, and generative AI — all on-device! 🧠 That means ultra-fast responses, total privacy, and offline smarts."
+        },
+        {
+            "question": "Are your robots safe to work alongside humans?",
+            "answer": "Absolutely, safety is our top priority! 🛡️ Our robots have smart collision detection, 360° LiDAR zones, and meet the strictest international safety standards. You're in good hands!"
+        },
+        {
+            "question": "How much does a Chikku robot cost?",
+            "answer": "Prices vary by model and scale, but we also offer Robot-as-a-Service subscriptions with zero upfront costs! 💰 Reach out to our sales team for a personalized quote."
+        },
+        {
+            "question": "What is Robot-as-a-Service (RaaS)?",
+            "answer": "It's a monthly subscription instead of buying the robot outright! 📦 Covers hardware, software, maintenance, and upgrades — no big investment, just predictable monthly fees."
+        },
+        {
+            "question": "How long does deployment take?",
+            "answer": "Pretty fast! 🚀 Service robots take one to two weeks, collaborative robots about two to four weeks per cell. We handle the whole setup plus staff training."
+        },
+        {
+            "question": "Where are you located?",
+            "answer": "Our HQ is in India, with R&D labs in Vietnam and Tamil Nadu! 🌏 We serve customers all around the globe through our sales team and partner network."
+        },
+        {
+            "question": "Do you provide training?",
+            "answer": "Sure thing! 🎓 We offer hands-on training for operators, programmers, and fleet admins — from two to five days, on-site or at our training centers."
+        },
+        {
+            "question": "What industries do you serve?",
+            "answer": "Manufacturing, healthcare, warehousing, smart cities, agriculture, hospitality, retail — you name it! 🌍 Our robots work hard in over twenty countries across all these sectors."
+        },
+        {
+            "question": "How do I get started with Chikku Robotics?",
+            "answer": "Easy peasy! 🎉 Book a free Automation Readiness Assessment — we'll check out your operations and build a custom robot roadmap just for you."
+        },
+        {
+            "question": "Do you offer custom robot development?",
+            "answer": "Yes, for unique needs beyond our standard lineup! 🔧 We do full-cycle custom development from concept to production, made faster with our modular platform approach."
+        },
+        {
+            "question": "How do your robots handle different languages?",
+            "answer": "Our bots speak over thirty languages naturally! 🌐 English, Mandarin, Japanese, Hindi, Vietnamese — you name it. Real-time translation makes conversations seamless."
+        },
+        {
+            "question": "What is your warranty and support policy?",
+            "answer": "All robots come with a one-year warranty! 🛠️ We've got extended plans with fast response times and spare parts depots worldwide for quick fixes."
+        },
+        {
+            "question": "What are your featured products?",
+            "answer": "We've got three stars! ⭐ The Voice AI Kiosk chats with customers, S-Robot cleans solar panels autonomously, and WatchGuard6S guards solar farms 24/7 with AI smarts."
+        },
+        {
+            "question": "What products does Chikku Robotics currently offer?",
+            "answer": "Our big three: Voice AI Kiosk for customer interaction, S-Robot for solar cleaning, and WatchGuard6S for security! 🎯 Plus service robots, cobots, drones, and custom AI."
+        },
+        {
+            "question": "Tell me about your robotics products",
+            "answer": "The Voice AI Kiosk charms customers in retail, S-Robot keeps solar panels sparkling clean, and WatchGuard6S never sleeps guarding solar farms! 🤖 We also build cobots, drones, and more."
+        }
+    ]
+}

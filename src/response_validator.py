@@ -63,12 +63,13 @@ class ResponseValidator:
             r'\bprevious\s+conversation\b',
         ]
         
-        # Phrases that indicate uncertainty/apology (should be minimal)
+        # Phrases that indicate uncertainty/apology (should be minimal).
+        # NOTE: We intentionally do NOT penalize honest "I don't have that detail"
+        # phrasing — that is the desired grounded response when context is missing,
+        # and penalizing it would push the model back toward fabrication.
         self.weak_phrases = [
             r'\bi\s+apologize\s+but\b',
             r'\bsorry\s+but\b',
-            r'\bi\s+don\'t\s+have\s+access\b',
-            r'\bi\s+can\'t\s+provide\b',
             r'\bas\s+an\s+ai\b',
         ]
     
@@ -144,16 +145,20 @@ class ResponseValidator:
     def _clean_response(self, response: str) -> str:
         """
         Clean response by removing/rewriting problematic phrases
-        
+
         Args:
             response: Original response
-            
+
         Returns:
             Cleaned response
         """
         cleaned = response
-        
-        # Remove forbidden phrases (replace with nothing or rewrite)
+
+        # Remove forbidden phrases (replace with nothing or rewrite).
+        # NOTE: Previously this also rewrote "retrieved items" → "menu items" and
+        # "context provided" → "menu" — that was restaurant-era logic that turns a
+        # robotics bot's text into nonsense. Those jargon terms are now simply
+        # dropped rather than mistranslated.
         replacements = {
             r'\b(as|as an)\s+an?\s+ai\s+(model|assistant)?\b': '',
             r'\bchatgpt\b': 'Chikku',
@@ -164,22 +169,23 @@ class ResponseValidator:
             r'\btraining\s+data\b': '',
             r'\bopenai\b': '',
             r'\bgoogle\b': '',
-            r'\bretrieved\s+items?\b': 'menu items',
-            r'\bcontext\s+(provided|given|above)\b': 'menu',
-            r'\bbased\s+on\s+context\b': 'from our menu',
-            r'\bcurrent\s+menu\s+context\b': 'our menu',
-            r'\bprovided\s+context\b': 'menu',
-            r'\bi\s+apologize\s+but\b': "I'm sorry",
-            r'\bsorry\s+but\b': "I'm sorry",
+            r'\bretrieved\s+items?\b': '',
+            r'\bcontext\s+(provided|given|above)\b': '',
+            r'\bbased\s+on\s+context\b': '',
+            r'\bcurrent\s+menu\s+context\b': '',
+            r'\bprovided\s+context\b': '',
+            r'\bi\s+apologize\s+but\b': '',
+            r'\bsorry\s+but\b': '',
         }
-        
+
         for pattern, replacement in replacements.items():
             cleaned = re.sub(pattern, replacement, cleaned, flags=re.IGNORECASE)
-        
-        # Clean up multiple spaces
+
+        # Clean up multiple spaces and stray leading punctuation left by removals
         cleaned = re.sub(r'\s+', ' ', cleaned)
+        cleaned = re.sub(r'^[\s,;:.-]+', '', cleaned)
         cleaned = cleaned.strip()
-        
+
         return cleaned
     
     def should_retry(self, validation_result: Dict) -> bool:

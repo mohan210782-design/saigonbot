@@ -1,0 +1,200 @@
+{
+    "artificial_intelligence": {
+        "title": "Artificial Intelligence & Machine Learning",
+        "description": "Our AI research and engineering team develops state-of-the-art models for perception, planning, and human-robot interaction. We combine classical robotics with modern deep learning to create truly intelligent machines.",
+        "capabilities": [
+            {
+                "area": "Deep Learning",
+                "description": "Convolutional neural networks (CNNs), transformers, and recurrent architectures optimized for real-time robotic inference on edge devices.",
+                "applications": [
+                    "Object detection and classification",
+                    "Semantic scene understanding",
+                    "Human pose estimation",
+                    "Gesture recognition"
+                ]
+            },
+            {
+                "area": "Reinforcement Learning",
+                "description": "Model-based and model-free RL for robot control, navigation, and manipulation. Training in simulation with sim-to-real transfer.",
+                "applications": [
+                    "Adaptive navigation in dynamic environments",
+                    "Robotic grasping and manipulation",
+                    "Multi-robot coordination",
+                    "Energy-optimal path planning"
+                ]
+            },
+            {
+                "area": "Natural Language Processing",
+                "description": "Transformer-based language models fine-tuned for robotic command understanding and multi-turn dialogue in 30+ languages.",
+                "applications": [
+                    "Voice command interpretation",
+                    "Intent classification",
+                    "Conversational AI for service robots",
+                    "Multilingual translation"
+                ]
+            },
+            {
+                "area": "Generative AI",
+                "description": "Large language models and diffusion models for task planning, code generation, and robot behavior synthesis.",
+                "applications": [
+                    "Automated task planning from natural language",
+                    "Robot program generation",
+                    "Synthetic training data generation",
+                    "Predictive world modeling"
+                ]
+            }
+        ]
+    },
+    "computer_vision": {
+        "title": "Computer Vision",
+        "description": "Our vision systems enable robots to see, understand, and interact with their environment in real time. From 3D perception to facial recognition, our CV stack runs efficiently on embedded hardware.",
+        "capabilities": [
+            {
+                "area": "3D Perception",
+                "description": "Stereo vision, structured light, and LiDAR-camera fusion for accurate 3D environment mapping and object localization.",
+                "technologies": [
+                    "Stereo depth estimation",
+                    "Point cloud processing (PCL)",
+                    "LiDAR-camera calibration and fusion",
+                    "Visual SLAM (ORB-SLAM3)"
+                ]
+            },
+            {
+                "area": "Object Detection & Tracking",
+                "description": "Real-time multi-object detection and tracking using YOLOv8 and transformer-based detectors, optimized for edge deployment.",
+                "technologies": [
+                    "YOLOv8 Nano to XL",
+                    "DeepSORT tracking",
+                    "ByteTrack",
+                    "TensorRT optimization"
+                ]
+            },
+            {
+                "area": "Facial & Gesture Recognition",
+                "description": "Privacy-preserving facial recognition for personalized robot interactions. Hand and body gesture recognition for intuitive human-robot communication.",
+                "technologies": [
+                    "ArcFace embeddings",
+                    "MediaPipe holistic",
+                    "Privacy-first: on-device only, no cloud upload"
+                ]
+            },
+            {
+                "area": "Industrial Inspection",
+                "description": "Automated visual inspection for manufacturing quality control — defect detection, dimensional measurement, and surface analysis.",
+                "technologies": [
+                    "Anomaly detection (PaDiM, PatchCore)",
+                    "OCR for part numbers",
+                    "Thermal imaging analysis",
+                    "High-res multi-camera calibration"
+                ]
+            }
+        ]
+    },
+    "robotics_engineering": {
+        "title": "Robotics Engineering",
+        "description": "Core robotics capabilities spanning kinematics, dynamics, control theory, and mechatronics design.",
+        "capabilities": [
+            {
+                "area": "Motion Planning & Control",
+                "description": "Advanced trajectory planning and real-time control for manipulators and mobile platforms.",
+                "technologies": [
+                    "Model Predictive Control (MPC)",
+                    "Impedance control",
+                    "Admittance control",
+                    "Whole-body control",
+                    "Trajectory optimization (TrajOpt)"
+                ]
+            },
+            {
+                "area": "SLAM & Localization",
+                "description": "Simultaneous Localization and Mapping for autonomous navigation in unknown and dynamic environments.",
+                "technologies": [
+                    "LiDAR SLAM (Cartographer, FAST-LIO2)",
+                    "Visual SLAM (ORB-SLAM3)",
+                    "Visual-inertial odometry",
+                    "Multi-sensor fusion (EKF, factor graphs)"
+                ]
+            },
+            {
+                "area": "Manipulation & Grasping",
+                "description": "Robotic grasping and manipulation for diverse objects in unstructured environments.",
+                "technologies": [
+                    "6-DoF grasp planning (GPD, GraspNet)",
+                    "Dexterous manipulation",
+                    "Force-feedback assembly",
+                    "Soft robotic grippers"
+                ]
+            },
+            {
+                "area": "Mechatronics & Hardware",
+                "description": "Custom actuator design, sensor integration, and embedded electronics for our robot platforms.",
+                "technologies": [
+                    "Custom BLDC motor drivers",
+                    "FPGA-based real-time control",
+                    "CAN bus / EtherCAT communication",
+                    "Battery management systems (BMS)"
+                ]
+            }
+        ]
+    },
+    "edge_computing": {
+        "title": "Edge AI & Computing",
+        "description": "All our AI inference runs on-device for low latency, privacy, and offline capability. We design custom edge computing hardware optimized for robotic workloads.",
+        "platforms": [
+            {
+                "name": "NVIDIA Jetson Orin Integration",
+                "description": "Our primary edge AI platform. Custom-optimized models run on Jetson Orin AGX (275 TOPS) and Orin NX (100 TOPS)."
+            },
+            {
+                "name": "Chikku Edge AI Accelerator",
+                "description": "Custom FPGA-based accelerator for ultra-low-latency perception tasks (< 5ms inference). Optimized for safety-critical real-time applications."
+            },
+            {
+                "name": "On-Device LLM",
+                "description": "Quantized language models (4-bit, 8-bit) running locally on robot hardware. Enables private, offline conversational AI without cloud dependency."
+            }
+        ]
+    },
+    "cloud_platform": {
+        "title": "Cloud & Data Platform",
+        "description": "Our cloud infrastructure supports fleet management, continuous learning, and data analytics across thousands of deployed robots.",
+        "capabilities": [
+            {
+                "area": "Fleet Management",
+                "description": "Monitor, control, and optimize robot fleets at scale. Real-time telemetry, task assignment, and traffic management."
+            },
+            {
+                "area": "Digital Twin",
+                "description": "Physics-accurate simulation of robots and environments. Test new behaviors, validate safety, and train AI models in simulation before deployment."
+            },
+            {
+                "area": "Continuous Learning",
+                "description": "Federated learning pipeline that improves robot AI models using field data while preserving privacy. Models improve with every deployment."
+            },
+            {
+                "area": "Analytics & Insights",
+                "description": "Operational analytics dashboard showing robot utilization, efficiency metrics, anomaly detection, and predictive maintenance alerts."
+            }
+        ]
+    },
+    "safety_systems": {
+        "title": "Safety & Certification",
+        "description": "Safety is the foundation of all our technology. We implement multi-layered safety architectures and comply with international robotics safety standards.",
+        "standards": [
+            "ISO 13482 — Safety requirements for personal care robots",
+            "ISO 10218 — Industrial robot safety",
+            "ISO 13849 — Safety-related parts of control systems (up to PL e / SIL 3)",
+            "IEC 61508 — Functional safety of electrical/electronic systems",
+            "IEC 60601 — Medical electrical equipment (for MediBot)",
+            "CE Marking (EU), FCC (USA), MIC (Japan)"
+        ],
+        "safety_features": [
+            "Multi-layer safety: hardware safety controller + software safety monitor",
+            "Force-limited joints with real-time collision detection",
+            "360° LiDAR-based safety zones with configurable protective fields",
+            "Emergency stop with < 50ms response time",
+            "Fail-safe braking on all mobile platforms",
+            "Redundant light detection and ranging for outdoor vehicles"
+        ]
+    }
+}

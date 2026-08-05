@@ -1,0 +1,113 @@
+{
+    "smart_manufacturing": {
+        "title": "Smart Manufacturing",
+        "description": "Transform your factory with intelligent automation. Our collaborative robotss, AMRs, and AI vision systems work alongside your workforce to increase productivity, quality, and flexibility.",
+        "applications": [
+            {
+                "name": "Assembly & Kitting",
+                "description": "Collaborative robots handle repetitive assembly tasks with high precision, freeing human workers for higher-value activities. collaborative robots C2 and C5 models are ideal for electronics, automotive, and consumer goods assembly lines."
+            },
+            {
+                "name": "Quality Inspection",
+                "description": "AI-powered vision systems automatically detect defects, measure dimensions, and verify assembly correctness at production-line speeds. Our computer vision models achieve 99.7%+ defect detection rates in electronics manufacturing."
+            },
+            {
+                "name": "Material Handling",
+                "description": "CarryBot A1 AMRs autonomously transport raw materials, work-in-progress, and finished goods between production cells, warehouses, and shipping areas — eliminating manual forklift operations."
+            },
+            {
+                "name": "Machine Tending",
+                "description": "collaborative robots arms load and unload CNC machines, injection molding presses, and test equipment 24/7. Quick changeover between product variants through teach-by-demonstration programming."
+            },
+            {
+                "name": "Packaging & Palletizing",
+                "description": "End-of-line automation with collaborative robots C5 for case packing and palletizing. Handles mixed-SKU pallets with AI-powered stacking optimization."
+            }
+        ],
+        "case_study": "A major electronics manufacturer deployed 12 CoBot C2 units and 8 CarryBot A1 AMRs across their PCB assembly line. Result: 40% throughput increase, 60% defect reduction, and ROI in 14 months."
+    },
+    "healthcare": {
+        "title": "Healthcare & Medical",
+        "description": "Our healthcare robotics solutions improve hospital efficiency, reduce staff burden, and enhance patient care — from logistics automation to AI-assisted diagnostics.",
+        "applications": [
+            {
+                "name": "Hospital Logistics",
+                "description": "MediBot M1 automates medication delivery, lab sample transport, linen distribution, and meal delivery throughout hospital campuses. Integrates with HIS/EMR for automated task dispatching."
+            },
+            {
+                "name": "Patient Assistance",
+                "description": "ServeBot S2 deployed in patient rooms and wards for non-clinical assistance — delivering water, adjusting lights, calling nurses, and providing entertainment."
+            },
+            {
+                "name": "Disinfection",
+                "description": "UV-C equipped mobile robots autonomously disinfect patient rooms, operating theaters, and common areas. Validated 99.99% pathogen elimination."
+            },
+            {
+                "name": "Pharmacy Automation",
+                "description": "CoBot arms handle medication picking, counting, and packaging in hospital pharmacies. Reduces medication errors and frees pharmacists for clinical duties."
+            }
+        ]
+    },
+    "warehousing_logistics": {
+        "title": "Warehousing & Logistics",
+        "description": "Automate your warehouse operations from receiving to shipping. Our AMRs and robotic systems handle goods movement, sorting, and order fulfillment with speed and accuracy.",
+        "applications": [
+            {
+                "name": "Goods-to-Person Picking",
+                "description": "CarryBot AMRs bring inventory shelves to pick stations, eliminating worker walking time. Increases pick rates from 80 to 300+ lines per hour."
+            },
+            {
+                "name": "Cross-Docking & Sortation",
+                "description": "Autonomous robots sort incoming goods by destination at high speed. Reduces cross-dock processing time by 50%."
+            },
+            {
+                "name": "Inventory Management",
+                "description": "SkyBot I1 drones perform automated inventory counts in high-bay racking using barcode scanning and computer vision. Counts 10× faster than manual methods."
+            },
+            {
+                "name": "Last-Mile Delivery",
+                "description": "SkyBot D1 drones deliver small parcels within a 15 km radius. AutoHaul H1 autonomous vehicles handle larger deliveries on campus and between facilities."
+            }
+        ]
+    },
+    "smart_cities": {
+        "title": "Smart Cities & Public Infrastructure",
+        "description": "Our robots contribute to safer, cleaner, and more efficient cities through autonomous inspection, security patrol, and public services.",
+        "applications": [
+            {
+                "name": "Infrastructure Inspection",
+                "description": "SkyBot I1 drones inspect bridges, tunnels, power lines, and buildings autonomously. AI detects cracks, corrosion, and structural issues early — preventing failures and reducing inspection costs by 70%."
+            },
+            {
+                "name": "Security & Surveillance",
+                "description": "Autonomous mobile robots patrol public spaces, parking structures, and critical infrastructure. Anomaly detection AI alerts human operators to potential security threats."
+            },
+            {
+                "name": "Public Information",
+                "description": "GuideBot G1 robots deployed in airports, train stations, and city centers provide wayfinding, event information, and multilingual assistance to citizens and tourists."
+            },
+            {
+                "name": "Environmental Monitoring",
+                "description": "Sensor-equipped mobile robots monitor air quality, noise levels, and temperature across urban areas, providing real-time environmental data to city management systems."
+            }
+        ]
+    },
+    "agriculture": {
+        "title": "Agriculture & Agritech",
+        "description": "Precision agriculture powered by robotics and AI — from autonomous crop monitoring to selective harvesting.",
+        "applications": [
+            {
+                "name": "Crop Monitoring",
+                "description": "SkyBot I1 drones equipped with multispectral cameras survey crops, detecting disease, nutrient deficiency, and water stress before they become visible to the human eye."
+            },
+            {
+                "name": "Autonomous Weeding & Spraying",
+                "description": "Mobile robots with computer vision identify and remove weeds mechanically or apply targeted spraying — reducing herbicide use by up to 90%."
+            },
+            {
+                "name": "Harvesting Assistance",
+                "description": "CoBot arms with soft grippers and vision systems selectively harvest fruits and vegetables without damage. Adaptable to multiple crop types."
+            }
+        ]
+    }
+}

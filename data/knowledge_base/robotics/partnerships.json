@@ -1,0 +1,26 @@
+{
+    "technology_partners": {
+        "title": "Technology Partners",
+        "description": "Strategic technology partnerships that enhance our robot capabilities and expand our ecosystem.",
+        "partners": [
+            {
+                "name": "NVIDIA",
+                "type": "Edge AI Computing",
+                "description": "NVIDIA provides the GPU computing platform (Jetson Orin) that powers our Chikku Core ECU and on-device AI inference. We are an NVIDIA Preferred Partner for robotics.",
+                "collaboration": "Co-development of optimized AI models for Jetson platform. Early access to next-generation edge AI hardware."
+            },
+            {
+                "name": "AWS (Amazon Web Services)",
+                "type": "Cloud Infrastructure",
+                "description": "AWS hosts our Chikku Cloud fleet management platform. Provides scalable compute, storage, and ML training infrastructure.",
+                "collaboration": "AWS Robotics Competency Partner. Joint go-to-market for manufacturing and logistics customers."
+            },
+            {
+                "name": "Qualcomm",
+                "type": "Wireless & IoT",
+                "description": "Qualcomm 5G modules enable ultra-reliable low-latency communication for our autonomous vehicles and remote teleoperation.",
+                "collaboration": "5G-enabled robot connectivity. On-device AI acceleration using Snapdragon platforms."
+            }
+        ]
+    }
+}
