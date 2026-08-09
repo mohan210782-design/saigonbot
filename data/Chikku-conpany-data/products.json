@@ -1,0 +1,130 @@
+{
+    "hardware": {
+        "title": "Hardware & Robotic Systems",
+        "description": "We design and manufacture a wide variety of robotic systems. This includes service robots, collaborative robots, drones, and autonomous vehicles. We also build the underlying electronic systems, sensors, and embedded devices that power them.",
+        "products": [
+            "Service robots",
+            "Collaborative robots (cobots)",
+            "Drones",
+            "Autonomous vehicles",
+            "Electronic systems",
+            "Sensors",
+            "Embedded devices",
+            "Chikku Voice AI Kiosk",
+            "S-Robot",
+            "WatchGuard6S"
+        ]
+    },
+    "software": {
+        "title": "AI & Software Platforms",
+        "description": "On the software side, we specialize in Artificial Intelligence, Machine Learning, Computer Vision, and Generative AI. We develop robust robotic operating systems, edge AI solutions, and cloud-based platforms to bring our hardware to life.",
+        "technologies": [
+            "Artificial Intelligence",
+            "Machine Learning",
+            "Computer Vision",
+            "Generative AI",
+            "Robotic Operating Systems",
+            "Edge AI Solutions",
+            "Cloud-based Platforms"
+        ]
+    },
+    "featured_products": [
+        {
+            "name": "Chikku Voice AI Kiosk",
+            "category": "Service Robot",
+            "tagline": "Smart humanoid kiosk robot with natural real-time voice interaction for commercial environments.",
+            "description": "Chikku Voice AI Kiosk is a smart humanoid kiosk robot that functions as a professional virtual assistant. It engages customers in natural, real-time voice conversations, providing seamless information retrieval. Powered by a Hybrid RAG architecture combining Vector Search (semantic retrieval) and Knowledge Graph (relational retrieval), it accurately handles both standard Q&A and complex cross-logical queries.",
+            "target_environments": [
+                "Restaurants",
+                "Hotels",
+                "Supermarkets",
+                "Shopping Malls"
+            ],
+            "core_technologies": [
+                "Hybrid RAG Architecture",
+                "Vector Search (Semantic Retrieval)",
+                "Knowledge Graph (Relational Retrieval)",
+                "Real-time Voice Interaction",
+                "POS System Integration"
+            ],
+            "key_features": [
+                "Natural real-time voice conversations with customers",
+                "Menu and ingredient Q&A with allergy information",
+                "Dynamic pricing and policy information retrieval",
+                "Dish recommendation based on taste preferences",
+                "Indoor floor plans and spatial positioning",
+                "Turn-by-turn navigation to specific zones or booths",
+                "Location-based product category queries",
+                "Real-time stock level and pricing synchronization via POS integration"
+            ],
+            "use_cases": {
+                "restaurants_fb": [
+                    "Detailed Q&A about menus, ingredients, flavors, and allergy info",
+                    "Up-to-date pricing and restaurant policy inquiries",
+                    "Dish recommendations based on preferred ingredients or tastes"
+                ],
+                "supermarkets_malls": [
+                    "Floor plans and spatial positioning information",
+                    "Turn-by-turn navigation to specific zones or retail booths",
+                    "Location queries by product category (nearest booth from user's location)"
+                ]
+            }
+        },
+        {
+            "name": "S-Robot",
+            "category": "Solar Panel Cleaning Robot",
+            "tagline": "Automated solar panel cleaning robot maximizing energy absorption and power output.",
+            "description": "S-Robot is a specialized robot designed for cleaning solar panels. It automates the maintenance process to keep solar panel surfaces consistently clean, maximizing solar energy absorption efficiency and power output. Deployable on rooftop solar installations (residential, commercial) and utility-scale solar farms.",
+            "target_environments": [
+                "Rooftop solar installations (residential & commercial)",
+                "Utility-scale solar farms"
+            ],
+            "core_technologies": [
+                "Autonomous scheduled operation",
+                "Water-optimized / dry-cleaning technology",
+                "Chemical-free cleaning mechanism"
+            ],
+            "key_features": [
+                "Replaces manual labor for cleaning dust, sand, leaves, and bird droppings",
+                "Eliminates occupational hazards on high rooftops and steep slopes",
+                "Operates automatically on schedule without human supervision",
+                "Cleans significantly faster than manual methods",
+                "Prevents micro-cracks and glass scratching from human foot traffic",
+                "Chemical-free operation protecting anti-reflective coatings and ecosystem",
+                "Optimized water consumption or dry-cleaning capability"
+            ],
+            "key_benefits": {
+                "time_efficiency": "Operates automatically on schedule; cleans faster than manual methods enabling immediate peak output restoration.",
+                "cost_savings": "Reduces specialized cleaning labor and PPE costs; prevents panel damage from manual cleaning; optimizes long-term ROI and system lifespan.",
+                "eco_friendly": "Optimized water usage or dry-cleaning; 100% chemical-free; protects anti-reflective coatings and surrounding ecosystem."
+            }
+        },
+        {
+            "name": "WatchGuard6S",
+            "category": "AI Security & Surveillance Robot",
+            "tagline": "AI-integrated 24/7 security, surveillance, and maintenance optimization robot for solar farms.",
+            "description": "WatchGuard6S is an AI-integrated robotic system dedicated to security, surveillance, and real-time monitoring of solar farms. It provides 24/7 protection with high-resolution cameras, thermal imaging sensors, and AI algorithms for continuous patrolling. It also automatically detects environmental hazards, automates maintenance workflows, and optimizes solar panel operational performance.",
+            "target_environments": [
+                "Solar farms",
+                "Utility-scale power stations"
+            ],
+            "core_technologies": [
+                "High-resolution camera systems",
+                "Thermal imaging sensors",
+                "AI-driven real-time analytics",
+                "Multifunctional environmental sensors",
+                "Autonomous navigation & patrolling"
+            ],
+            "key_features": [
+                "24/7 continuous security patrolling and surveillance",
+                "High-resolution visual clarity under all lighting and weather conditions",
+                "Thermal imaging for night-time and low-visibility monitoring",
+                "Real-time AI anomaly detection, intrusion alerts, and equipment failure diagnosis",
+                "Comprehensive environmental metrics and temperature data collection",
+                "Fully autonomous navigation and mission execution without human intervention",
+                "Automated maintenance workflow triggering"
+            ],
+            "mission": "Revolutionize security and maintenance operations in solar farms through cutting-edge technology, ensuring sustainable energy production with the highest standards of safety, efficiency, and accuracy."
+        }
+    ]
+}

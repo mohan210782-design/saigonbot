@@ -8,6 +8,8 @@ import os
 from typing import Dict, Optional, List
 from dotenv import load_dotenv
 
+from tenant_config import get_tenant
+
 load_dotenv()
 
 # Configurable via .env
@@ -16,7 +18,40 @@ ENABLE_VALIDATION = os.getenv("ENABLE_RESPONSE_VALIDATION", "true").lower() == "
 
 class ResponseValidator:
     """Validates and filters LLM responses"""
-    
+
+    # Persona leaks to rewrite regardless of tenant.
+    BASE_REPLACEMENTS = {
+        r'\b(as|as an)\s+an?\s+ai\s+(model|assistant)?\b': '',
+        r'\bchatgpt\b': 'Chikku',
+        r'\bai\s+model\b': 'assistant',
+        r'\blanguage\s+model\b': 'assistant',
+        r'\btrained\s+on\s+(a\s+)?dataset\b': '',
+        r'\btraining\s+data\b': '',
+        r'\bopenai\b': '',
+        r'\bi\s+apologize\s+but\b': "I'm sorry",
+        r'\bsorry\s+but\b': "I'm sorry",
+    }
+
+    # Restaurant tenant: rewrite RAG jargon into menu language.
+    RESTAURANT_REPLACEMENTS = {
+        r'\bartificial\s+intelligence\b': '',
+        r'\bgoogle\b': '',
+        r'\bretrieved\s+items?\b': 'menu items',
+        r'\bcontext\s+(provided|given|above)\b': 'menu',
+        r'\bbased\s+on\s+context\b': 'from our menu',
+        r'\bcurrent\s+menu\s+context\b': 'our menu',
+        r'\bprovided\s+context\b': 'menu',
+    }
+
+    # Company tenant: same jargon, neutral wording.
+    GENERIC_REPLACEMENTS = {
+        r'\bretrieved\s+items?\b': 'information',
+        r'\bcontext\s+(provided|given|above)\b': 'information',
+        r'\bbased\s+on\s+context\b': 'from our information',
+        r'\bprovided\s+context\b': 'information',
+    }
+
+
     def __init__(self, enabled: Optional[bool] = None):
         """
         Initialize validator
@@ -25,7 +60,8 @@ class ResponseValidator:
             enabled: Override env variable. If None, uses ENABLE_RESPONSE_VALIDATION from .env
         """
         self.enabled = enabled if enabled is not None else ENABLE_VALIDATION
-        
+        self.tenant = get_tenant()
+
         # Phrases that should NEVER appear in responses
         self.forbidden_phrases = [
             r'\b(chatgpt|chat gpt)\b',
@@ -71,6 +107,35 @@ class ResponseValidator:
             r'\bi\s+can\'t\s+provide\b',
             r'\bas\s+an\s+ai\b',
         ]
+
+        # Some tenants sell the very things the generic rules ban. Chikku
+        # Robotics is an AI/robotics company, so "machine learning" and
+        # "computer vision" are product vocabulary, not persona leaks.
+        if self.tenant.validator_allow:
+            self.forbidden_phrases = self._drop_allowed(self.forbidden_phrases)
+            self.technical_jargon = self._drop_allowed(self.technical_jargon)
+            self.weak_phrases = self._drop_allowed(self.weak_phrases)
+
+        # Menu-specific rewrites only make sense for the restaurant tenant.
+        self.replacements = dict(self.BASE_REPLACEMENTS)
+        if self.tenant.is_restaurant:
+            self.replacements.update(self.RESTAURANT_REPLACEMENTS)
+        else:
+            self.replacements.update(self.GENERIC_REPLACEMENTS)
+        self.replacements = {
+            pattern: repl
+            for pattern, repl in self.replacements.items()
+            if not self._is_allowed(pattern)
+        }
+
+    def _is_allowed(self, pattern: str) -> bool:
+        """True if a rule targets a phrase this tenant is allowed to say."""
+        plain = re.sub(r'\\[sb]\+?|\\b|[\\()?]', ' ', pattern)
+        plain = re.sub(r'\s+', ' ', plain).strip().lower()
+        return any(term in plain or plain in term for term in self.tenant.validator_allow)
+
+    def _drop_allowed(self, patterns: List[str]) -> List[str]:
+        return [p for p in patterns if not self._is_allowed(p)]
     
     def validate(self, response: str, query: str = "", context_provided: bool = False) -> Dict:
         """
@@ -152,28 +217,9 @@ class ResponseValidator:
             Cleaned response
         """
         cleaned = response
-        
-        # Remove forbidden phrases (replace with nothing or rewrite)
-        replacements = {
-            r'\b(as|as an)\s+an?\s+ai\s+(model|assistant)?\b': '',
-            r'\bchatgpt\b': 'Chikku',
-            r'\bai\s+model\b': 'assistant',
-            r'\blanguage\s+model\b': 'assistant',
-            r'\bartificial\s+intelligence\b': '',
-            r'\btrained\s+on\s+(a\s+)?dataset\b': '',
-            r'\btraining\s+data\b': '',
-            r'\bopenai\b': '',
-            r'\bgoogle\b': '',
-            r'\bretrieved\s+items?\b': 'menu items',
-            r'\bcontext\s+(provided|given|above)\b': 'menu',
-            r'\bbased\s+on\s+context\b': 'from our menu',
-            r'\bcurrent\s+menu\s+context\b': 'our menu',
-            r'\bprovided\s+context\b': 'menu',
-            r'\bi\s+apologize\s+but\b': "I'm sorry",
-            r'\bsorry\s+but\b': "I'm sorry",
-        }
-        
-        for pattern, replacement in replacements.items():
+
+        # Rule set is tenant-specific (see __init__).
+        for pattern, replacement in self.replacements.items():
             cleaned = re.sub(pattern, replacement, cleaned, flags=re.IGNORECASE)
         
         # Clean up multiple spaces

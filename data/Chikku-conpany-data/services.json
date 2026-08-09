@@ -1,0 +1,121 @@
+{
+  "consulting": {
+    "title": "Robotics & AI Consulting",
+    "description": "Expert consulting services to help organizations identify, plan, and implement robotics and AI automation strategies tailored to their specific needs.",
+    "offerings": [
+      {
+        "name": "Automation Readiness Assessment",
+        "description": "We evaluate your current operations, identify automation opportunities, and build a prioritized roadmap for robotic deployment. Includes ROI analysis and technology recommendation."
+      },
+      {
+        "name": "Solution Architecture & Design",
+        "description": "Our engineers design end-to-end robotic solutions — from hardware selection to software integration — ensuring compatibility with your existing systems and workflows."
+      },
+      {
+        "name": "Proof of Concept (PoC) Development",
+        "description": "Rapid prototyping and pilot deployment to validate automation concepts before full-scale rollout. Typically 4-8 weeks from concept to working prototype."
+      },
+      {
+        "name": "Safety & Compliance Consulting",
+        "description": "Guidance on robot safety standards (ISO 13482, ISO 10218, etc.), risk assessment, and certification processes for deploying robots in regulated environments."
+      }
+    ]
+  },
+  "engineering_support": {
+    "title": "Engineering & Integration Support",
+    "description": "Hands-on engineering services for robot deployment, customization, and integration with existing enterprise systems.",
+    "offerings": [
+      {
+        "name": "System Integration",
+        "description": "Integration of our robots with your WMS, ERP, MES, HIS, and other enterprise systems. Custom API development and middleware for seamless data flow."
+      },
+      {
+        "name": "Custom End-Effector Design",
+        "description": "Design and fabrication of custom grippers, tools, and fixtures for specific application requirements. Rapid prototyping with in-house 3D printing and CNC machining."
+      },
+      {
+        "name": "On-Site Deployment",
+        "description": "Our field engineers handle robot installation, commissioning, site mapping, and workflow configuration at your facility. Typical deployment: 1-4 weeks per site."
+      },
+      {
+        "name": "Ongoing Technical Support",
+        "description": "24/7 technical support with remote diagnostics, on-site service visits, and spare parts management. SLAs from 4-hour response to next-business-day."
+      }
+    ]
+  },
+  "training": {
+    "title": "Training & Education Programs",
+    "description": "Comprehensive training programs to upskill your workforce in robotics operation, programming, and maintenance.",
+    "programs": [
+      {
+        "name": "Robot Operator Training",
+        "description": "Hands-on training for frontline staff on robot operation, safety procedures, and basic troubleshooting. 2-day program, no prior technical experience required.",
+        "duration": "2 days"
+      },
+      {
+        "name": "Robot Programming Certification",
+        "description": "Learn to program our collaborative robotss using teach-by-demonstration, Python scripting, and ROS 2. Covers path planning, vision integration, and task sequencing.",
+        "duration": "5 days"
+      },
+      {
+        "name": "AI & Computer Vision Workshop",
+        "description": "Deep dive into the AI technologies powering our robots. Learn to train custom object detection models and deploy models to edge devices.",
+        "duration": "3 days"
+      },
+      {
+        "name": "Fleet Management Administration",
+        "description": "Training for system administrators on Chikku Cloud fleet management — robot provisioning, traffic management, analytics, and maintenance scheduling.",
+        "duration": "2 days"
+      },
+      {
+        "name": "Train-the-Trainer Program",
+        "description": "We certify your in-house trainers to deliver operator and basic maintenance training. Includes all training materials, assessments, and ongoing curriculum updates.",
+        "duration": "5 days + ongoing support"
+      }
+    ]
+  },
+  "maintenance": {
+    "title": "Maintenance & Lifecycle Services",
+    "description": "Ensure your robot fleet operates at peak performance with our comprehensive maintenance and lifecycle management services.",
+    "offerings": [
+      {
+        "name": "Preventive Maintenance Plans",
+        "description": "Scheduled maintenance visits covering mechanical inspection, sensor calibration, software updates, and battery health checks."
+      },
+      {
+        "name": "Predictive Maintenance",
+        "description": "AI-powered monitoring that predicts component wear and potential failures before they occur. Reduces unplanned downtime by up to 80%."
+      },
+      {
+        "name": "Spare Parts Management",
+        "description": "Guaranteed availability of critical spare parts with 24-hour dispatch. Regional depots in Singapore, Tokyo, San Jose, and Munich."
+      },
+      {
+        "name": "Robot-as-a-Service (RaaS)",
+        "description": "Subscription-based robot deployment that includes hardware, software, maintenance, and support in a single monthly fee. No upfront capital expenditure required."
+      },
+      {
+        "name": "Fleet Refresh & Upgrades",
+        "description": "Hardware upgrade programs and trade-in options to keep your fleet current with the latest technology."
+      }
+    ]
+  },
+  "custom_development": {
+    "title": "Custom Robot Development",
+    "description": "For unique requirements that off-the-shelf robots cannot address, we offer custom robot design and development services.",
+    "offerings": [
+      {
+        "name": "Custom Robot Design",
+        "description": "Full-cycle custom robot development — from requirements analysis and conceptual design to prototyping, testing, and production."
+      },
+      {
+        "name": "Application-Specific Software",
+        "description": "Custom AI models, computer vision pipelines, and robot behaviors developed for your specific application. Built on Chikku Brain platform."
+      },
+      {
+        "name": "Prototyping & Small-Batch Production",
+        "description": "Rapid prototyping with our in-house manufacturing capabilities. Small-batch production (10-100 units) for pilot programs."
+      }
+    ]
+  }
+}

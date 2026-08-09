@@ -35,6 +35,7 @@ setup_logging(log_level=log_level, use_json=use_json_logs)
 logger = logging.getLogger("saigonbot.api")
 
 from rag import RAGPipeline
+from tenant_config import get_tenant
 from chat import conversation_manager
 from errors import handle_error, ValidationError, SystemError
 from rate_limit import RATE_LIMIT_ENABLED, get_rate_limiter
@@ -88,9 +89,11 @@ class HealthResponse(BaseModel):
 
 
 # Initialize FastAPI app
+TENANT = get_tenant()
+
 app = FastAPI(
-    title="Hotel Saigon Chatbot API",
-    description="RAG-based chatbot for Hotel Saigon menu queries",
+    title=TENANT.api_title,
+    description=f"RAG-based assistant for {TENANT.display_name}",
     version="1.0.0"
 )
 
@@ -152,12 +155,8 @@ def get_rag_pipeline() -> RAGPipeline:
     """Get or initialize RAG pipeline"""
     global rag_pipeline
     if rag_pipeline is None:
-        project_root = Path(__file__).parent.parent
-        chroma_db_path = project_root / "chroma_db"
-        
-        rag_pipeline = RAGPipeline(
-            chroma_db_path=str(chroma_db_path),
-        )
+        # Vector store and collection come from the active tenant (TENANT env var).
+        rag_pipeline = RAGPipeline()
     return rag_pipeline
 
 
@@ -165,7 +164,9 @@ def get_rag_pipeline() -> RAGPipeline:
 async def root():
     """Root endpoint"""
     return {
-        "message": "Hotel Saigon Chatbot API",
+        "message": TENANT.api_title,
+        "tenant": TENANT.name,
+        "domain": TENANT.domain,
         "version": "1.0.0",
         "endpoints": {
             "query": "/query",
@@ -355,68 +356,27 @@ async def chat_stream(request: ChatStreamRequest):
         async def generate_stream():
             """Async generator for streaming response"""
             try:
-                # Check if this is a menu query
+                # Retrieval + context formatting is tenant-specific; the pipeline
+                # owns that logic so this endpoint works for either assistant.
                 loop = asyncio.get_event_loop()
-                is_menu = await loop.run_in_executor(
+                context, items_data = await loop.run_in_executor(
                     executor,
-                    pipeline.is_menu_query,
-                    request.query
+                    pipeline.prepare_stream_context,
+                    request.query,
                 )
-                
-                context = ""
-                retrieved = []
-                
-                if is_menu:
-                    # Retrieve items for menu queries
-                    retrieved = await loop.run_in_executor(
-                        executor,
-                        pipeline.retrieve,
-                        request.query,
-                        pipeline.top_k,
-                        "menu",
-                    )
-                    
-                    if retrieved:
-                        # Rerank if needed
-                        if pipeline.use_reranking:
-                            retrieved = await loop.run_in_executor(
-                                executor,
-                                pipeline.rerank,
-                                request.query,
-                                retrieved,
-                                pipeline.rerank_k
-                            )
-                        else:
-                            retrieved = retrieved[:pipeline.rerank_k]
-                        
-                        # Format context
-                        context = pipeline.format_context(retrieved)
-                        
-                        # Send items info
-                        items_data = []
-                        for idx, item in enumerate(retrieved):
-                            try:
-                                meta = item.get('metadata', {}) if isinstance(item, dict) else {}
-                                raw_price = meta.get('price')
-                                items_data.append(
-                                    {
-                                        'name': _none_if_blank(meta.get('item_name')),
-                                        'section': _none_if_blank(meta.get('section')),
-                                        'price': None if raw_price in (None, "") else str(raw_price),
-                                        'currency': _none_if_blank(meta.get('currency')),
-                                    }
-                                )
-                            except Exception:
-                                logger.exception("Failed to format stream item idx=%s item=%r", idx, item)
-                                continue
-                        yield f"data: {json.dumps({'type': 'items', 'items': items_data, 'count': len(items_data)})}\n\n"
-                    else:
-                        # No items found for menu query
-                        yield f"data: {json.dumps({'type': 'items', 'items': [], 'count': 0})}\n\n"
-                else:
-                    # Non-menu query - send empty items
-                    yield f"data: {json.dumps({'type': 'items', 'items': [], 'count': 0})}\n\n"
-                
+
+                items_data = [
+                    {
+                        'name': _none_if_blank(i.get('name')),
+                        'section': _none_if_blank(i.get('section')),
+                        'price': i.get('price'),
+                        'currency': _none_if_blank(i.get('currency')),
+                    }
+                    for i in items_data
+                ]
+                yield f"data: {json.dumps({'type': 'items', 'items': items_data, 'count': len(items_data)})}\n\n"
+
+
                 # Stream LLM response
                 full_response = ""
                 token_count = 0

@@ -67,6 +67,9 @@ cp config.env .env
 Key settings in `.env`:
 
 ```env
+# ── Tenant ────────────────────────────────────
+TENANT=saigon                # saigon | chikku
+
 # ── LLM Provider ──────────────────────────────
 LLM_PROVIDER=ollama          # ollama | openai
 
@@ -92,7 +95,47 @@ ALLOWED_ORIGINS=*
 
 ---
 
+## Tenants
+
+One codebase serves two assistants. `TENANT` in `.env` selects which:
+
+| TENANT | Assistant | Vector store | Collection | System prompt |
+|---|---|---|---|---|
+| `saigon` | Saigon Indian Restaurant host | `chroma_db/` | `hotel_saigon_menu` | `data/system_prompt.txt` |
+| `chikku` | Chikku Robotics support agent | `chikku_db/` | `chikku_kb` | `data/chikku_system_prompt.txt` |
+
+The tenant decides the vector store, system prompt, intent taxonomy, retrieval
+filters and response-validator rules — see `src/tenant_config.py`. Switching is a
+restart, not a code change:
+
+```bash
+TENANT=chikku python run_api.py
+```
+
+Individual fields can be overridden with `CHROMA_DIR`, `COLLECTION_NAME` and
+`SYSTEM_PROMPT_FILE` if a tenant needs to point somewhere else.
+
+**How the two paths differ**
+
+- `saigon` (`domain=restaurant`) runs the menu pipeline: dietary/protein filtering,
+  dish-name extraction for orders, speech-to-text normalisation tuned to Indian food,
+  and the restaurant knowledge base for hours/location/policies.
+- `chikku` (`domain=company`) runs `src/company_rag.py`: a B2B support taxonomy
+  (product, solution, service, technology, partnership, sales, support, company info),
+  metadata-scoped retrieval by `doc_type`, and an `audience` gate so internal
+  engineering docs are only readable by support-intent questions.
+
+The response validator is tenant-aware too. Its default rules ban phrases like
+"machine learning" and "artificial intelligence" as persona leaks — correct for a
+restaurant host, wrong for a robotics company. `validator_allow` in the tenant config
+exempts those terms for `chikku` while still blocking real persona leaks
+("as an AI language model").
+
+---
+
 ## Data Ingestion
+
+### Restaurant (TENANT=saigon)
 
 Run once (or whenever the menu changes) to build the ChromaDB vector index:
 
@@ -105,6 +148,34 @@ python src/ingestion.py
 To also index restaurant "about" content:
 ```bash
 python src/ingest_about.py
+```
+
+### Chikku Robotics (TENANT=chikku)
+
+```bash
+python src/ingest_chikku.py --include-docs --reset
+```
+
+Indexes **all 24 files** in `data/Chikku-conpany-data/` — 8 JSON, 8 PDF (via
+`pdfplumber`), and 8 internal markdown docs — into `chikku_db/chikku_kb` (559 chunks),
+and writes a portable export to `data/processed/chikku_kb/` (JSONL, CSV, per-doc-type
+splits, and records with pre-computed vectors). See `data/processed/chikku_kb/README.md`.
+
+Verify nothing was lost in chunking:
+
+```bash
+python src/audit_chikku_coverage.py            # per-file coverage table
+python src/audit_chikku_coverage.py --verbose  # list every missing fragment
+```
+
+It checks every JSON leaf value and every non-empty PDF/markdown line against the
+indexed text and fails loudly on gaps — a chunk count alone cannot catch a chunker
+bug that silently drops a section.
+
+To upload an existing export without re-embedding:
+
+```bash
+python src/load_chikku_export.py
 ```
 
 ---

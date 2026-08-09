@@ -1,0 +1,44 @@
+{
+    "company": {
+        "name": "Chikku Robotics",
+        "headquarters": "India",
+        "global_offices": [
+            "Ho Chi Minh City, Vietnam",
+            "Tamil Nadu, India"
+        ],
+        "tagline": "Intelligent Robots for a Smarter Future",
+        "mission": "To make advanced robotics and AI technology approachable, beneficial, and accessible to businesses and society worldwide.",
+        "vision": "A world where intelligent robots work alongside humans seamlessly — enhancing productivity, safety, and quality of life across every industry.",
+        "values": [
+            {
+                "value": "Human-Centered Design",
+                "description": "Every robot we build is designed with people in mind — intuitive, safe, and trustworthy."
+            },
+            {
+                "value": "Innovation Excellence",
+                "description": "We push the boundaries of what is possible through continuous R&D and breakthrough technologies."
+            },
+            {
+                "value": "Collaboration",
+                "description": "We partner with universities, governments, and industry leaders to accelerate the robotics revolution."
+            },
+            {
+                "value": "Sustainability",
+                "description": "Our robots are designed for energy efficiency and long-term environmental responsibility."
+            },
+            {
+                "value": "Trust & Safety",
+                "description": "Safety is non-negotiable. All our robots meet international safety standards including ISO 13482 and ISO 10218."
+            }
+        ]
+    },
+    "name_origin": {
+        "inspiration": "Chikku fruit (Manilkara zapota)",
+        "story": "The Chikku fruit, also known as sapodilla, is beloved across Asia for its natural sweetness and nourishing qualities. Just like the fruit, our robots are designed to be naturally welcoming, trustworthy, and enriching — seamlessly integrating into human environments to make life better. The name reflects our philosophy: technology should be as approachable and delightful as biting into a sweet Chikku.",
+        "pronunciation": "Chik-koo",
+        "brand_colors": {
+            "primary": "Deep Blue (#1A237E)",
+            "accent": "Warm Orange (#FF6F00)"
+        }
+    }
+}

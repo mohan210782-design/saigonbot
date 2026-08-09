@@ -36,13 +36,15 @@ from response_validator import get_validator
 from knowledge_base import get_knowledge_base
 # Import LLM provider abstraction
 from llm_provider import get_provider
+# Import tenant configuration (selects vector store, prompt and behaviour)
+from tenant_config import get_tenant
 
 
 class RAGPipeline:
     def __init__(
         self,
-        chroma_db_path: str = "chroma_db",
-        collection_name: str = "hotel_saigon_menu",
+        chroma_db_path: Optional[str] = None,
+        collection_name: Optional[str] = None,
         embedding_model: Optional[str] = None,
         llm_model: Optional[str] = None,
         use_reranking: Optional[bool] = None,
@@ -50,6 +52,12 @@ class RAGPipeline:
         rerank_k: Optional[int] = None
     ):
         """Initialize RAG Pipeline"""
+        # Active tenant decides the vector store, system prompt and behaviour.
+        # Explicit arguments still win, so callers/tests can override.
+        self.tenant = get_tenant()
+        chroma_db_path = chroma_db_path or str(self.tenant.resolve_chroma_dir())
+        collection_name = collection_name or self.tenant.collection_name
+
         # Initialize LLM provider (Ollama or OpenAI based on LLM_PROVIDER env var)
         self.provider = get_provider()
         # Model names are owned by the provider; keep as attributes for logging/errors
@@ -108,6 +116,8 @@ class RAGPipeline:
             print("ℹ️  Reranking disabled (set USE_RERANKING=true in .env to enable)")
         
         print(f"✅ RAG Pipeline initialized")
+        print(f"   Tenant: {self.tenant.name} ({self.tenant.display_name}, domain={self.tenant.domain})")
+        print(f"   Collection: {collection_name} @ {chroma_db_path}")
         print(f"   Embedding model: {self.embedding_model}")
         print(f"   LLM model: {self.llm_model}")
         print(f"   Top K: {self.top_k}")
@@ -117,11 +127,9 @@ class RAGPipeline:
         # Load system prompt from file (configurable via SYSTEM_PROMPT_FILE in .env)
         self.base_system_prompt: str = ""
         try:
-            default_prompt_path = Path(__file__).parent.parent / "data" / "system_prompt.txt"
-            prompt_file = os.getenv("SYSTEM_PROMPT_FILE", str(default_prompt_path))
-            prompt_path = Path(prompt_file)
-            if not prompt_path.is_absolute():
-                prompt_path = Path(__file__).parent.parent / prompt_file
+            # Tenant supplies the default; SYSTEM_PROMPT_FILE (applied inside
+            # get_tenant) can still override it.
+            prompt_path = self.tenant.resolve_prompt_path()
             if prompt_path.exists():
                 self.base_system_prompt = prompt_path.read_text(encoding="utf-8").strip()
                 print(f"✅ Loaded system prompt from {prompt_path.name}")
@@ -130,32 +138,44 @@ class RAGPipeline:
         except Exception as e:
             print(f"⚠️  Failed to load system prompt file: {e}")
 
-        # Load static restaurant information from about.txt for use in system prompt
+        # Load static restaurant information from about.txt for use in system prompt.
+        # Restaurant-only: the company tenant carries this knowledge in its vector store.
         self.restaurant_info: str = ""
-        try:
-            about_path = Path(__file__).parent.parent / "data" / "processed" / "about.txt"
-            if about_path.exists():
-                text = about_path.read_text(encoding="utf-8").strip()
-                if text:
-                    self.restaurant_info = text
-                    print("✅ Loaded restaurant information from about.txt")
+        if self.tenant.is_restaurant:
+            try:
+                about_path = Path(__file__).parent.parent / "data" / "processed" / "about.txt"
+                if about_path.exists():
+                    text = about_path.read_text(encoding="utf-8").strip()
+                    if text:
+                        self.restaurant_info = text
+                        print("✅ Loaded restaurant information from about.txt")
+                    else:
+                        print("⚠️  about.txt is empty, restaurant info section will be omitted")
                 else:
-                    print("⚠️  about.txt is empty, restaurant info section will be omitted")
-            else:
-                print("⚠️  about.txt not found, restaurant info section will be omitted")
-        except Exception as e:
-            print(f"⚠️  Failed to load about.txt: {e}")
-            self.restaurant_info = ""
-        
-        # Load knowledge base
-        self.knowledge_base = get_knowledge_base()
-        print("✅ Knowledge base initialized")
+                    print("⚠️  about.txt not found, restaurant info section will be omitted")
+            except Exception as e:
+                print(f"⚠️  Failed to load about.txt: {e}")
+                self.restaurant_info = ""
+
+        # Restaurant knowledge base (hours, location, policies) — restaurant tenant only.
+        self.knowledge_base = None
+        if self.tenant.is_restaurant:
+            self.knowledge_base = get_knowledge_base()
+            print("✅ Knowledge base initialized")
+
+        # Company-support handler — used when the tenant's domain is "company".
+        self.company = None
+        if self.tenant.is_company:
+            from company_rag import CompanyRAG
+
+            self.company = CompanyRAG(self)
+            print("✅ Company support handler initialized")
 
         # Simple in-memory retrieval cache (for menu queries)
         self.enable_cache = os.getenv("RAG_CACHE_ENABLED", "true").lower() == "true"
         self.cache_max_size = max(10, int(os.getenv("RAG_CACHE_MAX_SIZE", "100")))
-        # key: (query, top_k, doc_type) -> list[Dict]
-        self._retrieval_cache: "OrderedDict[Tuple[str, int, Optional[str]], List[Dict]]" = OrderedDict()
+        # key: (query, top_k, doc_type, where_repr) -> list[Dict]
+        self._retrieval_cache: "OrderedDict[Tuple[str, int, Optional[str], str], List[Dict]]" = OrderedDict()
         
         # Embedding cache (for faster repeated queries)
         self.enable_embedding_cache = os.getenv("EMBEDDING_CACHE_ENABLED", "true").lower() == "true"
@@ -190,9 +210,20 @@ class RAGPipeline:
         except Exception as e:
             raise RetrievalError(f"Failed to generate embedding: {str(e)}", query=text)
     
-    def retrieve(self, query: str, top_k: int = 10, doc_type: Optional[str] = None) -> List[Dict]:
-        """Retrieve relevant items from ChromaDB"""
-        cache_key = (query, top_k, doc_type)
+    def retrieve(
+        self,
+        query: str,
+        top_k: int = 10,
+        doc_type: Optional[str] = None,
+        where: Optional[Dict] = None,
+    ) -> List[Dict]:
+        """Retrieve relevant items from ChromaDB.
+
+        `doc_type` is the restaurant tenant's post-filter (menu vs about).
+        `where` is a ChromaDB metadata filter applied server-side, used by the
+        company tenant to scope by doc_type/audience.
+        """
+        cache_key = (query, top_k, doc_type, repr(where))
 
         # Check cache first
         if self.enable_cache and cache_key in self._retrieval_cache:
@@ -211,7 +242,9 @@ class RAGPipeline:
             "query_embeddings": [query_embedding],
             "n_results": top_k * 2 if doc_type else top_k  # Get more if we need to filter
         }
-        
+        if where:
+            query_params["where"] = where
+
         # Search in ChromaDB (without doc_type filter for backward compatibility)
         results = self.collection.query(**query_params)
         
@@ -337,6 +370,8 @@ class RAGPipeline:
         """
         Returns the merged welcome message that should be shown only once per session.
         """
+        if self.company:
+            return self.company.welcome_message()
         return get_welcome_message()
     
     def _enhance_query_with_history(self, query: str, conversation_history: Optional[List[Dict]]) -> str:
@@ -467,6 +502,11 @@ class RAGPipeline:
         # Load base prompt from file, fall back to minimal inline prompt
         if self.base_system_prompt:
             base_prompt = self.base_system_prompt.replace('{context}', context)
+        elif self.tenant.is_company:
+            base_prompt = (
+                f"You are {self.tenant.assistant_name}, the customer support assistant of "
+                f"{self.tenant.display_name}.\n\nKnowledge:\n{context}"
+            )
         else:
             base_prompt = f"You are Chikku, the hospitality assistant of Saigon Indian Restaurant.\n\nCurrent Menu Context:\n{context}"
         
@@ -496,6 +536,71 @@ CRITICAL: Only show this welcome message ONCE at the very beginning of a new con
         
         return final_prompt
     
+    def prepare_stream_context(
+        self,
+        query: str,
+        top_k: Optional[int] = None,
+        rerank_k: Optional[int] = None,
+    ) -> Tuple[str, List[Dict]]:
+        """Retrieve + format the context for a streaming turn.
+
+        Returns (context, items) where `items` is the display payload the API
+        emits before the tokens. Keeps the tenant-specific retrieval logic in
+        one place instead of duplicating it in the API layer.
+        """
+        top_k = max(1, top_k) if top_k is not None else self.top_k
+        rerank_k = max(1, rerank_k) if rerank_k is not None else self.rerank_k
+
+        if self.company:
+            intent = self.company.classifier.classify(query)
+            if intent.category.value == "conversational":
+                return "", []
+
+            retrieved = self.company.retrieve(query, intent, top_k)
+            if not retrieved:
+                return "", []
+
+            if self.use_reranking:
+                retrieved = self.rerank(query, retrieved, top_k=rerank_k)
+            else:
+                retrieved = retrieved[:rerank_k]
+
+            items = [
+                {
+                    'name': i['metadata'].get('title'),
+                    'section': i['metadata'].get('category_title'),
+                    'price': None,
+                    'currency': None,
+                }
+                for i in retrieved
+            ]
+            return self.company.format_context(retrieved), items
+
+        # Restaurant path: only menu queries carry retrieved context.
+        if not self.is_menu_query(query):
+            return "", []
+
+        retrieved = self.retrieve(query, top_k=top_k, doc_type="menu")
+        if not retrieved:
+            return "", []
+
+        if self.use_reranking:
+            retrieved = self.rerank(query, retrieved, top_k=rerank_k)
+        else:
+            retrieved = retrieved[:rerank_k]
+
+        items = []
+        for item in retrieved:
+            meta = item.get('metadata', {}) if isinstance(item, dict) else {}
+            raw_price = meta.get('price')
+            items.append({
+                'name': meta.get('item_name') or None,
+                'section': meta.get('section') or None,
+                'price': None if raw_price in (None, "") else str(raw_price),
+                'currency': meta.get('currency') or None,
+            })
+        return self.format_context(retrieved), items
+
     def generate_response_stream(
         self,
         query: str,
@@ -503,6 +608,18 @@ CRITICAL: Only show this welcome message ONCE at the very beginning of a new con
         conversation_history: Optional[List[Dict]] = None
     ):
         """Generate streaming response using LLM"""
+        if self.company:
+            intent = self.company.classifier.classify(query)
+            if intent.category.value == "conversational" and not context:
+                yield (
+                    self.company.welcome_message()
+                    if not conversation_history
+                    else "Happy to help! What would you like to know about Chikku Robotics?"
+                )
+                return
+            yield from self.company.stream(query, context, intent, conversation_history)
+            return
+
         # Build system prompt with welcome message (only for new sessions) and restaurant info
         system_prompt = self._build_system_prompt(context, conversation_history)
         
@@ -1294,6 +1411,11 @@ Or tell me what you need, and I'll guide you! 😊"""
         # Use instance defaults or provided values, ensure minimum of 1
         top_k = max(1, top_k) if top_k is not None else self.top_k
         rerank_k = max(1, rerank_k) if rerank_k is not None else self.rerank_k
+
+        # Company tenants use the generic company-support path; everything below
+        # this point is the restaurant menu pipeline.
+        if self.company:
+            return self.company.query(user_query, top_k, rerank_k, conversation_history)
 
         # Step 0a: Classify intent first on the raw query
         intent_result = self._classify_intent(user_query)
