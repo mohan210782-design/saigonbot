@@ -1,6 +1,6 @@
 # SaigonBot — Chatbot API
 
-A RAG-based conversational AI chatbot for Saigon Indian Restaurant. Uses ChromaDB for vector search, Ollama for local embeddings, and supports **Ollama or OpenAI** for response generation — switchable via a single `.env` variable. Questions can be asked in **Tamil or English** (plus Hindi, Telugu, Kannada, Malayalam, Vietnamese) against the same English index — see [Multilingual](#multilingual).
+A RAG-based conversational AI chatbot for Saigon Indian Restaurant. Uses ChromaDB for vector search, Ollama for local embeddings, and supports **Ollama or OpenAI** for response generation — switchable via a single `.env` variable. Questions can be asked in **ten languages** — English, Hindi, Tamil, Bengali, Gujarati, Malayalam, Kannada, Telugu, Punjabi, Vietnamese — against the same English index — see [Multilingual](#multilingual).
 
 ## Table of Contents
 
@@ -292,8 +292,26 @@ index, no second intent taxonomy.
 
 ### Supported languages
 
-`en`, `ta` (Tamil), `hi`, `te`, `kn`, `ml`, `vi`. `GET /stats` reports the live
-list.
+| code | language | script block |
+|---|---|---|
+| `en` | English | Latin |
+| `hi` | Hindi | Devanagari |
+| `ta` | Tamil | Tamil |
+| `bn` | Bengali | Bengali |
+| `gu` | Gujarati | Gujarati |
+| `ml` | Malayalam | Malayalam |
+| `kn` | Kannada | Kannada |
+| `te` | Telugu | Telugu |
+| `pa` | Punjabi | Gurmukhi |
+| `vi` | Vietnamese | Latin |
+
+`GET /stats` reports the live list. Adding one is a single entry in `LANGUAGES`
+plus its Unicode block in `_SCRIPT_RANGES` — no re-ingestion, no second index.
+
+Two blocks serve more than one language: Devanagari is also Marathi and Nepali,
+Bengali is also Assamese. Those are reported as the majority language, which is
+the most a script test can determine. `vi` shares the Latin block with English and
+so is never script-detected — a Vietnamese turn has to declare `language`.
 
 ### How the language of a turn is decided
 

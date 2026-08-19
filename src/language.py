@@ -46,23 +46,33 @@ MULTILINGUAL_ENABLED = os.getenv("MULTILINGUAL_ENABLED", "true").lower() == "tru
 # `native` is what the answer directive shows the LLM — naming the language in
 # its own script measurably reduces the "answers in English anyway" failure.
 LANGUAGES: Dict[str, Dict[str, str]] = {
-    "en": {"name": "English",   "native": "English"},
-    "ta": {"name": "Tamil",     "native": "தமிழ்"},
-    "hi": {"name": "Hindi",     "native": "हिन्दी"},
-    "te": {"name": "Telugu",    "native": "తెలుగు"},
-    "kn": {"name": "Kannada",   "native": "ಕನ್ನಡ"},
-    "ml": {"name": "Malayalam", "native": "മലയാളം"},
+    "en": {"name": "English",    "native": "English"},
+    "hi": {"name": "Hindi",      "native": "हिन्दी"},
+    "ta": {"name": "Tamil",      "native": "தமிழ்"},
+    "bn": {"name": "Bengali",    "native": "বাংলা"},
+    "gu": {"name": "Gujarati",   "native": "ગુજરાતી"},
+    "ml": {"name": "Malayalam",  "native": "മലയാളം"},
+    "kn": {"name": "Kannada",    "native": "ಕನ್ನಡ"},
+    "te": {"name": "Telugu",     "native": "తెలుగు"},
+    "pa": {"name": "Punjabi",    "native": "ਪੰਜਾਬੀ"},
     "vi": {"name": "Vietnamese", "native": "Tiếng Việt"},
 }
 
 # Unicode blocks that identify a language unambiguously. Ordered because the
 # first match wins; these blocks do not overlap, so order is not significant
 # beyond determinism.
+# Each Indic language below owns its Unicode block outright, so a hit is proof
+# rather than a guess. Two blocks serve more than one language — Devanagari is
+# also Marathi/Nepali and Bengali is also Assamese — and are reported as the
+# majority language, which is the best a script test can do.
 _SCRIPT_RANGES: Tuple[Tuple[str, str], ...] = (
     ("ta", r"[஀-௿]"),   # Tamil
     ("te", r"[ఀ-౿]"),   # Telugu
     ("kn", r"[ಀ-೿]"),   # Kannada
     ("ml", r"[ഀ-ൿ]"),   # Malayalam
+    ("bn", r"[ঀ-৿]"),   # Bengali (also Assamese — reported as Bengali)
+    ("gu", r"[઀-૿]"),   # Gujarati
+    ("pa", r"[਀-੿]"),   # Gurmukhi (Punjabi)
     ("hi", r"[ऀ-ॿ]"),   # Devanagari (Hindi/Marathi — reported as Hindi)
 )
 
