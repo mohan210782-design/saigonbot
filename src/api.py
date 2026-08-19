@@ -14,6 +14,7 @@ import asyncio
 import json
 import uuid
 from concurrent.futures import ThreadPoolExecutor
+from functools import partial
 from dotenv import load_dotenv
 import logging
 
@@ -39,17 +40,22 @@ from tenant_config import get_tenant
 from chat import conversation_manager
 from errors import handle_error, ValidationError, SystemError
 from rate_limit import RATE_LIMIT_ENABLED, get_rate_limiter
+from language import DEFAULT_LANGUAGE, LANGUAGES, MULTILINGUAL_ENABLED
 
 
 # Request/Response models
 class QueryRequest(BaseModel):
     query: str
     conversation_id: Optional[str] = None
+    # BCP-47 or ISO 639-1 tag ("ta", "ta-IN"). The kiosk sends what its speech
+    # recogniser detected; when absent the pipeline infers it from the script.
+    language: Optional[str] = None
 
 
 class ChatStreamRequest(BaseModel):
     query: str
     conversation_id: Optional[str] = None
+    language: Optional[str] = None
 
 
 class StopRequest(BaseModel):
@@ -80,6 +86,10 @@ class QueryResponse(BaseModel):
     items: List[MenuItem]
     retrieved_count: int
     intent: Optional[Dict] = None  # Intent classification result
+    # Language the answer is written in — the client picks its TTS voice from it.
+    language: Optional[str] = None
+    # Present only when the question was translated for retrieval.
+    query_english: Optional[str] = None
 
 
 class HealthResponse(BaseModel):
@@ -237,11 +247,12 @@ async def query_menu(request: QueryRequest):
         try:
             result = await loop.run_in_executor(
                 executor,
-                pipeline.query,
-                request.query,
-                None,
-                None,
-                conversation_history
+                partial(
+                    pipeline.query,
+                    request.query,
+                    conversation_history=conversation_history,
+                    language=request.language,
+                ),
             )
         except Exception as e:
             logger.exception("pipeline.query failed for /query query=%r", request.query)
@@ -261,7 +272,8 @@ async def query_menu(request: QueryRequest):
                 response=error_msg,
                 items=[],
                 retrieved_count=0,
-                intent=intent_dict
+                intent=intent_dict,
+                language=request.language,
             )
         
         # Save conversation history with intent information
@@ -310,7 +322,9 @@ async def query_menu(request: QueryRequest):
             response=result['response'],
             items=menu_items,
             retrieved_count=result['retrieved_count'],
-            intent=result.get('intent')
+            intent=result.get('intent'),
+            language=result.get('language'),
+            query_english=result.get('query_english'),
         )
     
     except HTTPException:
@@ -356,13 +370,24 @@ async def chat_stream(request: ChatStreamRequest):
         async def generate_stream():
             """Async generator for streaming response"""
             try:
+                loop = asyncio.get_event_loop()
+
+                # Settle the language first: retrieval and intent classification
+                # are English-only, so a non-English question is translated here
+                # and `retrieval_query` is what the rest of the turn uses.
+                lang, retrieval_query = await loop.run_in_executor(
+                    executor,
+                    partial(pipeline.resolve_turn, request.query, request.language),
+                )
+                # The client needs this before the first token — it selects the
+                # TTS voice from it, and picking the wrong one is audible.
+                yield f"data: {json.dumps({'type': 'language', 'language': lang})}\n\n"
+
                 # Retrieval + context formatting is tenant-specific; the pipeline
                 # owns that logic so this endpoint works for either assistant.
-                loop = asyncio.get_event_loop()
                 context, items_data = await loop.run_in_executor(
                     executor,
-                    pipeline.prepare_stream_context,
-                    request.query,
+                    partial(pipeline.prepare_stream_context, retrieval_query),
                 )
 
                 items_data = [
@@ -374,13 +399,15 @@ async def chat_stream(request: ChatStreamRequest):
                     }
                     for i in items_data
                 ]
-                yield f"data: {json.dumps({'type': 'items', 'items': items_data, 'count': len(items_data)})}\n\n"
+                yield f"data: {json.dumps({'type': 'items', 'items': items_data, 'count': len(items_data), 'language': lang})}\n\n"
 
 
                 # Stream LLM response
                 full_response = ""
                 token_count = 0
-                for chunk in pipeline.generate_response_stream(request.query, context, conversation_history):
+                for chunk in pipeline.generate_response_stream(
+                    retrieval_query, context, conversation_history, language=lang
+                ):
                     full_response += chunk
                     token_count += 1
                     
@@ -395,7 +422,7 @@ async def chat_stream(request: ChatStreamRequest):
                 yield f"data: {json.dumps({'type': 'text', 'content': full_response})}\n\n"
                 
                 # Send completion with full response
-                yield f"data: {json.dumps({'type': 'done', 'conversation_id': conv_id, 'full_response': full_response})}\n\n"
+                yield f"data: {json.dumps({'type': 'done', 'conversation_id': conv_id, 'full_response': full_response, 'language': lang})}\n\n"
                 
                 # Save assistant response to history
                 conversation_manager.add_message(conv_id, "assistant", full_response)
@@ -460,11 +487,12 @@ async def chat_text(request: ChatStreamRequest):
         try:
             result = await loop.run_in_executor(
                 executor,
-                pipeline.query,
-                request.query,
-                None,
-                None,
-                conversation_history
+                partial(
+                    pipeline.query,
+                    request.query,
+                    conversation_history=conversation_history,
+                    language=request.language,
+                ),
             )
         except Exception:
             logger.exception("pipeline.query failed for /chat/text query=%r", request.query)
@@ -516,7 +544,9 @@ async def chat_text(request: ChatStreamRequest):
             response=result['response'],
             items=menu_items,
             retrieved_count=result['retrieved_count'],
-            intent=result.get('intent')
+            intent=result.get('intent'),
+            language=result.get('language'),
+            query_english=result.get('query_english'),
         )
     
     except HTTPException:
@@ -570,7 +600,10 @@ async def get_stats():
             "total_items": collection_count,
             "embedding_model": pipeline.embedding_model,
             "llm_model": pipeline.llm_model,
-            "reranking_enabled": pipeline.use_reranking
+            "reranking_enabled": pipeline.use_reranking,
+            "multilingual_enabled": MULTILINGUAL_ENABLED,
+            "supported_languages": sorted(LANGUAGES),
+            "default_language": DEFAULT_LANGUAGE,
         }
     except Exception as e:
         raise HTTPException(

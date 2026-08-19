@@ -1,6 +1,6 @@
 # SaigonBot — Chatbot API
 
-A RAG-based conversational AI chatbot for Saigon Indian Restaurant. Uses ChromaDB for vector search, Ollama for local embeddings, and supports **Ollama or OpenAI** for response generation — switchable via a single `.env` variable.
+A RAG-based conversational AI chatbot for Saigon Indian Restaurant. Uses ChromaDB for vector search, Ollama for local embeddings, and supports **Ollama or OpenAI** for response generation — switchable via a single `.env` variable. Questions can be asked in **Tamil or English** (plus Hindi, Telugu, Kannada, Malayalam, Vietnamese) against the same English index — see [Multilingual](#multilingual).
 
 ## Table of Contents
 
@@ -11,6 +11,7 @@ A RAG-based conversational AI chatbot for Saigon Indian Restaurant. Uses ChromaD
 - [Running the API](#running-the-api)
 - [API Endpoints](#api-endpoints)
 - [Switching LLM Provider](#switching-llm-provider)
+- [Multilingual](#multilingual)
 - [Troubleshooting](#troubleshooting)
 - [Project Structure](#project-structure)
 
@@ -80,6 +81,12 @@ LLM_MODEL=deepseek-r1:latest
 # ── OpenAI (only when LLM_PROVIDER=openai) ────
 OPENAI_API_KEY=sk-...
 OPENAI_LLM_MODEL=gpt-4o-mini
+
+# ── Multilingual ──────────────────────────────
+MULTILINGUAL_ENABLED=true    # false = English only, no translation
+DEFAULT_LANGUAGE=en
+# Proper nouns that must survive translation with their exact spelling
+TRANSLATION_GLOSSARY=Chikku Robotics|S-Robot|WatchGuard6S
 
 # ── Retrieval ─────────────────────────────────
 TOP_K=7
@@ -209,6 +216,11 @@ Interactive docs at `http://localhost:8000/docs`
 | `GET` | `/conversation/{id}/history` | Get conversation history |
 | `DELETE` | `/conversation/{id}` | Clear conversation |
 
+`/query`, `/chat/text` and `/chat/stream` all accept an optional `language` field
+(`"ta"`, `"ta-IN"`, …). Omit it and the language is inferred from the script.
+`/chat/text` and `/query` echo back `language` and, when a translation happened,
+`query_english`. `/chat/stream` emits a `language` event before the first token.
+
 ### Examples
 
 ```bash
@@ -251,6 +263,116 @@ Restart the API after changing `.env`. No re-ingestion needed when switching pro
 
 ---
 
+## Multilingual
+
+A question can be asked in Tamil and is answered in Tamil, without a second
+vector index.
+
+### Why it works this way
+
+Every retrieval component here is English: the ChromaDB index was embedded with
+an English-trained model (`mxbai-embed-large`), the intent taxonomies are English
+regex patterns, and the chunk metadata (`doc_type`, `audience`, section titles) is
+English. A Tamil query embedded directly scores near zero against that index, so
+retrieval returns noise no matter how good the LLM is.
+
+Rather than re-embedding the corpus per language, the language boundary sits at
+the edges (`src/language.py`):
+
+```
+Tamil question
+  → translate to English         (LLM, temperature 0, cached)
+  → retrieve / classify / rerank (unchanged English pipeline)
+  → LLM instructed to answer in Tamil
+  → Tamil answer
+```
+
+Adding a language costs one entry in `LANGUAGES` — no re-ingestion, no second
+index, no second intent taxonomy.
+
+### Supported languages
+
+`en`, `ta` (Tamil), `hi`, `te`, `kn`, `ml`, `vi`. `GET /stats` reports the live
+list.
+
+### How the language of a turn is decided
+
+1. The `language` field on the request, if the client sent one. The kiosk sends
+   what Whisper detected during speech recognition.
+2. Otherwise the script of the query text. The Indic languages each own a Unicode
+   block, so this is exact rather than probabilistic — it is what covers typed
+   queries, which carry no speech signal.
+
+### Two output paths
+
+LLM-generated answers are produced in the target language directly, via a
+directive appended to the user prompt (`answer_language_directive`). Only one LLM
+call, and the model writes natively rather than translating its own English.
+
+Fixed strings — the welcome message, `"I couldn't find that"`, the ~30 hardcoded
+templates in the restaurant path — never reach the LLM, so they are translated on
+the way out by `localize()` and cached. `localize()` is idempotent: it detects
+that an LLM answer is already Tamil and passes it through untouched, which is why
+it can sit on the single exit boundary in `RAGPipeline.query` and cover every
+branch without editing any of them.
+
+### Proper nouns
+
+A Tamil-script question carries no Latin spelling, so the translator
+transliterates by ear — `சிக்கு ரோபோட்டிக்ஸ்` came back as *"Siku Robotics"*,
+which then has to match *"Chikku Robotics"* in the index. `TRANSLATION_GLOSSARY`
+pins the spellings that matter:
+
+```env
+TRANSLATION_GLOSSARY=Chikku Robotics|S-Robot|WatchGuard6S|Surender Rangaraju
+```
+
+For a company assistant the brand name is often the whole query, so this is not
+cosmetic.
+
+### Cost
+
+One extra LLM call per non-English turn (the query translation), at
+`temperature=0` with a 400-token budget. Translations and canned strings are
+cached (`TRANSLATION_CACHE_MAX_SIZE`), so a repeated question costs nothing.
+English turns are byte-for-byte the same pipeline as before — no translation call
+and no directive.
+
+Translation fails open: if the provider is unreachable the untranslated query
+goes to retrieval, which degrades answer quality instead of taking the kiosk down.
+
+### Response validation
+
+`src/response_validator.py` enforces persona with English regexes ("as an AI
+model", "training data"). Those cannot match Tamil text, so a non-English reply
+is checked for structure only (length, truncation) and returned unmodified — a
+clean bill of health from rules that cannot fire would be meaningless, and the
+cleaner's whitespace collapse would flatten Markdown it never needed to touch.
+
+### Testing
+
+```bash
+python test_language.py    # no Ollama/OpenAI/ChromaDB needed — stubbed provider
+```
+
+```bash
+# Tamil in, Tamil out
+curl -X POST http://localhost:8000/chat/text \
+  -H "Content-Type: application/json" \
+  -d '{"query":"சிக்கு ரோபோட்டிக்ஸ் நிறுவனத்தின் நிறுவனர் யார்?","language":"ta"}'
+```
+
+### Turning it off
+
+```env
+MULTILINGUAL_ENABLED=false
+```
+
+Every turn is then treated as English: no translation, no directive, no script
+detection.
+
+---
+
 ## Troubleshooting
 
 **Ollama connection error**
@@ -272,6 +394,17 @@ API_PORT=8001
 lsof -ti:8000 | xargs kill -9
 ```
 
+**Answers come back in English even though the question was Tamil**
+- Check `MULTILINGUAL_ENABLED=true` in `.env`
+- Check the client is sending `language`, or that the query really is in Tamil
+  script (transliterated Tamil written in Latin letters detects as English)
+- `GET /stats` shows `multilingual_enabled` and `supported_languages`
+
+**Tamil question returns irrelevant chunks**
+- Look at `query_english` in the response — if a brand name was mistransliterated,
+  add it to `TRANSLATION_GLOSSARY`
+- Check the server log for `🌐 Tamil → English:` to see what retrieval actually saw
+
 **Slow responses**
 - Reduce `TOP_K` / `RERANK_K`
 - Set `USE_RERANKING=false`
@@ -291,6 +424,7 @@ saigonbot/
 │   ├── api.py                  # FastAPI server
 │   ├── rag.py                  # RAG pipeline
 │   ├── llm_provider.py         # Ollama / OpenAI abstraction layer
+│   ├── language.py             # Translation boundaries + answer-language directive
 │   ├── ingestion.py            # Menu data ingestion
 │   ├── ingest_about.py         # Restaurant info ingestion
 │   ├── intent_classifier.py    # 45+ intent patterns
@@ -316,4 +450,4 @@ saigonbot/
 
 ---
 
-**Version:** 2.0.0 | **Updated:** 2026-03-18
+**Version:** 2.1.0 | **Updated:** 2026-08-19

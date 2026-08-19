@@ -38,6 +38,14 @@ from knowledge_base import get_knowledge_base
 from llm_provider import get_provider
 # Import tenant configuration (selects vector store, prompt and behaviour)
 from tenant_config import get_tenant
+# Multilingual edge: the index and intent patterns are English, so a non-English
+# question is translated in and the answer is generated back out (see language.py)
+from language import (
+    answer_language_directive,
+    localize,
+    resolve_language,
+    translate_to_english,
+)
 
 
 class RAGPipeline:
@@ -536,6 +544,26 @@ CRITICAL: Only show this welcome message ONCE at the very beginning of a new con
         
         return final_prompt
     
+    def resolve_turn(self, query: str, language: Optional[str] = None) -> Tuple[str, str]:
+        """Settle the language of a turn and produce the query to retrieve with.
+
+        Returns (language, english_query). Retrieval, reranking and every intent
+        classifier in this project operate on English, so a Tamil question is
+        translated once here and the English form is what the rest of the
+        pipeline sees. The original wording is never needed downstream — only
+        the API echoes it back to the caller.
+
+        Callers that stream must invoke this first and pass the English query to
+        `prepare_stream_context` / `generate_response_stream`; `query()` does it
+        for them.
+        """
+        lang = resolve_language(query, language)
+        if lang == "en":
+            return lang, query
+
+        english = translate_to_english(self.provider, query, lang)
+        return lang, english
+
     def prepare_stream_context(
         self,
         query: str,
@@ -605,19 +633,27 @@ CRITICAL: Only show this welcome message ONCE at the very beginning of a new con
         self,
         query: str,
         context: str,
-        conversation_history: Optional[List[Dict]] = None
+        conversation_history: Optional[List[Dict]] = None,
+        language: Optional[str] = None
     ):
-        """Generate streaming response using LLM"""
+        """Generate streaming response using LLM.
+
+        `query` must already be English (see `resolve_turn`); `language` is the
+        language the reply has to come back in.
+        """
         if self.company:
             intent = self.company.classifier.classify(query)
             if intent.category.value == "conversational" and not context:
-                yield (
+                canned = (
                     self.company.welcome_message()
                     if not conversation_history
                     else "Happy to help! What would you like to know about Chikku Robotics?"
                 )
+                # Canned text bypasses the LLM, so the answer directive cannot
+                # do the work — translate it (cached) before it is streamed.
+                yield localize(self.provider, canned, language)
                 return
-            yield from self.company.stream(query, context, intent, conversation_history)
+            yield from self.company.stream(query, context, intent, conversation_history, language)
             return
 
         # Build system prompt with welcome message (only for new sessions) and restaurant info
@@ -654,8 +690,9 @@ Menu Items Available:
 {context}
 
 Respond naturally as Chikku."""
+        user_prompt += answer_language_directive(language)
         messages.append({"role": "user", "content": user_prompt})
-        
+
         try:
             print(f"🔄 Streaming LLM response ({self.llm_model})...")
             
@@ -675,8 +712,10 @@ Respond naturally as Chikku."""
             # Note: For streaming, we can't modify the stream, but we log validation issues
             if full_response:
                 validator = get_validator()
-                validation = validator.validate(full_response, query=query, context_provided=bool(context))
-                
+                validation = validator.validate(
+                    full_response, query=query, context_provided=bool(context), language=language
+                )
+
                 if not validation['valid']:
                     print(f"⚠️  Streamed response validation failed (score: {validation['score']:.2f})")
                     print(f"   Issues: {validation['issues']}")
@@ -691,10 +730,15 @@ Respond naturally as Chikku."""
         self,
         query: str,
         context: str,
-        conversation_history: Optional[List[Dict]] = None
+        conversation_history: Optional[List[Dict]] = None,
+        language: Optional[str] = None
     ) -> str:
-        """Generate response using LLM with context"""
-        
+        """Generate response using LLM with context.
+
+        `query` must already be English (see `resolve_turn`); `language` is the
+        language the reply has to come back in.
+        """
+
         # Build system prompt with welcome message (only for new sessions) and restaurant info
         system_prompt = self._build_system_prompt(context, conversation_history)
         
@@ -790,8 +834,9 @@ Menu Items:
 {context}
 
 Respond naturally as Chikku would, using ONLY the items listed above."""
+        user_prompt += answer_language_directive(language)
         messages.append({"role": "user", "content": user_prompt})
-        
+
         try:
             print(f"🔄 Calling LLM ({self.llm_model})...")
             print(f"   System prompt length: {len(system_prompt)} chars")
@@ -814,8 +859,10 @@ Respond naturally as Chikku would, using ONLY the items listed above."""
             
             # Validate response quality (if enabled)
             validator = get_validator()
-            validation = validator.validate(result, query=query, context_provided=bool(context))
-            
+            validation = validator.validate(
+                result, query=query, context_provided=bool(context), language=language
+            )
+
             if not validation['valid']:
                 print(f"⚠️  Response validation failed (score: {validation['score']:.2f})")
                 print(f"   Issues: {validation['issues']}")
@@ -1124,10 +1171,14 @@ Respond naturally as Chikku would, using ONLY the items listed above."""
         
         return is_menu
     
-    def answer_about_or_identity(self, query: str, conversation_history: Optional[List[Dict]] = None, intent_result=None) -> str:
+    def answer_about_or_identity(self, query: str, conversation_history: Optional[List[Dict]] = None, intent_result=None, language: Optional[str] = None) -> str:
         """
         Generate response for identity/about queries without menu retrieval.
         Uses deterministic welcome message for identity queries to prevent LLM hallucinations.
+
+        Most branches here return a fixed English template; `query()` translates
+        those at the exit. `language` is only needed by the one branch that calls
+        the LLM, so that it answers natively instead of being translated twice.
         """
         query_lower = query.lower().strip()
         is_new_session = self._is_new_session(conversation_history)
@@ -1258,7 +1309,8 @@ Restaurant Information:
 {self.restaurant_info}
 
 Now answer the query naturally as Chikku."""
-            
+
+            user_prompt += answer_language_directive(language)
             messages.append({"role": "user", "content": user_prompt})
             
             try:
@@ -1405,9 +1457,43 @@ Or tell me what you need, and I'll guide you! 😊"""
         user_query: str,
         top_k: Optional[int] = None,
         rerank_k: Optional[int] = None,
-        conversation_history: Optional[List[Dict]] = None
+        conversation_history: Optional[List[Dict]] = None,
+        language: Optional[str] = None
     ) -> Dict:
-        """Complete RAG query pipeline"""
+        """Complete RAG query pipeline, in the caller's language.
+
+        The English pipeline is left exactly as it was; this wraps it with the
+        two translation boundaries. Doing it here rather than inside the pipeline
+        is what keeps the change small: the restaurant path returns hardcoded
+        English templates from around thirty different places, and every one of
+        them passes through this single exit.
+        """
+        lang, english_query = self.resolve_turn(user_query, language)
+
+        result = self._query_english(
+            english_query, top_k, rerank_k, conversation_history, language=lang
+        )
+
+        # LLM answers already come back in `lang` (answer_language_directive);
+        # localize() detects that and only translates the template responses.
+        result['response'] = localize(self.provider, result.get('response', ''), lang)
+        # Echo what the customer actually asked, not the translation.
+        result['query'] = user_query
+        result['language'] = lang
+        if english_query != user_query:
+            result['query_english'] = english_query
+
+        return result
+
+    def _query_english(
+        self,
+        user_query: str,
+        top_k: Optional[int] = None,
+        rerank_k: Optional[int] = None,
+        conversation_history: Optional[List[Dict]] = None,
+        language: Optional[str] = None
+    ) -> Dict:
+        """The English RAG pipeline. `user_query` must already be English."""
         # Use instance defaults or provided values, ensure minimum of 1
         top_k = max(1, top_k) if top_k is not None else self.top_k
         rerank_k = max(1, rerank_k) if rerank_k is not None else self.rerank_k
@@ -1415,7 +1501,9 @@ Or tell me what you need, and I'll guide you! 😊"""
         # Company tenants use the generic company-support path; everything below
         # this point is the restaurant menu pipeline.
         if self.company:
-            return self.company.query(user_query, top_k, rerank_k, conversation_history)
+            return self.company.query(
+                user_query, top_k, rerank_k, conversation_history, language=language
+            )
 
         # Step 0a: Classify intent first on the raw query
         intent_result = self._classify_intent(user_query)
@@ -1436,7 +1524,7 @@ Or tell me what you need, and I'll guide you! 😊"""
         elif intent_result.category in [IntentCategory.IDENTITY, IntentCategory.RESTAURANT_INFO, IntentCategory.CONVERSATIONAL]:
             # Use identity/about handler
             print(f"📋 Non-menu query detected, using identity/about handler...")
-            response = self.answer_about_or_identity(user_query, conversation_history, intent_result)
+            response = self.answer_about_or_identity(user_query, conversation_history, intent_result, language=language)
             return {
                 'query': user_query,
                 'response': response,
@@ -1465,7 +1553,10 @@ Or tell me what you need, and I'll guide you! 😊"""
                     for msg in conversation_history[-4:]:
                         if msg.get('role') in ['user', 'assistant']:
                             messages.append({"role": msg['role'], "content": msg['content']})
-                messages.append({"role": "user", "content": user_query})
+                messages.append({
+                    "role": "user",
+                    "content": user_query + answer_language_directive(language),
+                })
                 response = self.provider.chat(messages, {
                     "max_tokens": 300,
                     "temperature": 0.5,
@@ -1578,7 +1669,7 @@ Or tell me what you need, and I'll guide you! 😊"""
         print(f"🤖 Generating response...")
         # Sanitize conversation history: only include user queries, not full assistant responses
         sanitized_history = self._sanitize_conversation_history(conversation_history) if conversation_history else None
-        response = self.generate_response(user_query, context, sanitized_history)
+        response = self.generate_response(user_query, context, sanitized_history, language=language)
         print(f"✅ Response generated ({len(response)} chars)")
         
         # Prepare result (include all retrieved items)

@@ -22,6 +22,7 @@ from company_intents import (
     CompanyIntentResult,
     get_company_intent_classifier,
 )
+from language import answer_language_directive, localize
 from response_validator import get_validator
 
 # Minimum number of hits before we stop narrowing by doc_type and retry broad.
@@ -174,7 +175,12 @@ class CompanyRAG:
         return guidance.get(intent.intent_type, "")
 
     def build_user_prompt(
-        self, query: str, context: str, intent: CompanyIntentResult, is_first_message: bool
+        self,
+        query: str,
+        context: str,
+        intent: CompanyIntentResult,
+        is_first_message: bool,
+        language: Optional[str] = None,
     ) -> str:
         greeting_line = (
             "1. Open with a short, warm greeting — only on this first message of the session."
@@ -201,7 +207,7 @@ How to answer:
 SOURCES:
 {context}
 
-Answer as Chikku, using only the information above."""
+Answer as Chikku, using only the information above.""" + answer_language_directive(language)
 
     def no_results_response(self, intent: CompanyIntentResult) -> str:
         if intent.intent_type == CompanyIntent.SALES:
@@ -228,6 +234,7 @@ Answer as Chikku, using only the information above."""
         context: str,
         intent: CompanyIntentResult,
         conversation_history: Optional[List[Dict]] = None,
+        language: Optional[str] = None,
     ) -> str:
         system_prompt = self.p._build_system_prompt(context, conversation_history)
         messages = [{"role": "system", "content": system_prompt}]
@@ -240,7 +247,9 @@ Answer as Chikku, using only the information above."""
         messages.append({
             "role": "user",
             "content": self.build_user_prompt(
-                query, context, intent, is_first_message=not conversation_history
+                query, context, intent,
+                is_first_message=not conversation_history,
+                language=language,
             ),
         })
 
@@ -262,7 +271,9 @@ Answer as Chikku, using only the information above."""
             return self.no_results_response(intent)
 
         validator = get_validator()
-        validation = validator.validate(result, query=query, context_provided=bool(context))
+        validation = validator.validate(
+            result, query=query, context_provided=bool(context), language=language
+        )
         if not validation["valid"]:
             print(f"⚠️  Response validation failed (score: {validation['score']:.2f})")
             print(f"   Issues: {validation['issues']}")
@@ -277,6 +288,7 @@ Answer as Chikku, using only the information above."""
         context: str,
         intent: CompanyIntentResult,
         conversation_history: Optional[List[Dict]] = None,
+        language: Optional[str] = None,
     ):
         system_prompt = self.p._build_system_prompt(context, conversation_history)
         messages = [{"role": "system", "content": system_prompt}]
@@ -289,7 +301,9 @@ Answer as Chikku, using only the information above."""
         messages.append({
             "role": "user",
             "content": self.build_user_prompt(
-                query, context, intent, is_first_message=not conversation_history
+                query, context, intent,
+                is_first_message=not conversation_history,
+                language=language,
             ),
         })
 
@@ -303,7 +317,13 @@ Answer as Chikku, using only the information above."""
                 yield chunk
         except Exception as e:
             print(f"❌ LLM streaming error: {e}")
-            yield "\n\n[Sorry — I hit a problem generating that answer. Please try again.]"
+            # Nothing downstream localizes a streamed chunk, so do it here. The
+            # string is fixed, so the translation is a cache hit after the first.
+            yield localize(
+                self.p.provider,
+                "\n\n[Sorry — I hit a problem generating that answer. Please try again.]",
+                language,
+            )
 
     # ---------------------------------------------------------------- query
 
@@ -313,7 +333,14 @@ Answer as Chikku, using only the information above."""
         top_k: int,
         rerank_k: int,
         conversation_history: Optional[List[Dict]] = None,
+        language: Optional[str] = None,
     ) -> Dict:
+        """`user_query` is English (RAGPipeline.query translated it if needed).
+
+        Canned replies are returned in English; RAGPipeline.query translates them
+        on the way out. `language` only travels as far as the LLM prompts, so the
+        model answers natively rather than being translated afterwards.
+        """
         intent = self.classifier.classify(user_query)
         print(f"📋 Intent: {intent.intent_type.value} ({intent.category.value}, "
               f"confidence {intent.confidence:.2f})")
@@ -355,7 +382,7 @@ Answer as Chikku, using only the information above."""
 
         context = self.format_context(retrieved)
         sanitized = self.p._sanitize_conversation_history(conversation_history) if conversation_history else None
-        response = self.generate(user_query, context, intent, sanitized)
+        response = self.generate(user_query, context, intent, sanitized, language=language)
 
         return {
             "query": user_query,

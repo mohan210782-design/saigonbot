@@ -8,6 +8,7 @@ import os
 from typing import Dict, Optional, List
 from dotenv import load_dotenv
 
+from language import is_english
 from tenant_config import get_tenant
 
 load_dotenv()
@@ -137,15 +138,27 @@ class ResponseValidator:
     def _drop_allowed(self, patterns: List[str]) -> List[str]:
         return [p for p in patterns if not self._is_allowed(p)]
     
-    def validate(self, response: str, query: str = "", context_provided: bool = False) -> Dict:
+    def validate(
+        self,
+        response: str,
+        query: str = "",
+        context_provided: bool = False,
+        language: Optional[str] = None,
+    ) -> Dict:
         """
         Validate response quality
-        
+
         Args:
             response: The LLM-generated response
             query: Original user query (for context)
             context_provided: Whether menu context was provided
-            
+            language: Language the response is written in. Every phrase rule
+                below is an English regex, so on a non-English response they
+                cannot match — running them would only report a clean bill of
+                health that means nothing, and `_clean_response` would flatten
+                the newlines out of Markdown it never needed to touch. Structural
+                checks (length, truncation) still apply.
+
         Returns:
             Dict with:
                 - valid: bool
@@ -160,7 +173,10 @@ class ResponseValidator:
                 "issues": [],
                 "cleaned_response": response
             }
-        
+
+        if not is_english(language):
+            return self._validate_structure_only(response)
+
         response_lower = response.lower()
         issues = []
         score = 1.0
@@ -206,6 +222,30 @@ class ResponseValidator:
             "cleaned_response": cleaned_response
         }
     
+    def _validate_structure_only(self, response: str) -> Dict:
+        """Length/truncation checks only — used for non-English responses.
+
+        Never returns a cleaned_response that differs from the input: the
+        replacement table is English-only, so there is nothing safe to rewrite.
+        """
+        issues = []
+        score = 1.0
+
+        stripped = response.strip()
+        if len(stripped) < 20:
+            issues.append("Response too short")
+            score -= 0.3
+        if stripped.endswith('...') or stripped.endswith('…'):
+            issues.append("Response appears incomplete")
+            score -= 0.1
+
+        return {
+            "valid": score >= 0.5,
+            "score": max(0.0, score),
+            "issues": issues,
+            "cleaned_response": response,
+        }
+
     def _clean_response(self, response: str) -> str:
         """
         Clean response by removing/rewriting problematic phrases
