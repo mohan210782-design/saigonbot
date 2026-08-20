@@ -253,16 +253,29 @@ def translate_to_english(provider, text: str, source_language: str) -> str:
     glossary = ""
     if TRANSLATION_GLOSSARY:
         glossary = (
-            "- When the text refers to any of these, spell it EXACTLY like this: "
-            + ", ".join(TRANSLATION_GLOSSARY)
-            + "\n"
+            "- These names may appear mangled by the recogniser. When a word plausibly "
+            "sounds like one of them, treat it as that name and spell it EXACTLY "
+            "like this: " + ", ".join(TRANSLATION_GLOSSARY) + "\n"
         )
+    # The input is speech-recognition output, not typed text, and saying so is
+    # worth real accuracy. Questions arrive with words garbled by transliteration
+    # — a speaker mixing English into Tamil says "service", which comes back as
+    # "சாவல்" — and a translator told to expect that recovers the intent far more
+    # often than one treating the text as authoritative.
     system_prompt = (
-        f"You are a translation engine. Translate the user's {name} text into English.\n"
+        f"You are a translation engine. The {name} text comes from a speech "
+        f"recogniser at a public kiosk, so it may contain mis-transcribed words.\n"
+        "Translate it into English.\n"
         "Rules:\n"
         "- Output ONLY the English translation. No preamble, no notes, no quotes.\n"
-        "- Preserve proper nouns, product names, and numbers exactly as written.\n"
+        "- Preserve proper nouns, product names, and numbers.\n"
         f"{glossary}"
+        "- Speakers often mix English words into their own language, and those come "
+        "back transliterated or garbled. If a word is not a real word in "
+        f"{name} but sounds like an English one, translate it as that English word.\n"
+        "- Recover the most likely intended question. Do not invent a topic that "
+        "nothing in the text points to; if it is truly unintelligible, translate it "
+        "literally.\n"
         "- Keep it a question if the input is a question.\n"
         "- If the text is already English, repeat it unchanged."
     )
